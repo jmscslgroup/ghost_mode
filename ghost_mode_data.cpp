@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.27
+// Model version                  : 1.28
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri May 14 12:29:09 2021
+// C/C++ source code generated on : Thu May 20 11:14:07 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -21,52 +21,92 @@
 
 // Block parameters (default storage)
 P_ghost_mode_T ghost_mode_P = {
+  // Mask Parameter: PIDController1_D
+  //  Referenced by: '<S84>/Derivative Gain'
+
+  1.14032900506104,
+
   // Mask Parameter: PIDController_D
-  //  Referenced by: '<S33>/Derivative Gain'
+  //  Referenced by: '<S34>/Derivative Gain'
 
   -0.767669321112438,
 
+  // Mask Parameter: PIDController1_I
+  //  Referenced by: '<S87>/Integral Gain'
+
+  0.134074922947779,
+
   // Mask Parameter: PIDController_I
-  //  Referenced by: '<S36>/Integral Gain'
+  //  Referenced by: '<S37>/Integral Gain'
 
   0.00341554788105601,
 
+  // Mask Parameter: PIDController1_InitialCondition
+  //  Referenced by: '<S85>/Filter'
+
+  0.0,
+
   // Mask Parameter: PIDController_InitialConditionF
-  //  Referenced by: '<S34>/Filter'
+  //  Referenced by: '<S35>/Filter'
+
+  0.0,
+
+  // Mask Parameter: PIDController1_InitialConditi_h
+  //  Referenced by: '<S90>/Integrator'
 
   0.0,
 
   // Mask Parameter: PIDController_InitialConditio_o
-  //  Referenced by: '<S39>/Integrator'
+  //  Referenced by: '<S40>/Integrator'
 
   0.0,
 
-  // Mask Parameter: PIDController_LowerSaturationLi
+  // Mask Parameter: PIDController1_LowerSaturationL
   //  Referenced by:
-  //    '<S46>/Saturation'
-  //    '<S32>/DeadZone'
+  //    '<S97>/Saturation'
+  //    '<S83>/DeadZone'
+
+  -3.0,
+
+  // Mask Parameter: PIDController_LowerSaturationLi
+  //  Referenced by: '<S33>/DeadZone'
 
   -1.5,
 
+  // Mask Parameter: PIDController1_N
+  //  Referenced by: '<S93>/Filter Coefficient'
+
+  2.31488315878784,
+
   // Mask Parameter: PIDController_N
-  //  Referenced by: '<S42>/Filter Coefficient'
+  //  Referenced by: '<S43>/Filter Coefficient'
 
   0.588408355398647,
 
+  // Mask Parameter: PIDController1_P
+  //  Referenced by: '<S95>/Proportional Gain'
+
+  1.0467641274631,
+
   // Mask Parameter: PIDController_P
-  //  Referenced by: '<S44>/Proportional Gain'
+  //  Referenced by: '<S45>/Proportional Gain'
 
   0.659392661977694,
 
-  // Mask Parameter: PIDController_UpperSaturationLi
+  // Mask Parameter: PIDController1_UpperSaturationL
   //  Referenced by:
-  //    '<S46>/Saturation'
-  //    '<S32>/DeadZone'
+  //    '<S97>/Saturation'
+  //    '<S83>/DeadZone'
+
+  1.5,
+
+  // Mask Parameter: PIDController_UpperSaturationLi
+  //  Referenced by: '<S33>/DeadZone'
 
   1.5,
 
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S56>/Out1'
+  //  Referenced by: '<S107>/Out1'
 
   {
     {
@@ -110,7 +150,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value
-  //  Referenced by: '<S4>/Constant'
+  //  Referenced by: '<S5>/Constant'
 
   {
     {
@@ -154,7 +194,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Out1_Y0_h
-  //  Referenced by: '<S57>/Out1'
+  //  Referenced by: '<S108>/Out1'
 
   {
     {
@@ -198,7 +238,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value_j
-  //  Referenced by: '<S5>/Constant'
+  //  Referenced by: '<S6>/Constant'
 
   {
     {
@@ -249,7 +289,12 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Expression: 0
-  //  Referenced by: '<S30>/Constant1'
+  //  Referenced by: '<S81>/Constant1'
+
+  0.0,
+
+  // Expression: 0
+  //  Referenced by: '<S31>/Constant1'
 
   0.0,
 
@@ -258,18 +303,28 @@ P_ghost_mode_T ghost_mode_P = {
 
   1.5,
 
-  // Expression: -1.5
+  // Expression: -3
   //  Referenced by: '<Root>/Saturation'
 
-  -1.5,
+  -3.0,
 
   // Expression: 0
-  //  Referenced by: '<S30>/ZeroGain'
+  //  Referenced by: '<S81>/ZeroGain'
+
+  0.0,
+
+  // Expression: 0
+  //  Referenced by: '<S31>/ZeroGain'
 
   0.0,
 
   // Computed Parameter: Memory_InitialCondition
-  //  Referenced by: '<S30>/Memory'
+  //  Referenced by: '<S81>/Memory'
+
+  0,
+
+  // Computed Parameter: Memory_InitialCondition_g
+  //  Referenced by: '<S31>/Memory'
 
   0
 };
