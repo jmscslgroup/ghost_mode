@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.32
+// Model version                  : 1.35
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 10:16:20 2021
+// C/C++ source code generated on : Mon Jun 28 13:57:43 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -21,52 +21,106 @@
 
 // Block parameters (default storage)
 P_ghost_mode_T ghost_mode_P = {
-  // Mask Parameter: PIDJMS0628_D
-  //  Referenced by: '<S33>/Derivative Gain'
+  // Mask Parameter: SpeedupsteadystateController_D
+  //  Referenced by: '<S85>/Derivative Gain'
 
-  1.2886782091662,
+  2.16631722899966,
 
-  // Mask Parameter: PIDJMS0628_I
-  //  Referenced by: '<S36>/Integral Gain'
+  // Mask Parameter: SlowdownController_D
+  //  Referenced by: '<S35>/Derivative Gain'
 
-  0.561856950087048,
+  2.71113138747875,
 
-  // Mask Parameter: PIDJMS0628_InitialConditionForF
-  //  Referenced by: '<S34>/Filter'
+  // Mask Parameter: SlowdownController_I
+  //  Referenced by: '<S38>/Integral Gain'
+
+  2.53705257322553,
+
+  // Mask Parameter: SpeedupsteadystateController_I
+  //  Referenced by: '<S88>/Integral Gain'
+
+  1.32998695885084,
+
+  // Mask Parameter: SpeedupsteadystateController_In
+  //  Referenced by: '<S86>/Filter'
 
   0.0,
 
-  // Mask Parameter: PIDJMS0628_InitialConditionForI
-  //  Referenced by: '<S39>/Integrator'
+  // Mask Parameter: SlowdownController_InitialCondi
+  //  Referenced by: '<S36>/Filter'
 
   0.0,
 
-  // Mask Parameter: PIDJMS0628_LowerSaturationLimit
+  // Mask Parameter: SpeedupsteadystateController__e
+  //  Referenced by: '<S91>/Integrator'
+
+  0.0,
+
+  // Mask Parameter: SlowdownController_InitialCon_o
+  //  Referenced by: '<S41>/Integrator'
+
+  0.0,
+
+  // Mask Parameter: SlowdownController_Kt
+  //  Referenced by: '<S52>/Kt'
+
+  1.0,
+
+  // Mask Parameter: SpeedupsteadystateController_Kt
+  //  Referenced by: '<S102>/Kt'
+
+  1.0,
+
+  // Mask Parameter: SpeedupsteadystateController_Lo
   //  Referenced by:
-  //    '<S46>/Saturation'
-  //    '<S32>/DeadZone'
+  //    '<S98>/Saturation'
+  //    '<S84>/DeadZone'
 
-  -3.0,
+  -40.0,
 
-  // Mask Parameter: PIDJMS0628_N
-  //  Referenced by: '<S42>/Filter Coefficient'
-
-  24.3345419624922,
-
-  // Mask Parameter: PIDJMS0628_P
-  //  Referenced by: '<S44>/Proportional Gain'
-
-  2.25627287381491,
-
-  // Mask Parameter: PIDJMS0628_UpperSaturationLimit
+  // Mask Parameter: SlowdownController_LowerSaturat
   //  Referenced by:
-  //    '<S46>/Saturation'
-  //    '<S32>/DeadZone'
+  //    '<S48>/Saturation'
+  //    '<S34>/DeadZone'
 
-  1.5,
+  -40.0,
+
+  // Mask Parameter: SpeedupsteadystateController_N
+  //  Referenced by: '<S94>/Filter Coefficient'
+
+  439.987487946818,
+
+  // Mask Parameter: SlowdownController_N
+  //  Referenced by: '<S44>/Filter Coefficient'
+
+  553.911429447729,
+
+  // Mask Parameter: SpeedupsteadystateController_P
+  //  Referenced by: '<S96>/Proportional Gain'
+
+  4.41945152854642,
+
+  // Mask Parameter: SlowdownController_P
+  //  Referenced by: '<S46>/Proportional Gain'
+
+  6.28763073495901,
+
+  // Mask Parameter: SpeedupsteadystateController_Up
+  //  Referenced by:
+  //    '<S98>/Saturation'
+  //    '<S84>/DeadZone'
+
+  30.0,
+
+  // Mask Parameter: SlowdownController_UpperSaturat
+  //  Referenced by:
+  //    '<S48>/Saturation'
+  //    '<S34>/DeadZone'
+
+  30.0,
 
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S56>/Out1'
+  //  Referenced by: '<S108>/Out1'
 
   {
     {
@@ -154,7 +208,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Out1_Y0_h
-  //  Referenced by: '<S57>/Out1'
+  //  Referenced by: '<S109>/Out1'
 
   {
     {
@@ -249,9 +303,19 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Expression: 0
-  //  Referenced by: '<S30>/Constant1'
+  //  Referenced by: '<S32>/Constant1'
 
   0.0,
+
+  // Expression: 0
+  //  Referenced by: '<S82>/Constant1'
+
+  0.0,
+
+  // Expression: -0.25
+  //  Referenced by: '<S2>/Switch'
+
+  -0.25,
 
   // Expression: 1.5
   //  Referenced by: '<Root>/Saturation'
@@ -264,12 +328,22 @@ P_ghost_mode_T ghost_mode_P = {
   -3.0,
 
   // Expression: 0
-  //  Referenced by: '<S30>/ZeroGain'
+  //  Referenced by: '<S32>/ZeroGain'
+
+  0.0,
+
+  // Expression: 0
+  //  Referenced by: '<S82>/ZeroGain'
 
   0.0,
 
   // Computed Parameter: Memory_InitialCondition
-  //  Referenced by: '<S30>/Memory'
+  //  Referenced by: '<S32>/Memory'
+
+  0,
+
+  // Computed Parameter: Memory_InitialCondition_i
+  //  Referenced by: '<S82>/Memory'
 
   0
 };
