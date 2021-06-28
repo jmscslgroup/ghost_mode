@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.36
+// Model version                  : 1.37
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 15:23:45 2021
+// C/C++ source code generated on : Mon Jun 28 15:40:49 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -60,16 +60,6 @@ P_ghost_mode_T ghost_mode_P = {
   //  Referenced by: '<S41>/Integrator'
 
   0.0,
-
-  // Mask Parameter: SlowdownController_Kt
-  //  Referenced by: '<S52>/Kt'
-
-  1.0,
-
-  // Mask Parameter: SpeedupsteadystateController_Kt
-  //  Referenced by: '<S102>/Kt'
-
-  1.0,
 
   // Mask Parameter: SpeedupsteadystateController_Lo
   //  Referenced by:

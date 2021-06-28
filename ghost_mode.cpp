@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.36
+// Model version                  : 1.37
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 15:23:45 2021
+// C/C++ source code generated on : Mon Jun 28 15:40:49 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -117,12 +117,12 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 void ghost_mode_step(void)
 {
   SL_Bus_ghost_mode_std_msgs_Float64 rtb_BusAssignment;
-  real_T rtb_DeadZone;
-  real_T rtb_Saturation;
+  real_T rtb_IntegralGain;
+  real_T rtb_SignPreIntegrator;
   real_T rtb_SignPreSat;
-  real_T rtb_Sum_i;
-  real_T tmp;
-  real_T tmp_0;
+  real_T rtb_SignPreSat_b;
+  real_T rtb_ZeroGain;
+  real_T u0;
   boolean_T b_varargout_1;
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
     // set solver stop time
@@ -184,6 +184,14 @@ void ghost_mode_step(void)
     // Gain: '<S85>/Derivative Gain'
     ghost_mode_B.DerivativeGain = ghost_mode_P.SpeedupsteadystateController_D *
       ghost_mode_B.Sum;
+
+    // Gain: '<S46>/Proportional Gain'
+    ghost_mode_B.ProportionalGain_c = ghost_mode_P.SlowdownController_P *
+      ghost_mode_B.Sum;
+
+    // Gain: '<S35>/Derivative Gain'
+    ghost_mode_B.DerivativeGain_f = ghost_mode_P.SlowdownController_D *
+      ghost_mode_B.Sum;
   }
 
   // Gain: '<S94>/Filter Coefficient' incorporates:
@@ -196,30 +204,9 @@ void ghost_mode_step(void)
   // Sum: '<S100>/Sum' incorporates:
   //   Integrator: '<S91>/Integrator'
 
-  ghost_mode_B.Sum_m = (ghost_mode_B.ProportionalGain +
-                        ghost_mode_X.Integrator_CSTATE) +
+  rtb_SignPreSat = (ghost_mode_B.ProportionalGain +
+                    ghost_mode_X.Integrator_CSTATE) +
     ghost_mode_B.FilterCoefficient;
-
-  // Saturate: '<S98>/Saturation'
-  if (ghost_mode_B.Sum_m > ghost_mode_P.SpeedupsteadystateController_Up) {
-    rtb_Saturation = ghost_mode_P.SpeedupsteadystateController_Up;
-  } else if (ghost_mode_B.Sum_m < ghost_mode_P.SpeedupsteadystateController_Lo)
-  {
-    rtb_Saturation = ghost_mode_P.SpeedupsteadystateController_Lo;
-  } else {
-    rtb_Saturation = ghost_mode_B.Sum_m;
-  }
-
-  // End of Saturate: '<S98>/Saturation'
-  if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Gain: '<S46>/Proportional Gain'
-    ghost_mode_B.ProportionalGain_c = ghost_mode_P.SlowdownController_P *
-      ghost_mode_B.Sum;
-
-    // Gain: '<S35>/Derivative Gain'
-    ghost_mode_B.DerivativeGain_f = ghost_mode_P.SlowdownController_D *
-      ghost_mode_B.Sum;
-  }
 
   // Gain: '<S44>/Filter Coefficient' incorporates:
   //   Integrator: '<S36>/Filter'
@@ -231,254 +218,250 @@ void ghost_mode_step(void)
   // Sum: '<S50>/Sum' incorporates:
   //   Integrator: '<S41>/Integrator'
 
-  rtb_Sum_i = (ghost_mode_B.ProportionalGain_c +
-               ghost_mode_X.Integrator_CSTATE_m) +
+  rtb_SignPreSat_b = (ghost_mode_B.ProportionalGain_c +
+                      ghost_mode_X.Integrator_CSTATE_m) +
     ghost_mode_B.FilterCoefficient_a;
 
-  // Saturate: '<S48>/Saturation'
-  if (rtb_Sum_i > ghost_mode_P.SlowdownController_UpperSaturat) {
-    // Sum: '<S53>/SumI1'
-    ghost_mode_B.Switch = ghost_mode_P.SlowdownController_UpperSaturat;
-  } else if (rtb_Sum_i < ghost_mode_P.SlowdownController_LowerSaturat) {
-    // Sum: '<S53>/SumI1'
-    ghost_mode_B.Switch = ghost_mode_P.SlowdownController_LowerSaturat;
-  } else {
-    // Sum: '<S53>/SumI1'
-    ghost_mode_B.Switch = rtb_Sum_i;
-  }
+  // Switch: '<S2>/Switch' incorporates:
+  //   Saturate: '<S48>/Saturation'
 
-  // End of Saturate: '<S48>/Saturation'
-
-  // Switch: '<S2>/Switch'
   if (ghost_mode_B.Sum > ghost_mode_P.Switch_Threshold) {
-    rtb_SignPreSat = rtb_Saturation;
+    // Saturate: '<S98>/Saturation'
+    if (rtb_SignPreSat > ghost_mode_P.SpeedupsteadystateController_Up) {
+      u0 = ghost_mode_P.SpeedupsteadystateController_Up;
+    } else if (rtb_SignPreSat < ghost_mode_P.SpeedupsteadystateController_Lo) {
+      u0 = ghost_mode_P.SpeedupsteadystateController_Lo;
+    } else {
+      u0 = rtb_SignPreSat;
+    }
+
+    // End of Saturate: '<S98>/Saturation'
+  } else if (rtb_SignPreSat_b > ghost_mode_P.SlowdownController_UpperSaturat) {
+    // Saturate: '<S48>/Saturation'
+    u0 = ghost_mode_P.SlowdownController_UpperSaturat;
+  } else if (rtb_SignPreSat_b < ghost_mode_P.SlowdownController_LowerSaturat) {
+    // Saturate: '<S48>/Saturation'
+    u0 = ghost_mode_P.SlowdownController_LowerSaturat;
   } else {
-    rtb_SignPreSat = ghost_mode_B.Switch;
+    // Saturate: '<S48>/Saturation'
+    u0 = rtb_SignPreSat_b;
   }
 
   // End of Switch: '<S2>/Switch'
 
   // Saturate: '<Root>/Saturation'
-  if (rtb_SignPreSat > ghost_mode_P.Saturation_UpperSat) {
-    rtb_SignPreSat = ghost_mode_P.Saturation_UpperSat;
-  } else if (rtb_SignPreSat < ghost_mode_P.Saturation_LowerSat) {
-    rtb_SignPreSat = ghost_mode_P.Saturation_LowerSat;
+  if (u0 > ghost_mode_P.Saturation_UpperSat) {
+    // BusAssignment: '<Root>/Bus Assignment'
+    rtb_BusAssignment.Data = ghost_mode_P.Saturation_UpperSat;
+  } else if (u0 < ghost_mode_P.Saturation_LowerSat) {
+    // BusAssignment: '<Root>/Bus Assignment'
+    rtb_BusAssignment.Data = ghost_mode_P.Saturation_LowerSat;
+  } else {
+    // BusAssignment: '<Root>/Bus Assignment'
+    rtb_BusAssignment.Data = u0;
   }
 
   // End of Saturate: '<Root>/Saturation'
-
-  // BusAssignment: '<Root>/Bus Assignment'
-  rtb_BusAssignment.Data = rtb_SignPreSat;
 
   // Outputs for Atomic SubSystem: '<Root>/Publish'
   // MATLABSystem: '<S3>/SinkBlock'
   Pub_ghost_mode_3.publish(&rtb_BusAssignment);
 
   // End of Outputs for SubSystem: '<Root>/Publish'
-  if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Gain: '<S38>/Integral Gain'
-    ghost_mode_B.IntegralGain = ghost_mode_P.SlowdownController_I *
-      ghost_mode_B.Sum;
-  }
 
-  // Sum: '<S53>/SumI1' incorporates:
-  //   Gain: '<S52>/Kt'
-  //   Sum: '<S52>/SumI3'
-
-  ghost_mode_B.Switch = (rtb_SignPreSat - ghost_mode_B.Switch) *
-    ghost_mode_P.SlowdownController_Kt + ghost_mode_B.IntegralGain;
+  // Gain: '<S32>/ZeroGain'
+  rtb_ZeroGain = ghost_mode_P.ZeroGain_Gain * rtb_SignPreSat_b;
 
   // DeadZone: '<S34>/DeadZone'
-  if (rtb_Sum_i > ghost_mode_P.SlowdownController_UpperSaturat) {
-    rtb_DeadZone = rtb_Sum_i - ghost_mode_P.SlowdownController_UpperSaturat;
-  } else if (rtb_Sum_i >= ghost_mode_P.SlowdownController_LowerSaturat) {
-    rtb_DeadZone = 0.0;
+  if (rtb_SignPreSat_b > ghost_mode_P.SlowdownController_UpperSaturat) {
+    rtb_SignPreSat_b -= ghost_mode_P.SlowdownController_UpperSaturat;
+  } else if (rtb_SignPreSat_b >= ghost_mode_P.SlowdownController_LowerSaturat) {
+    rtb_SignPreSat_b = 0.0;
   } else {
-    rtb_DeadZone = rtb_Sum_i - ghost_mode_P.SlowdownController_LowerSaturat;
+    rtb_SignPreSat_b -= ghost_mode_P.SlowdownController_LowerSaturat;
   }
 
   // End of DeadZone: '<S34>/DeadZone'
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Gain: '<S38>/Integral Gain'
+    rtb_SignPreIntegrator = ghost_mode_P.SlowdownController_I * ghost_mode_B.Sum;
+
+    // Signum: '<S32>/SignPreIntegrator'
+    if (rtb_SignPreIntegrator < 0.0) {
+      rtb_IntegralGain = -1.0;
+    } else if (rtb_SignPreIntegrator > 0.0) {
+      rtb_IntegralGain = 1.0;
+    } else if (rtb_SignPreIntegrator == 0.0) {
+      rtb_IntegralGain = 0.0;
+    } else {
+      rtb_IntegralGain = (rtNaN);
+    }
+
+    // End of Signum: '<S32>/SignPreIntegrator'
+
+    // DataTypeConversion: '<S32>/DataTypeConv2'
+    if (rtIsNaN(rtb_IntegralGain)) {
+      u0 = 0.0;
+    } else {
+      u0 = fmod(rtb_IntegralGain, 256.0);
+    }
+
+    // DataTypeConversion: '<S32>/DataTypeConv2'
+    ghost_mode_B.DataTypeConv2 = static_cast<int8_T>(u0 < 0.0 ?
+      static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>(static_cast<
+      uint8_T>(-u0)))) : static_cast<int32_T>(static_cast<int8_T>
+      (static_cast<uint8_T>(u0))));
+  }
 
   // Signum: '<S32>/SignPreSat'
-  if (rtb_DeadZone < 0.0) {
+  if (rtb_SignPreSat_b < 0.0) {
     // DataTypeConversion: '<S32>/DataTypeConv1'
-    tmp = -1.0;
-  } else if (rtb_DeadZone > 0.0) {
+    u0 = -1.0;
+  } else if (rtb_SignPreSat_b > 0.0) {
     // DataTypeConversion: '<S32>/DataTypeConv1'
-    tmp = 1.0;
-  } else if (rtb_DeadZone == 0.0) {
+    u0 = 1.0;
+  } else if (rtb_SignPreSat_b == 0.0) {
     // DataTypeConversion: '<S32>/DataTypeConv1'
-    tmp = 0.0;
+    u0 = 0.0;
   } else {
     // DataTypeConversion: '<S32>/DataTypeConv1'
-    tmp = (rtNaN);
+    u0 = (rtNaN);
   }
 
   // End of Signum: '<S32>/SignPreSat'
 
   // DataTypeConversion: '<S32>/DataTypeConv1'
-  if (rtIsNaN(tmp)) {
-    tmp = 0.0;
+  if (rtIsNaN(u0)) {
+    u0 = 0.0;
   } else {
-    tmp = fmod(tmp, 256.0);
-  }
-
-  // Signum: '<S32>/SignPreIntegrator'
-  if (ghost_mode_B.Switch < 0.0) {
-    // DataTypeConversion: '<S32>/DataTypeConv2'
-    tmp_0 = -1.0;
-  } else if (ghost_mode_B.Switch > 0.0) {
-    // DataTypeConversion: '<S32>/DataTypeConv2'
-    tmp_0 = 1.0;
-  } else if (ghost_mode_B.Switch == 0.0) {
-    // DataTypeConversion: '<S32>/DataTypeConv2'
-    tmp_0 = 0.0;
-  } else {
-    // DataTypeConversion: '<S32>/DataTypeConv2'
-    tmp_0 = (rtNaN);
-  }
-
-  // End of Signum: '<S32>/SignPreIntegrator'
-
-  // DataTypeConversion: '<S32>/DataTypeConv2'
-  if (rtIsNaN(tmp_0)) {
-    tmp_0 = 0.0;
-  } else {
-    tmp_0 = fmod(tmp_0, 256.0);
+    u0 = fmod(u0, 256.0);
   }
 
   // Logic: '<S32>/AND3' incorporates:
   //   DataTypeConversion: '<S32>/DataTypeConv1'
-  //   DataTypeConversion: '<S32>/DataTypeConv2'
-  //   Gain: '<S32>/ZeroGain'
   //   RelationalOperator: '<S32>/Equal1'
   //   RelationalOperator: '<S32>/NotEqual'
 
-  ghost_mode_B.AND3 = ((ghost_mode_P.ZeroGain_Gain * rtb_Sum_i != rtb_DeadZone) &&
-                       ((tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
-    static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
-    static_cast<int8_T>(static_cast<uint8_T>(tmp)))) == (tmp_0 < 0.0 ?
-    static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>(static_cast<
-    uint8_T>(-tmp_0)))) : static_cast<int32_T>(static_cast<int8_T>
-    (static_cast<uint8_T>(tmp_0))))));
+  ghost_mode_B.AND3 = ((rtb_ZeroGain != rtb_SignPreSat_b) && ((u0 < 0.0 ?
+    static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>
+    (static_cast<uint8_T>(-u0)))) : static_cast<int32_T>(static_cast<int8_T>(
+    static_cast<uint8_T>(u0)))) == ghost_mode_B.DataTypeConv2));
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Memory: '<S32>/Memory'
-    ghost_mode_B.Memory = ghost_mode_DW.Memory_PreviousInput;
+    // Switch: '<S32>/Switch' incorporates:
+    //   Memory: '<S32>/Memory'
 
-    // Gain: '<S88>/Integral Gain'
-    ghost_mode_B.IntegralGain_g = ghost_mode_P.SpeedupsteadystateController_I *
-      ghost_mode_B.Sum;
+    if (ghost_mode_DW.Memory_PreviousInput) {
+      // Switch: '<S32>/Switch' incorporates:
+      //   Constant: '<S32>/Constant1'
+
+      ghost_mode_B.Switch = ghost_mode_P.Constant1_Value;
+    } else {
+      // Switch: '<S32>/Switch'
+      ghost_mode_B.Switch = rtb_SignPreIntegrator;
+    }
+
+    // End of Switch: '<S32>/Switch'
   }
 
-  // Switch: '<S32>/Switch'
-  if (ghost_mode_B.Memory) {
-    // Sum: '<S53>/SumI1' incorporates:
-    //   Constant: '<S32>/Constant1'
-    //   Switch: '<S32>/Switch'
-
-    ghost_mode_B.Switch = ghost_mode_P.Constant1_Value;
-  }
-
-  // End of Switch: '<S32>/Switch'
-
-  // Sum: '<S103>/SumI1' incorporates:
-  //   Gain: '<S102>/Kt'
-  //   Sum: '<S102>/SumI3'
-
-  ghost_mode_B.Switch_m = (rtb_SignPreSat - rtb_Saturation) *
-    ghost_mode_P.SpeedupsteadystateController_Kt + ghost_mode_B.IntegralGain_g;
+  // Gain: '<S82>/ZeroGain'
+  rtb_SignPreSat_b = ghost_mode_P.ZeroGain_Gain_a * rtb_SignPreSat;
 
   // DeadZone: '<S84>/DeadZone'
-  if (ghost_mode_B.Sum_m > ghost_mode_P.SpeedupsteadystateController_Up) {
-    rtb_DeadZone = ghost_mode_B.Sum_m -
-      ghost_mode_P.SpeedupsteadystateController_Up;
-  } else if (ghost_mode_B.Sum_m >= ghost_mode_P.SpeedupsteadystateController_Lo)
-  {
-    rtb_DeadZone = 0.0;
+  if (rtb_SignPreSat > ghost_mode_P.SpeedupsteadystateController_Up) {
+    rtb_SignPreSat -= ghost_mode_P.SpeedupsteadystateController_Up;
+  } else if (rtb_SignPreSat >= ghost_mode_P.SpeedupsteadystateController_Lo) {
+    rtb_SignPreSat = 0.0;
   } else {
-    rtb_DeadZone = ghost_mode_B.Sum_m -
-      ghost_mode_P.SpeedupsteadystateController_Lo;
+    rtb_SignPreSat -= ghost_mode_P.SpeedupsteadystateController_Lo;
   }
 
   // End of DeadZone: '<S84>/DeadZone'
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Gain: '<S88>/Integral Gain'
+    rtb_IntegralGain = ghost_mode_P.SpeedupsteadystateController_I *
+      ghost_mode_B.Sum;
+
+    // Signum: '<S82>/SignPreIntegrator'
+    if (rtb_IntegralGain < 0.0) {
+      // DataTypeConversion: '<S82>/DataTypeConv2'
+      u0 = -1.0;
+    } else if (rtb_IntegralGain > 0.0) {
+      // DataTypeConversion: '<S82>/DataTypeConv2'
+      u0 = 1.0;
+    } else if (rtb_IntegralGain == 0.0) {
+      // DataTypeConversion: '<S82>/DataTypeConv2'
+      u0 = 0.0;
+    } else {
+      // DataTypeConversion: '<S82>/DataTypeConv2'
+      u0 = (rtNaN);
+    }
+
+    // End of Signum: '<S82>/SignPreIntegrator'
+
+    // DataTypeConversion: '<S82>/DataTypeConv2'
+    if (rtIsNaN(u0)) {
+      u0 = 0.0;
+    } else {
+      u0 = fmod(u0, 256.0);
+    }
+
+    // DataTypeConversion: '<S82>/DataTypeConv2'
+    ghost_mode_B.DataTypeConv2_b = static_cast<int8_T>(u0 < 0.0 ?
+      static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>(static_cast<
+      uint8_T>(-u0)))) : static_cast<int32_T>(static_cast<int8_T>
+      (static_cast<uint8_T>(u0))));
+  }
 
   // Signum: '<S82>/SignPreSat'
-  if (rtb_DeadZone < 0.0) {
+  if (rtb_SignPreSat < 0.0) {
     // DataTypeConversion: '<S82>/DataTypeConv1'
-    tmp = -1.0;
-  } else if (rtb_DeadZone > 0.0) {
+    u0 = -1.0;
+  } else if (rtb_SignPreSat > 0.0) {
     // DataTypeConversion: '<S82>/DataTypeConv1'
-    tmp = 1.0;
-  } else if (rtb_DeadZone == 0.0) {
+    u0 = 1.0;
+  } else if (rtb_SignPreSat == 0.0) {
     // DataTypeConversion: '<S82>/DataTypeConv1'
-    tmp = 0.0;
+    u0 = 0.0;
   } else {
     // DataTypeConversion: '<S82>/DataTypeConv1'
-    tmp = (rtNaN);
+    u0 = (rtNaN);
   }
 
   // End of Signum: '<S82>/SignPreSat'
 
   // DataTypeConversion: '<S82>/DataTypeConv1'
-  if (rtIsNaN(tmp)) {
-    tmp = 0.0;
+  if (rtIsNaN(u0)) {
+    u0 = 0.0;
   } else {
-    tmp = fmod(tmp, 256.0);
-  }
-
-  // Signum: '<S82>/SignPreIntegrator'
-  if (ghost_mode_B.Switch_m < 0.0) {
-    // DataTypeConversion: '<S82>/DataTypeConv2'
-    tmp_0 = -1.0;
-  } else if (ghost_mode_B.Switch_m > 0.0) {
-    // DataTypeConversion: '<S82>/DataTypeConv2'
-    tmp_0 = 1.0;
-  } else if (ghost_mode_B.Switch_m == 0.0) {
-    // DataTypeConversion: '<S82>/DataTypeConv2'
-    tmp_0 = 0.0;
-  } else {
-    // DataTypeConversion: '<S82>/DataTypeConv2'
-    tmp_0 = (rtNaN);
-  }
-
-  // End of Signum: '<S82>/SignPreIntegrator'
-
-  // DataTypeConversion: '<S82>/DataTypeConv2'
-  if (rtIsNaN(tmp_0)) {
-    tmp_0 = 0.0;
-  } else {
-    tmp_0 = fmod(tmp_0, 256.0);
+    u0 = fmod(u0, 256.0);
   }
 
   // Logic: '<S82>/AND3' incorporates:
   //   DataTypeConversion: '<S82>/DataTypeConv1'
-  //   DataTypeConversion: '<S82>/DataTypeConv2'
-  //   Gain: '<S82>/ZeroGain'
   //   RelationalOperator: '<S82>/Equal1'
   //   RelationalOperator: '<S82>/NotEqual'
 
-  ghost_mode_B.AND3_g = ((ghost_mode_P.ZeroGain_Gain_a * ghost_mode_B.Sum_m !=
-    rtb_DeadZone) && ((tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
-    static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
-    static_cast<int8_T>(static_cast<uint8_T>(tmp)))) == (tmp_0 < 0.0 ?
+  ghost_mode_B.AND3_g = ((rtb_SignPreSat_b != rtb_SignPreSat) && ((u0 < 0.0 ?
     static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>(static_cast<
-    uint8_T>(-tmp_0)))) : static_cast<int32_T>(static_cast<int8_T>
-    (static_cast<uint8_T>(tmp_0))))));
+    uint8_T>(-u0)))) : static_cast<int32_T>(static_cast<int8_T>
+    (static_cast<uint8_T>(u0)))) == ghost_mode_B.DataTypeConv2_b));
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Memory: '<S82>/Memory'
-    ghost_mode_B.Memory_o = ghost_mode_DW.Memory_PreviousInput_m;
+    // Switch: '<S82>/Switch' incorporates:
+    //   Memory: '<S82>/Memory'
+
+    if (ghost_mode_DW.Memory_PreviousInput_m) {
+      // Switch: '<S82>/Switch' incorporates:
+      //   Constant: '<S82>/Constant1'
+
+      ghost_mode_B.Switch_m = ghost_mode_P.Constant1_Value_c;
+    } else {
+      // Switch: '<S82>/Switch'
+      ghost_mode_B.Switch_m = rtb_IntegralGain;
+    }
+
+    // End of Switch: '<S82>/Switch'
   }
 
-  // Switch: '<S82>/Switch'
-  if (ghost_mode_B.Memory_o) {
-    // Sum: '<S103>/SumI1' incorporates:
-    //   Constant: '<S82>/Constant1'
-    //   Switch: '<S82>/Switch'
-
-    ghost_mode_B.Switch_m = ghost_mode_P.Constant1_Value_c;
-  }
-
-  // End of Switch: '<S82>/Switch'
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
     if (rtmIsMajorTimeStep(ghost_mode_M)) {
       // Update for Memory: '<S32>/Memory'

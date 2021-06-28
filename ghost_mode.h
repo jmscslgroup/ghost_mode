@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.36
+// Model version                  : 1.37
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 15:23:45 2021
+// C/C++ source code generated on : Mon Jun 28 15:40:49 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -159,15 +159,12 @@ struct B_ghost_mode_T {
   real_T ProportionalGain_c;           // '<S46>/Proportional Gain'
   real_T DerivativeGain_f;             // '<S35>/Derivative Gain'
   real_T FilterCoefficient_a;          // '<S44>/Filter Coefficient'
-  real_T IntegralGain;                 // '<S38>/Integral Gain'
   real_T Switch;                       // '<S32>/Switch'
-  real_T IntegralGain_g;               // '<S88>/Integral Gain'
   real_T Switch_m;                     // '<S82>/Switch'
-  real_T Sum_m;                        // '<S100>/Sum'
+  int8_T DataTypeConv2;                // '<S32>/DataTypeConv2'
+  int8_T DataTypeConv2_b;              // '<S82>/DataTypeConv2'
   boolean_T AND3;                      // '<S32>/AND3'
-  boolean_T Memory;                    // '<S32>/Memory'
   boolean_T AND3_g;                    // '<S82>/AND3'
-  boolean_T Memory_o;                  // '<S82>/Memory'
 };
 
 // Block states (default storage) for system '<Root>'
@@ -245,13 +242,6 @@ struct P_ghost_mode_T_ {
   real_T SlowdownController_InitialCon_p;
                               // Mask Parameter: SlowdownController_InitialCon_p
                                  //  Referenced by: '<S41>/Integrator'
-
-  real_T SlowdownController_Kt;        // Mask Parameter: SlowdownController_Kt
-                                          //  Referenced by: '<S52>/Kt'
-
-  real_T SpeedupsteadystateController_Kt;
-                              // Mask Parameter: SpeedupsteadystateController_Kt
-                                 //  Referenced by: '<S102>/Kt'
 
   real_T SpeedupsteadystateController_Lo;
                               // Mask Parameter: SpeedupsteadystateController_Lo
@@ -511,8 +501,8 @@ extern "C" {
 //  '<S49>'  : 'ghost_mode/Controller/Slowdown Controller/Saturation Fdbk/Disabled'
 //  '<S50>'  : 'ghost_mode/Controller/Slowdown Controller/Sum/Sum_PID'
 //  '<S51>'  : 'ghost_mode/Controller/Slowdown Controller/Sum Fdbk/Disabled'
-//  '<S52>'  : 'ghost_mode/Controller/Slowdown Controller/Tracking Mode/Enabled'
-//  '<S53>'  : 'ghost_mode/Controller/Slowdown Controller/Tracking Mode Sum/Tracking Mode'
+//  '<S52>'  : 'ghost_mode/Controller/Slowdown Controller/Tracking Mode/Disabled'
+//  '<S53>'  : 'ghost_mode/Controller/Slowdown Controller/Tracking Mode Sum/Passthrough'
 //  '<S54>'  : 'ghost_mode/Controller/Slowdown Controller/Tsamp - Integral/Passthrough'
 //  '<S55>'  : 'ghost_mode/Controller/Slowdown Controller/Tsamp - Ngain/Passthrough'
 //  '<S56>'  : 'ghost_mode/Controller/Slowdown Controller/postSat Signal/Forward_Path'
@@ -561,8 +551,8 @@ extern "C" {
 //  '<S99>'  : 'ghost_mode/Controller/Speed up//steady state Controller/Saturation Fdbk/Disabled'
 //  '<S100>' : 'ghost_mode/Controller/Speed up//steady state Controller/Sum/Sum_PID'
 //  '<S101>' : 'ghost_mode/Controller/Speed up//steady state Controller/Sum Fdbk/Disabled'
-//  '<S102>' : 'ghost_mode/Controller/Speed up//steady state Controller/Tracking Mode/Enabled'
-//  '<S103>' : 'ghost_mode/Controller/Speed up//steady state Controller/Tracking Mode Sum/Tracking Mode'
+//  '<S102>' : 'ghost_mode/Controller/Speed up//steady state Controller/Tracking Mode/Disabled'
+//  '<S103>' : 'ghost_mode/Controller/Speed up//steady state Controller/Tracking Mode Sum/Passthrough'
 //  '<S104>' : 'ghost_mode/Controller/Speed up//steady state Controller/Tsamp - Integral/Passthrough'
 //  '<S105>' : 'ghost_mode/Controller/Speed up//steady state Controller/Tsamp - Ngain/Passthrough'
 //  '<S106>' : 'ghost_mode/Controller/Speed up//steady state Controller/postSat Signal/Forward_Path'
