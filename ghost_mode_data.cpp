@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.35
+// Model version                  : 1.36
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 13:57:43 2021
+// C/C++ source code generated on : Mon Jun 28 15:23:45 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -24,22 +24,22 @@ P_ghost_mode_T ghost_mode_P = {
   // Mask Parameter: SpeedupsteadystateController_D
   //  Referenced by: '<S85>/Derivative Gain'
 
-  2.16631722899966,
+  1.94810632241439,
 
   // Mask Parameter: SlowdownController_D
   //  Referenced by: '<S35>/Derivative Gain'
 
-  2.71113138747875,
+  3.57806420183029,
 
   // Mask Parameter: SlowdownController_I
   //  Referenced by: '<S38>/Integral Gain'
 
-  2.53705257322553,
+  3.80126839958647,
 
   // Mask Parameter: SpeedupsteadystateController_I
   //  Referenced by: '<S88>/Integral Gain'
 
-  1.32998695885084,
+  1.88279175744742,
 
   // Mask Parameter: SpeedupsteadystateController_In
   //  Referenced by: '<S86>/Filter'
@@ -51,12 +51,12 @@ P_ghost_mode_T ghost_mode_P = {
 
   0.0,
 
-  // Mask Parameter: SpeedupsteadystateController__e
+  // Mask Parameter: SpeedupsteadystateController__m
   //  Referenced by: '<S91>/Integrator'
 
   0.0,
 
-  // Mask Parameter: SlowdownController_InitialCon_o
+  // Mask Parameter: SlowdownController_InitialCon_p
   //  Referenced by: '<S41>/Integrator'
 
   0.0,
@@ -76,14 +76,14 @@ P_ghost_mode_T ghost_mode_P = {
   //    '<S98>/Saturation'
   //    '<S84>/DeadZone'
 
-  -40.0,
+  -3.0,
 
   // Mask Parameter: SlowdownController_LowerSaturat
   //  Referenced by:
   //    '<S48>/Saturation'
   //    '<S34>/DeadZone'
 
-  -40.0,
+  -3.0,
 
   // Mask Parameter: SpeedupsteadystateController_N
   //  Referenced by: '<S94>/Filter Coefficient'
@@ -93,31 +93,31 @@ P_ghost_mode_T ghost_mode_P = {
   // Mask Parameter: SlowdownController_N
   //  Referenced by: '<S44>/Filter Coefficient'
 
-  553.911429447729,
+  67.0228939556831,
 
   // Mask Parameter: SpeedupsteadystateController_P
   //  Referenced by: '<S96>/Proportional Gain'
 
-  4.41945152854642,
+  5.84547293491513,
 
   // Mask Parameter: SlowdownController_P
   //  Referenced by: '<S46>/Proportional Gain'
 
-  6.28763073495901,
+  7.51107132863664,
 
   // Mask Parameter: SpeedupsteadystateController_Up
   //  Referenced by:
   //    '<S98>/Saturation'
   //    '<S84>/DeadZone'
 
-  30.0,
+  1.5,
 
   // Mask Parameter: SlowdownController_UpperSaturat
   //  Referenced by:
   //    '<S48>/Saturation'
   //    '<S34>/DeadZone'
 
-  30.0,
+  1.5,
 
   // Computed Parameter: Out1_Y0
   //  Referenced by: '<S108>/Out1'
@@ -342,7 +342,7 @@ P_ghost_mode_T ghost_mode_P = {
 
   0,
 
-  // Computed Parameter: Memory_InitialCondition_i
+  // Computed Parameter: Memory_InitialCondition_f
   //  Referenced by: '<S82>/Memory'
 
   0

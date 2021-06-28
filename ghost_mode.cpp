@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.35
+// Model version                  : 1.36
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 13:57:43 2021
+// C/C++ source code generated on : Mon Jun 28 15:23:45 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -120,7 +120,7 @@ void ghost_mode_step(void)
   real_T rtb_DeadZone;
   real_T rtb_Saturation;
   real_T rtb_SignPreSat;
-  real_T rtb_Sum_a;
+  real_T rtb_Sum_i;
   real_T tmp;
   real_T tmp_0;
   boolean_T b_varargout_1;
@@ -213,11 +213,11 @@ void ghost_mode_step(void)
   // End of Saturate: '<S98>/Saturation'
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
     // Gain: '<S46>/Proportional Gain'
-    ghost_mode_B.ProportionalGain_b = ghost_mode_P.SlowdownController_P *
+    ghost_mode_B.ProportionalGain_c = ghost_mode_P.SlowdownController_P *
       ghost_mode_B.Sum;
 
     // Gain: '<S35>/Derivative Gain'
-    ghost_mode_B.DerivativeGain_k = ghost_mode_P.SlowdownController_D *
+    ghost_mode_B.DerivativeGain_f = ghost_mode_P.SlowdownController_D *
       ghost_mode_B.Sum;
   }
 
@@ -225,26 +225,26 @@ void ghost_mode_step(void)
   //   Integrator: '<S36>/Filter'
   //   Sum: '<S36>/SumD'
 
-  ghost_mode_B.FilterCoefficient_g = (ghost_mode_B.DerivativeGain_k -
-    ghost_mode_X.Filter_CSTATE_h) * ghost_mode_P.SlowdownController_N;
+  ghost_mode_B.FilterCoefficient_a = (ghost_mode_B.DerivativeGain_f -
+    ghost_mode_X.Filter_CSTATE_n) * ghost_mode_P.SlowdownController_N;
 
   // Sum: '<S50>/Sum' incorporates:
   //   Integrator: '<S41>/Integrator'
 
-  rtb_Sum_a = (ghost_mode_B.ProportionalGain_b +
-               ghost_mode_X.Integrator_CSTATE_l) +
-    ghost_mode_B.FilterCoefficient_g;
+  rtb_Sum_i = (ghost_mode_B.ProportionalGain_c +
+               ghost_mode_X.Integrator_CSTATE_m) +
+    ghost_mode_B.FilterCoefficient_a;
 
   // Saturate: '<S48>/Saturation'
-  if (rtb_Sum_a > ghost_mode_P.SlowdownController_UpperSaturat) {
+  if (rtb_Sum_i > ghost_mode_P.SlowdownController_UpperSaturat) {
     // Sum: '<S53>/SumI1'
     ghost_mode_B.Switch = ghost_mode_P.SlowdownController_UpperSaturat;
-  } else if (rtb_Sum_a < ghost_mode_P.SlowdownController_LowerSaturat) {
+  } else if (rtb_Sum_i < ghost_mode_P.SlowdownController_LowerSaturat) {
     // Sum: '<S53>/SumI1'
     ghost_mode_B.Switch = ghost_mode_P.SlowdownController_LowerSaturat;
   } else {
     // Sum: '<S53>/SumI1'
-    ghost_mode_B.Switch = rtb_Sum_a;
+    ghost_mode_B.Switch = rtb_Sum_i;
   }
 
   // End of Saturate: '<S48>/Saturation'
@@ -289,12 +289,12 @@ void ghost_mode_step(void)
     ghost_mode_P.SlowdownController_Kt + ghost_mode_B.IntegralGain;
 
   // DeadZone: '<S34>/DeadZone'
-  if (rtb_Sum_a > ghost_mode_P.SlowdownController_UpperSaturat) {
-    rtb_DeadZone = rtb_Sum_a - ghost_mode_P.SlowdownController_UpperSaturat;
-  } else if (rtb_Sum_a >= ghost_mode_P.SlowdownController_LowerSaturat) {
+  if (rtb_Sum_i > ghost_mode_P.SlowdownController_UpperSaturat) {
+    rtb_DeadZone = rtb_Sum_i - ghost_mode_P.SlowdownController_UpperSaturat;
+  } else if (rtb_Sum_i >= ghost_mode_P.SlowdownController_LowerSaturat) {
     rtb_DeadZone = 0.0;
   } else {
-    rtb_DeadZone = rtb_Sum_a - ghost_mode_P.SlowdownController_LowerSaturat;
+    rtb_DeadZone = rtb_Sum_i - ghost_mode_P.SlowdownController_LowerSaturat;
   }
 
   // End of DeadZone: '<S34>/DeadZone'
@@ -354,7 +354,7 @@ void ghost_mode_step(void)
   //   RelationalOperator: '<S32>/Equal1'
   //   RelationalOperator: '<S32>/NotEqual'
 
-  ghost_mode_B.AND3 = ((ghost_mode_P.ZeroGain_Gain * rtb_Sum_a != rtb_DeadZone) &&
+  ghost_mode_B.AND3 = ((ghost_mode_P.ZeroGain_Gain * rtb_Sum_i != rtb_DeadZone) &&
                        ((tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
     static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
     static_cast<int8_T>(static_cast<uint8_T>(tmp)))) == (tmp_0 < 0.0 ?
@@ -366,7 +366,7 @@ void ghost_mode_step(void)
     ghost_mode_B.Memory = ghost_mode_DW.Memory_PreviousInput;
 
     // Gain: '<S88>/Integral Gain'
-    ghost_mode_B.IntegralGain_e = ghost_mode_P.SpeedupsteadystateController_I *
+    ghost_mode_B.IntegralGain_g = ghost_mode_P.SpeedupsteadystateController_I *
       ghost_mode_B.Sum;
   }
 
@@ -385,8 +385,8 @@ void ghost_mode_step(void)
   //   Gain: '<S102>/Kt'
   //   Sum: '<S102>/SumI3'
 
-  ghost_mode_B.Switch_p = (rtb_SignPreSat - rtb_Saturation) *
-    ghost_mode_P.SpeedupsteadystateController_Kt + ghost_mode_B.IntegralGain_e;
+  ghost_mode_B.Switch_m = (rtb_SignPreSat - rtb_Saturation) *
+    ghost_mode_P.SpeedupsteadystateController_Kt + ghost_mode_B.IntegralGain_g;
 
   // DeadZone: '<S84>/DeadZone'
   if (ghost_mode_B.Sum_m > ghost_mode_P.SpeedupsteadystateController_Up) {
@@ -427,13 +427,13 @@ void ghost_mode_step(void)
   }
 
   // Signum: '<S82>/SignPreIntegrator'
-  if (ghost_mode_B.Switch_p < 0.0) {
+  if (ghost_mode_B.Switch_m < 0.0) {
     // DataTypeConversion: '<S82>/DataTypeConv2'
     tmp_0 = -1.0;
-  } else if (ghost_mode_B.Switch_p > 0.0) {
+  } else if (ghost_mode_B.Switch_m > 0.0) {
     // DataTypeConversion: '<S82>/DataTypeConv2'
     tmp_0 = 1.0;
-  } else if (ghost_mode_B.Switch_p == 0.0) {
+  } else if (ghost_mode_B.Switch_m == 0.0) {
     // DataTypeConversion: '<S82>/DataTypeConv2'
     tmp_0 = 0.0;
   } else {
@@ -457,7 +457,7 @@ void ghost_mode_step(void)
   //   RelationalOperator: '<S82>/Equal1'
   //   RelationalOperator: '<S82>/NotEqual'
 
-  ghost_mode_B.AND3_h = ((ghost_mode_P.ZeroGain_Gain_n * ghost_mode_B.Sum_m !=
+  ghost_mode_B.AND3_g = ((ghost_mode_P.ZeroGain_Gain_a * ghost_mode_B.Sum_m !=
     rtb_DeadZone) && ((tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
     static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
     static_cast<int8_T>(static_cast<uint8_T>(tmp)))) == (tmp_0 < 0.0 ?
@@ -466,16 +466,16 @@ void ghost_mode_step(void)
     (static_cast<uint8_T>(tmp_0))))));
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
     // Memory: '<S82>/Memory'
-    ghost_mode_B.Memory_k = ghost_mode_DW.Memory_PreviousInput_b;
+    ghost_mode_B.Memory_o = ghost_mode_DW.Memory_PreviousInput_m;
   }
 
   // Switch: '<S82>/Switch'
-  if (ghost_mode_B.Memory_k) {
+  if (ghost_mode_B.Memory_o) {
     // Sum: '<S103>/SumI1' incorporates:
     //   Constant: '<S82>/Constant1'
     //   Switch: '<S82>/Switch'
 
-    ghost_mode_B.Switch_p = ghost_mode_P.Constant1_Value_p;
+    ghost_mode_B.Switch_m = ghost_mode_P.Constant1_Value_c;
   }
 
   // End of Switch: '<S82>/Switch'
@@ -485,7 +485,7 @@ void ghost_mode_step(void)
       ghost_mode_DW.Memory_PreviousInput = ghost_mode_B.AND3;
 
       // Update for Memory: '<S82>/Memory'
-      ghost_mode_DW.Memory_PreviousInput_b = ghost_mode_B.AND3_h;
+      ghost_mode_DW.Memory_PreviousInput_m = ghost_mode_B.AND3_g;
     }
   }                                    // end MajorTimeStep
 
@@ -520,16 +520,16 @@ void ghost_mode_derivatives(void)
   _rtXdot = ((XDot_ghost_mode_T *) ghost_mode_M->derivs);
 
   // Derivatives for Integrator: '<S91>/Integrator'
-  _rtXdot->Integrator_CSTATE = ghost_mode_B.Switch_p;
+  _rtXdot->Integrator_CSTATE = ghost_mode_B.Switch_m;
 
   // Derivatives for Integrator: '<S86>/Filter'
   _rtXdot->Filter_CSTATE = ghost_mode_B.FilterCoefficient;
 
   // Derivatives for Integrator: '<S41>/Integrator'
-  _rtXdot->Integrator_CSTATE_l = ghost_mode_B.Switch;
+  _rtXdot->Integrator_CSTATE_m = ghost_mode_B.Switch;
 
   // Derivatives for Integrator: '<S36>/Filter'
-  _rtXdot->Filter_CSTATE_h = ghost_mode_B.FilterCoefficient_g;
+  _rtXdot->Filter_CSTATE_n = ghost_mode_B.FilterCoefficient_a;
 }
 
 // Model initialize function
@@ -590,24 +590,24 @@ void ghost_mode_initialize(void)
 
     // InitializeConditions for Integrator: '<S91>/Integrator'
     ghost_mode_X.Integrator_CSTATE =
-      ghost_mode_P.SpeedupsteadystateController__e;
+      ghost_mode_P.SpeedupsteadystateController__m;
 
     // InitializeConditions for Integrator: '<S86>/Filter'
     ghost_mode_X.Filter_CSTATE = ghost_mode_P.SpeedupsteadystateController_In;
 
     // InitializeConditions for Integrator: '<S41>/Integrator'
-    ghost_mode_X.Integrator_CSTATE_l =
-      ghost_mode_P.SlowdownController_InitialCon_o;
+    ghost_mode_X.Integrator_CSTATE_m =
+      ghost_mode_P.SlowdownController_InitialCon_p;
 
     // InitializeConditions for Integrator: '<S36>/Filter'
-    ghost_mode_X.Filter_CSTATE_h = ghost_mode_P.SlowdownController_InitialCondi;
+    ghost_mode_X.Filter_CSTATE_n = ghost_mode_P.SlowdownController_InitialCondi;
 
     // InitializeConditions for Memory: '<S32>/Memory'
     ghost_mode_DW.Memory_PreviousInput = ghost_mode_P.Memory_InitialCondition;
 
     // InitializeConditions for Memory: '<S82>/Memory'
-    ghost_mode_DW.Memory_PreviousInput_b =
-      ghost_mode_P.Memory_InitialCondition_i;
+    ghost_mode_DW.Memory_PreviousInput_m =
+      ghost_mode_P.Memory_InitialCondition_f;
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe1'
     // SystemInitialize for Enabled SubSystem: '<S5>/Enabled Subsystem'
