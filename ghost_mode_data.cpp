@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.30
+// Model version                  : 1.31
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jun 25 10:07:15 2021
+// C/C++ source code generated on : Mon Jun 28 07:44:34 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -21,44 +21,44 @@
 
 // Block parameters (default storage)
 P_ghost_mode_T ghost_mode_P = {
-  // Mask Parameter: TunedPID_D
+  // Mask Parameter: TunedPIDv2_D
   //  Referenced by: '<S35>/Derivative Gain'
 
-  8.16737956822177,
+  2.32546025751059,
 
-  // Mask Parameter: TunedPID_I
+  // Mask Parameter: TunedPIDv2_I
   //  Referenced by: '<S38>/Integral Gain'
 
-  46.3867859193548,
+  3.10638557466951,
 
-  // Mask Parameter: TunedPID_InitialConditionForFil
+  // Mask Parameter: TunedPIDv2_InitialConditionForF
   //  Referenced by: '<S36>/Filter'
 
   0.0,
 
-  // Mask Parameter: TunedPID_InitialConditionForInt
+  // Mask Parameter: TunedPIDv2_InitialConditionForI
   //  Referenced by: '<S41>/Integrator'
 
   0.0,
 
-  // Mask Parameter: TunedPID_LowerSaturationLimit
+  // Mask Parameter: TunedPIDv2_LowerSaturationLimit
   //  Referenced by:
   //    '<S48>/Saturation'
   //    '<S34>/DeadZone'
 
   -3.0,
 
-  // Mask Parameter: TunedPID_N
+  // Mask Parameter: TunedPIDv2_N
   //  Referenced by: '<S44>/Filter Coefficient'
 
-  83.5934459229045,
+  16.8800712523244,
 
-  // Mask Parameter: TunedPID_P
+  // Mask Parameter: TunedPIDv2_P
   //  Referenced by: '<S46>/Proportional Gain'
 
-  43.892793605376,
+  6.24181129252033,
 
-  // Mask Parameter: TunedPID_UpperSaturationLimit
+  // Mask Parameter: TunedPIDv2_UpperSaturationLimit
   //  Referenced by:
   //    '<S48>/Saturation'
   //    '<S34>/DeadZone'

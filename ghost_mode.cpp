@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.30
+// Model version                  : 1.31
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jun 25 10:07:15 2021
+// C/C++ source code generated on : Mon Jun 28 07:44:34 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -176,10 +176,10 @@ void ghost_mode_step(void)
       ghost_mode_B.In1_d.Twist.Linear.X;
 
     // Gain: '<S46>/Proportional Gain'
-    ghost_mode_B.ProportionalGain = ghost_mode_P.TunedPID_P * rtb_IntegralGain;
+    ghost_mode_B.ProportionalGain = ghost_mode_P.TunedPIDv2_P * rtb_IntegralGain;
 
     // Gain: '<S35>/Derivative Gain'
-    ghost_mode_B.DerivativeGain = ghost_mode_P.TunedPID_D * rtb_IntegralGain;
+    ghost_mode_B.DerivativeGain = ghost_mode_P.TunedPIDv2_D * rtb_IntegralGain;
   }
 
   // Gain: '<S44>/Filter Coefficient' incorporates:
@@ -187,7 +187,7 @@ void ghost_mode_step(void)
   //   Sum: '<S36>/SumD'
 
   ghost_mode_B.FilterCoefficient = (ghost_mode_B.DerivativeGain -
-    ghost_mode_X.Filter_CSTATE) * ghost_mode_P.TunedPID_N;
+    ghost_mode_X.Filter_CSTATE) * ghost_mode_P.TunedPIDv2_N;
 
   // Sum: '<S50>/Sum' incorporates:
   //   Integrator: '<S41>/Integrator'
@@ -197,10 +197,10 @@ void ghost_mode_step(void)
     ghost_mode_B.FilterCoefficient;
 
   // Saturate: '<S48>/Saturation'
-  if (rtb_SignPreSat > ghost_mode_P.TunedPID_UpperSaturationLimit) {
-    rtb_ZeroGain = ghost_mode_P.TunedPID_UpperSaturationLimit;
-  } else if (rtb_SignPreSat < ghost_mode_P.TunedPID_LowerSaturationLimit) {
-    rtb_ZeroGain = ghost_mode_P.TunedPID_LowerSaturationLimit;
+  if (rtb_SignPreSat > ghost_mode_P.TunedPIDv2_UpperSaturationLimit) {
+    rtb_ZeroGain = ghost_mode_P.TunedPIDv2_UpperSaturationLimit;
+  } else if (rtb_SignPreSat < ghost_mode_P.TunedPIDv2_LowerSaturationLimit) {
+    rtb_ZeroGain = ghost_mode_P.TunedPIDv2_LowerSaturationLimit;
   } else {
     rtb_ZeroGain = rtb_SignPreSat;
   }
@@ -231,18 +231,18 @@ void ghost_mode_step(void)
   rtb_ZeroGain = ghost_mode_P.ZeroGain_Gain * rtb_SignPreSat;
 
   // DeadZone: '<S34>/DeadZone'
-  if (rtb_SignPreSat > ghost_mode_P.TunedPID_UpperSaturationLimit) {
-    rtb_SignPreSat -= ghost_mode_P.TunedPID_UpperSaturationLimit;
-  } else if (rtb_SignPreSat >= ghost_mode_P.TunedPID_LowerSaturationLimit) {
+  if (rtb_SignPreSat > ghost_mode_P.TunedPIDv2_UpperSaturationLimit) {
+    rtb_SignPreSat -= ghost_mode_P.TunedPIDv2_UpperSaturationLimit;
+  } else if (rtb_SignPreSat >= ghost_mode_P.TunedPIDv2_LowerSaturationLimit) {
     rtb_SignPreSat = 0.0;
   } else {
-    rtb_SignPreSat -= ghost_mode_P.TunedPID_LowerSaturationLimit;
+    rtb_SignPreSat -= ghost_mode_P.TunedPIDv2_LowerSaturationLimit;
   }
 
   // End of DeadZone: '<S34>/DeadZone'
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
     // Gain: '<S38>/Integral Gain'
-    rtb_IntegralGain *= ghost_mode_P.TunedPID_I;
+    rtb_IntegralGain *= ghost_mode_P.TunedPIDv2_I;
 
     // Signum: '<S32>/SignPreIntegrator'
     if (rtb_IntegralGain < 0.0) {
@@ -269,10 +269,10 @@ void ghost_mode_step(void)
     }
 
     // DataTypeConversion: '<S32>/DataTypeConv2'
-    ghost_mode_B.DataTypeConv2 = static_cast<int8_T>(tmp < 0.0 ? static_cast<
-      int32_T>(static_cast<int8_T>(-static_cast<int8_T>(static_cast<uint8_T>
-      (-tmp)))) : static_cast<int32_T>(static_cast<int8_T>(static_cast<uint8_T>
-      (tmp))));
+    ghost_mode_B.DataTypeConv2 = static_cast<int8_T>(tmp < 0.0 ?
+      static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>(static_cast<
+      uint8_T>(-tmp)))) : static_cast<int32_T>(static_cast<int8_T>
+      (static_cast<uint8_T>(tmp))));
   }
 
   // Signum: '<S32>/SignPreSat'
@@ -427,10 +427,10 @@ void ghost_mode_initialize(void)
 
     // InitializeConditions for Integrator: '<S41>/Integrator'
     ghost_mode_X.Integrator_CSTATE =
-      ghost_mode_P.TunedPID_InitialConditionForInt;
+      ghost_mode_P.TunedPIDv2_InitialConditionForI;
 
     // InitializeConditions for Integrator: '<S36>/Filter'
-    ghost_mode_X.Filter_CSTATE = ghost_mode_P.TunedPID_InitialConditionForFil;
+    ghost_mode_X.Filter_CSTATE = ghost_mode_P.TunedPIDv2_InitialConditionForF;
 
     // InitializeConditions for Memory: '<S32>/Memory'
     ghost_mode_DW.Memory_PreviousInput = ghost_mode_P.Memory_InitialCondition;

@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.30
+// Model version                  : 1.31
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jun 25 10:07:15 2021
+// C/C++ source code generated on : Mon Jun 28 07:44:34 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -199,37 +199,37 @@ struct ODE3_IntgData {
 
 // Parameters (default storage)
 struct P_ghost_mode_T_ {
-  real_T TunedPID_D;                   // Mask Parameter: TunedPID_D
+  real_T TunedPIDv2_D;                 // Mask Parameter: TunedPIDv2_D
                                           //  Referenced by: '<S35>/Derivative Gain'
 
-  real_T TunedPID_I;                   // Mask Parameter: TunedPID_I
+  real_T TunedPIDv2_I;                 // Mask Parameter: TunedPIDv2_I
                                           //  Referenced by: '<S38>/Integral Gain'
 
-  real_T TunedPID_InitialConditionForFil;
-                              // Mask Parameter: TunedPID_InitialConditionForFil
+  real_T TunedPIDv2_InitialConditionForF;
+                              // Mask Parameter: TunedPIDv2_InitialConditionForF
                                  //  Referenced by: '<S36>/Filter'
 
-  real_T TunedPID_InitialConditionForInt;
-                              // Mask Parameter: TunedPID_InitialConditionForInt
+  real_T TunedPIDv2_InitialConditionForI;
+                              // Mask Parameter: TunedPIDv2_InitialConditionForI
                                  //  Referenced by: '<S41>/Integrator'
 
-  real_T TunedPID_LowerSaturationLimit;
-                                // Mask Parameter: TunedPID_LowerSaturationLimit
-                                   //  Referenced by:
-                                   //    '<S48>/Saturation'
-                                   //    '<S34>/DeadZone'
+  real_T TunedPIDv2_LowerSaturationLimit;
+                              // Mask Parameter: TunedPIDv2_LowerSaturationLimit
+                                 //  Referenced by:
+                                 //    '<S48>/Saturation'
+                                 //    '<S34>/DeadZone'
 
-  real_T TunedPID_N;                   // Mask Parameter: TunedPID_N
+  real_T TunedPIDv2_N;                 // Mask Parameter: TunedPIDv2_N
                                           //  Referenced by: '<S44>/Filter Coefficient'
 
-  real_T TunedPID_P;                   // Mask Parameter: TunedPID_P
+  real_T TunedPIDv2_P;                 // Mask Parameter: TunedPIDv2_P
                                           //  Referenced by: '<S46>/Proportional Gain'
 
-  real_T TunedPID_UpperSaturationLimit;
-                                // Mask Parameter: TunedPID_UpperSaturationLimit
-                                   //  Referenced by:
-                                   //    '<S48>/Saturation'
-                                   //    '<S34>/DeadZone'
+  real_T TunedPIDv2_UpperSaturationLimit;
+                              // Mask Parameter: TunedPIDv2_UpperSaturationLimit
+                                 //  Referenced by:
+                                 //    '<S48>/Saturation'
+                                 //    '<S34>/DeadZone'
 
   SL_Bus_ghost_mode_geometry_msgs_TwistStamped Out1_Y0;// Computed Parameter: Out1_Y0
                                                           //  Referenced by: '<S6>/Out1'
@@ -391,59 +391,59 @@ extern "C" {
 //  '<S2>'   : 'ghost_mode/Publish'
 //  '<S3>'   : 'ghost_mode/Subscribe'
 //  '<S4>'   : 'ghost_mode/Subscribe1'
-//  '<S5>'   : 'ghost_mode/Tuned PID'
+//  '<S5>'   : 'ghost_mode/Tuned PID v2'
 //  '<S6>'   : 'ghost_mode/Subscribe/Enabled Subsystem'
 //  '<S7>'   : 'ghost_mode/Subscribe1/Enabled Subsystem'
-//  '<S8>'   : 'ghost_mode/Tuned PID/Anti-windup'
-//  '<S9>'   : 'ghost_mode/Tuned PID/D Gain'
-//  '<S10>'  : 'ghost_mode/Tuned PID/Filter'
-//  '<S11>'  : 'ghost_mode/Tuned PID/Filter ICs'
-//  '<S12>'  : 'ghost_mode/Tuned PID/I Gain'
-//  '<S13>'  : 'ghost_mode/Tuned PID/Ideal P Gain'
-//  '<S14>'  : 'ghost_mode/Tuned PID/Ideal P Gain Fdbk'
-//  '<S15>'  : 'ghost_mode/Tuned PID/Integrator'
-//  '<S16>'  : 'ghost_mode/Tuned PID/Integrator ICs'
-//  '<S17>'  : 'ghost_mode/Tuned PID/N Copy'
-//  '<S18>'  : 'ghost_mode/Tuned PID/N Gain'
-//  '<S19>'  : 'ghost_mode/Tuned PID/P Copy'
-//  '<S20>'  : 'ghost_mode/Tuned PID/Parallel P Gain'
-//  '<S21>'  : 'ghost_mode/Tuned PID/Reset Signal'
-//  '<S22>'  : 'ghost_mode/Tuned PID/Saturation'
-//  '<S23>'  : 'ghost_mode/Tuned PID/Saturation Fdbk'
-//  '<S24>'  : 'ghost_mode/Tuned PID/Sum'
-//  '<S25>'  : 'ghost_mode/Tuned PID/Sum Fdbk'
-//  '<S26>'  : 'ghost_mode/Tuned PID/Tracking Mode'
-//  '<S27>'  : 'ghost_mode/Tuned PID/Tracking Mode Sum'
-//  '<S28>'  : 'ghost_mode/Tuned PID/Tsamp - Integral'
-//  '<S29>'  : 'ghost_mode/Tuned PID/Tsamp - Ngain'
-//  '<S30>'  : 'ghost_mode/Tuned PID/postSat Signal'
-//  '<S31>'  : 'ghost_mode/Tuned PID/preSat Signal'
-//  '<S32>'  : 'ghost_mode/Tuned PID/Anti-windup/Cont. Clamping Parallel'
-//  '<S33>'  : 'ghost_mode/Tuned PID/Anti-windup/Cont. Clamping Parallel/Dead Zone'
-//  '<S34>'  : 'ghost_mode/Tuned PID/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
-//  '<S35>'  : 'ghost_mode/Tuned PID/D Gain/Internal Parameters'
-//  '<S36>'  : 'ghost_mode/Tuned PID/Filter/Cont. Filter'
-//  '<S37>'  : 'ghost_mode/Tuned PID/Filter ICs/Internal IC - Filter'
-//  '<S38>'  : 'ghost_mode/Tuned PID/I Gain/Internal Parameters'
-//  '<S39>'  : 'ghost_mode/Tuned PID/Ideal P Gain/Passthrough'
-//  '<S40>'  : 'ghost_mode/Tuned PID/Ideal P Gain Fdbk/Disabled'
-//  '<S41>'  : 'ghost_mode/Tuned PID/Integrator/Continuous'
-//  '<S42>'  : 'ghost_mode/Tuned PID/Integrator ICs/Internal IC'
-//  '<S43>'  : 'ghost_mode/Tuned PID/N Copy/Disabled'
-//  '<S44>'  : 'ghost_mode/Tuned PID/N Gain/Internal Parameters'
-//  '<S45>'  : 'ghost_mode/Tuned PID/P Copy/Disabled'
-//  '<S46>'  : 'ghost_mode/Tuned PID/Parallel P Gain/Internal Parameters'
-//  '<S47>'  : 'ghost_mode/Tuned PID/Reset Signal/Disabled'
-//  '<S48>'  : 'ghost_mode/Tuned PID/Saturation/Enabled'
-//  '<S49>'  : 'ghost_mode/Tuned PID/Saturation Fdbk/Disabled'
-//  '<S50>'  : 'ghost_mode/Tuned PID/Sum/Sum_PID'
-//  '<S51>'  : 'ghost_mode/Tuned PID/Sum Fdbk/Disabled'
-//  '<S52>'  : 'ghost_mode/Tuned PID/Tracking Mode/Disabled'
-//  '<S53>'  : 'ghost_mode/Tuned PID/Tracking Mode Sum/Passthrough'
-//  '<S54>'  : 'ghost_mode/Tuned PID/Tsamp - Integral/Passthrough'
-//  '<S55>'  : 'ghost_mode/Tuned PID/Tsamp - Ngain/Passthrough'
-//  '<S56>'  : 'ghost_mode/Tuned PID/postSat Signal/Forward_Path'
-//  '<S57>'  : 'ghost_mode/Tuned PID/preSat Signal/Forward_Path'
+//  '<S8>'   : 'ghost_mode/Tuned PID v2/Anti-windup'
+//  '<S9>'   : 'ghost_mode/Tuned PID v2/D Gain'
+//  '<S10>'  : 'ghost_mode/Tuned PID v2/Filter'
+//  '<S11>'  : 'ghost_mode/Tuned PID v2/Filter ICs'
+//  '<S12>'  : 'ghost_mode/Tuned PID v2/I Gain'
+//  '<S13>'  : 'ghost_mode/Tuned PID v2/Ideal P Gain'
+//  '<S14>'  : 'ghost_mode/Tuned PID v2/Ideal P Gain Fdbk'
+//  '<S15>'  : 'ghost_mode/Tuned PID v2/Integrator'
+//  '<S16>'  : 'ghost_mode/Tuned PID v2/Integrator ICs'
+//  '<S17>'  : 'ghost_mode/Tuned PID v2/N Copy'
+//  '<S18>'  : 'ghost_mode/Tuned PID v2/N Gain'
+//  '<S19>'  : 'ghost_mode/Tuned PID v2/P Copy'
+//  '<S20>'  : 'ghost_mode/Tuned PID v2/Parallel P Gain'
+//  '<S21>'  : 'ghost_mode/Tuned PID v2/Reset Signal'
+//  '<S22>'  : 'ghost_mode/Tuned PID v2/Saturation'
+//  '<S23>'  : 'ghost_mode/Tuned PID v2/Saturation Fdbk'
+//  '<S24>'  : 'ghost_mode/Tuned PID v2/Sum'
+//  '<S25>'  : 'ghost_mode/Tuned PID v2/Sum Fdbk'
+//  '<S26>'  : 'ghost_mode/Tuned PID v2/Tracking Mode'
+//  '<S27>'  : 'ghost_mode/Tuned PID v2/Tracking Mode Sum'
+//  '<S28>'  : 'ghost_mode/Tuned PID v2/Tsamp - Integral'
+//  '<S29>'  : 'ghost_mode/Tuned PID v2/Tsamp - Ngain'
+//  '<S30>'  : 'ghost_mode/Tuned PID v2/postSat Signal'
+//  '<S31>'  : 'ghost_mode/Tuned PID v2/preSat Signal'
+//  '<S32>'  : 'ghost_mode/Tuned PID v2/Anti-windup/Cont. Clamping Parallel'
+//  '<S33>'  : 'ghost_mode/Tuned PID v2/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+//  '<S34>'  : 'ghost_mode/Tuned PID v2/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+//  '<S35>'  : 'ghost_mode/Tuned PID v2/D Gain/Internal Parameters'
+//  '<S36>'  : 'ghost_mode/Tuned PID v2/Filter/Cont. Filter'
+//  '<S37>'  : 'ghost_mode/Tuned PID v2/Filter ICs/Internal IC - Filter'
+//  '<S38>'  : 'ghost_mode/Tuned PID v2/I Gain/Internal Parameters'
+//  '<S39>'  : 'ghost_mode/Tuned PID v2/Ideal P Gain/Passthrough'
+//  '<S40>'  : 'ghost_mode/Tuned PID v2/Ideal P Gain Fdbk/Disabled'
+//  '<S41>'  : 'ghost_mode/Tuned PID v2/Integrator/Continuous'
+//  '<S42>'  : 'ghost_mode/Tuned PID v2/Integrator ICs/Internal IC'
+//  '<S43>'  : 'ghost_mode/Tuned PID v2/N Copy/Disabled'
+//  '<S44>'  : 'ghost_mode/Tuned PID v2/N Gain/Internal Parameters'
+//  '<S45>'  : 'ghost_mode/Tuned PID v2/P Copy/Disabled'
+//  '<S46>'  : 'ghost_mode/Tuned PID v2/Parallel P Gain/Internal Parameters'
+//  '<S47>'  : 'ghost_mode/Tuned PID v2/Reset Signal/Disabled'
+//  '<S48>'  : 'ghost_mode/Tuned PID v2/Saturation/Enabled'
+//  '<S49>'  : 'ghost_mode/Tuned PID v2/Saturation Fdbk/Disabled'
+//  '<S50>'  : 'ghost_mode/Tuned PID v2/Sum/Sum_PID'
+//  '<S51>'  : 'ghost_mode/Tuned PID v2/Sum Fdbk/Disabled'
+//  '<S52>'  : 'ghost_mode/Tuned PID v2/Tracking Mode/Disabled'
+//  '<S53>'  : 'ghost_mode/Tuned PID v2/Tracking Mode Sum/Passthrough'
+//  '<S54>'  : 'ghost_mode/Tuned PID v2/Tsamp - Integral/Passthrough'
+//  '<S55>'  : 'ghost_mode/Tuned PID v2/Tsamp - Ngain/Passthrough'
+//  '<S56>'  : 'ghost_mode/Tuned PID v2/postSat Signal/Forward_Path'
+//  '<S57>'  : 'ghost_mode/Tuned PID v2/preSat Signal/Forward_Path'
 
 #endif                                 // RTW_HEADER_ghost_mode_h_
 
