@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.37
+// Model version                  : 1.38
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 15:40:49 2021
+// C/C++ source code generated on : Mon Jun 28 15:47:38 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -21,96 +21,52 @@
 
 // Block parameters (default storage)
 P_ghost_mode_T ghost_mode_P = {
-  // Mask Parameter: SpeedupsteadystateController_D
-  //  Referenced by: '<S85>/Derivative Gain'
+  // Mask Parameter: PIDJMS0628_D
+  //  Referenced by: '<S33>/Derivative Gain'
 
-  1.94810632241439,
+  1.2886782091662,
 
-  // Mask Parameter: SlowdownController_D
-  //  Referenced by: '<S35>/Derivative Gain'
+  // Mask Parameter: PIDJMS0628_I
+  //  Referenced by: '<S36>/Integral Gain'
 
-  3.57806420183029,
+  0.561856950087048,
 
-  // Mask Parameter: SlowdownController_I
-  //  Referenced by: '<S38>/Integral Gain'
-
-  3.80126839958647,
-
-  // Mask Parameter: SpeedupsteadystateController_I
-  //  Referenced by: '<S88>/Integral Gain'
-
-  1.88279175744742,
-
-  // Mask Parameter: SpeedupsteadystateController_In
-  //  Referenced by: '<S86>/Filter'
+  // Mask Parameter: PIDJMS0628_InitialConditionForF
+  //  Referenced by: '<S34>/Filter'
 
   0.0,
 
-  // Mask Parameter: SlowdownController_InitialCondi
-  //  Referenced by: '<S36>/Filter'
+  // Mask Parameter: PIDJMS0628_InitialConditionForI
+  //  Referenced by: '<S39>/Integrator'
 
   0.0,
 
-  // Mask Parameter: SpeedupsteadystateController__m
-  //  Referenced by: '<S91>/Integrator'
-
-  0.0,
-
-  // Mask Parameter: SlowdownController_InitialCon_p
-  //  Referenced by: '<S41>/Integrator'
-
-  0.0,
-
-  // Mask Parameter: SpeedupsteadystateController_Lo
+  // Mask Parameter: PIDJMS0628_LowerSaturationLimit
   //  Referenced by:
-  //    '<S98>/Saturation'
-  //    '<S84>/DeadZone'
+  //    '<S46>/Saturation'
+  //    '<S32>/DeadZone'
 
   -3.0,
 
-  // Mask Parameter: SlowdownController_LowerSaturat
+  // Mask Parameter: PIDJMS0628_N
+  //  Referenced by: '<S42>/Filter Coefficient'
+
+  24.3345419624922,
+
+  // Mask Parameter: PIDJMS0628_P
+  //  Referenced by: '<S44>/Proportional Gain'
+
+  2.25627287381491,
+
+  // Mask Parameter: PIDJMS0628_UpperSaturationLimit
   //  Referenced by:
-  //    '<S48>/Saturation'
-  //    '<S34>/DeadZone'
-
-  -3.0,
-
-  // Mask Parameter: SpeedupsteadystateController_N
-  //  Referenced by: '<S94>/Filter Coefficient'
-
-  439.987487946818,
-
-  // Mask Parameter: SlowdownController_N
-  //  Referenced by: '<S44>/Filter Coefficient'
-
-  67.0228939556831,
-
-  // Mask Parameter: SpeedupsteadystateController_P
-  //  Referenced by: '<S96>/Proportional Gain'
-
-  5.84547293491513,
-
-  // Mask Parameter: SlowdownController_P
-  //  Referenced by: '<S46>/Proportional Gain'
-
-  7.51107132863664,
-
-  // Mask Parameter: SpeedupsteadystateController_Up
-  //  Referenced by:
-  //    '<S98>/Saturation'
-  //    '<S84>/DeadZone'
-
-  1.5,
-
-  // Mask Parameter: SlowdownController_UpperSaturat
-  //  Referenced by:
-  //    '<S48>/Saturation'
-  //    '<S34>/DeadZone'
+  //    '<S46>/Saturation'
+  //    '<S32>/DeadZone'
 
   1.5,
 
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S108>/Out1'
+  //  Referenced by: '<S56>/Out1'
 
   {
     {
@@ -198,7 +154,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Out1_Y0_h
-  //  Referenced by: '<S109>/Out1'
+  //  Referenced by: '<S57>/Out1'
 
   {
     {
@@ -293,19 +249,9 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Expression: 0
-  //  Referenced by: '<S32>/Constant1'
+  //  Referenced by: '<S30>/Constant1'
 
   0.0,
-
-  // Expression: 0
-  //  Referenced by: '<S82>/Constant1'
-
-  0.0,
-
-  // Expression: -0.25
-  //  Referenced by: '<S2>/Switch'
-
-  -0.25,
 
   // Expression: 1.5
   //  Referenced by: '<Root>/Saturation'
@@ -318,22 +264,12 @@ P_ghost_mode_T ghost_mode_P = {
   -3.0,
 
   // Expression: 0
-  //  Referenced by: '<S32>/ZeroGain'
-
-  0.0,
-
-  // Expression: 0
-  //  Referenced by: '<S82>/ZeroGain'
+  //  Referenced by: '<S30>/ZeroGain'
 
   0.0,
 
   // Computed Parameter: Memory_InitialCondition
-  //  Referenced by: '<S32>/Memory'
-
-  0,
-
-  // Computed Parameter: Memory_InitialCondition_f
-  //  Referenced by: '<S82>/Memory'
+  //  Referenced by: '<S30>/Memory'
 
   0
 };
