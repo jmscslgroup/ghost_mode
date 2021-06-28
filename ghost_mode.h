@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.38
+// Model version                  : 1.40
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 15:47:38 2021
+// C/C++ source code generated on : Mon Jun 28 16:03:32 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -149,41 +149,68 @@
 
 // Block signals (default storage)
 struct B_ghost_mode_T {
-  SL_Bus_ghost_mode_geometry_msgs_TwistStamped In1;// '<S57>/In1'
-  SL_Bus_ghost_mode_geometry_msgs_TwistStamped In1_d;// '<S56>/In1'
+  SL_Bus_ghost_mode_geometry_msgs_TwistStamped In1;// '<S160>/In1'
+  SL_Bus_ghost_mode_geometry_msgs_TwistStamped In1_d;// '<S159>/In1'
   SL_Bus_ghost_mode_geometry_msgs_TwistStamped b_varargout_2;
-  real_T ProportionalGain;             // '<S44>/Proportional Gain'
-  real_T DerivativeGain;               // '<S33>/Derivative Gain'
-  real_T FilterCoefficient;            // '<S42>/Filter Coefficient'
-  real_T Switch;                       // '<S30>/Switch'
-  int8_T DataTypeConv2;                // '<S30>/DataTypeConv2'
-  boolean_T AND3;                      // '<S30>/AND3'
+  real_T Sum;                          // '<Root>/Sum'
+  real_T ProportionalGain;             // '<S47>/Proportional Gain'
+  real_T DerivativeGain;               // '<S36>/Derivative Gain'
+  real_T FilterCoefficient;            // '<S45>/Filter Coefficient'
+  real_T ProportionalGain_e;           // '<S97>/Proportional Gain'
+  real_T DerivativeGain_b;             // '<S86>/Derivative Gain'
+  real_T FilterCoefficient_c;          // '<S95>/Filter Coefficient'
+  real_T Switch;                       // '<S83>/Switch'
+  real_T Switch_a;                     // '<S33>/Switch'
+  real_T Switch_j;                     // '<S133>/Switch'
+  real_T ProportionalGain_f;           // '<S147>/Proportional Gain'
+  real_T DerivativeGain_e;             // '<S136>/Derivative Gain'
+  real_T FilterCoefficient_p;          // '<S145>/Filter Coefficient'
+  int8_T DataTypeConv2;                // '<S83>/DataTypeConv2'
+  int8_T DataTypeConv2_o;              // '<S33>/DataTypeConv2'
+  int8_T DataTypeConv2_a;              // '<S133>/DataTypeConv2'
+  boolean_T AND3;                      // '<S83>/AND3'
+  boolean_T AND3_c;                    // '<S33>/AND3'
+  boolean_T AND3_e;                    // '<S133>/AND3'
 };
 
 // Block states (default storage) for system '<Root>'
 struct DW_ghost_mode_T {
-  ros_slroscpp_internal_block_P_T obj; // '<S3>/SinkBlock'
-  ros_slroscpp_internal_block_S_T obj_g;// '<S5>/SourceBlock'
-  ros_slroscpp_internal_block_S_T obj_n;// '<S4>/SourceBlock'
-  boolean_T Memory_PreviousInput;      // '<S30>/Memory'
+  ros_slroscpp_internal_block_P_T obj; // '<S4>/SinkBlock'
+  ros_slroscpp_internal_block_S_T obj_g;// '<S6>/SourceBlock'
+  ros_slroscpp_internal_block_S_T obj_n;// '<S5>/SourceBlock'
+  boolean_T Memory_PreviousInput;      // '<S83>/Memory'
+  boolean_T Memory_PreviousInput_f;    // '<S33>/Memory'
+  boolean_T Memory_PreviousInput_n;    // '<S133>/Memory'
 };
 
 // Continuous states (default storage)
 struct X_ghost_mode_T {
-  real_T Integrator_CSTATE;            // '<S39>/Integrator'
-  real_T Filter_CSTATE;                // '<S34>/Filter'
+  real_T Integrator_CSTATE;            // '<S42>/Integrator'
+  real_T Filter_CSTATE;                // '<S37>/Filter'
+  real_T Integrator_CSTATE_i;          // '<S92>/Integrator'
+  real_T Filter_CSTATE_f;              // '<S87>/Filter'
+  real_T Integrator_CSTATE_f;          // '<S142>/Integrator'
+  real_T Filter_CSTATE_d;              // '<S137>/Filter'
 };
 
 // State derivatives (default storage)
 struct XDot_ghost_mode_T {
-  real_T Integrator_CSTATE;            // '<S39>/Integrator'
-  real_T Filter_CSTATE;                // '<S34>/Filter'
+  real_T Integrator_CSTATE;            // '<S42>/Integrator'
+  real_T Filter_CSTATE;                // '<S37>/Filter'
+  real_T Integrator_CSTATE_i;          // '<S92>/Integrator'
+  real_T Filter_CSTATE_f;              // '<S87>/Filter'
+  real_T Integrator_CSTATE_f;          // '<S142>/Integrator'
+  real_T Filter_CSTATE_d;              // '<S137>/Filter'
 };
 
 // State disabled
 struct XDis_ghost_mode_T {
-  boolean_T Integrator_CSTATE;         // '<S39>/Integrator'
-  boolean_T Filter_CSTATE;             // '<S34>/Filter'
+  boolean_T Integrator_CSTATE;         // '<S42>/Integrator'
+  boolean_T Filter_CSTATE;             // '<S37>/Filter'
+  boolean_T Integrator_CSTATE_i;       // '<S92>/Integrator'
+  boolean_T Filter_CSTATE_f;           // '<S87>/Filter'
+  boolean_T Integrator_CSTATE_f;       // '<S142>/Integrator'
+  boolean_T Filter_CSTATE_d;           // '<S137>/Filter'
 };
 
 #ifndef ODE3_INTG
@@ -200,54 +227,123 @@ struct ODE3_IntgData {
 // Parameters (default storage)
 struct P_ghost_mode_T_ {
   real_T PIDJMS0628_D;                 // Mask Parameter: PIDJMS0628_D
-                                          //  Referenced by: '<S33>/Derivative Gain'
+                                          //  Referenced by: '<S36>/Derivative Gain'
+
+  real_T PIDJMS1_D;                    // Mask Parameter: PIDJMS1_D
+                                          //  Referenced by: '<S86>/Derivative Gain'
+
+  real_T PIDJMS0628_D_e;               // Mask Parameter: PIDJMS0628_D_e
+                                          //  Referenced by: '<S136>/Derivative Gain'
+
+  real_T PIDJMS1_I;                    // Mask Parameter: PIDJMS1_I
+                                          //  Referenced by: '<S89>/Integral Gain'
 
   real_T PIDJMS0628_I;                 // Mask Parameter: PIDJMS0628_I
-                                          //  Referenced by: '<S36>/Integral Gain'
+                                          //  Referenced by: '<S39>/Integral Gain'
+
+  real_T PIDJMS0628_I_m;               // Mask Parameter: PIDJMS0628_I_m
+                                          //  Referenced by: '<S139>/Integral Gain'
 
   real_T PIDJMS0628_InitialConditionForF;
                               // Mask Parameter: PIDJMS0628_InitialConditionForF
-                                 //  Referenced by: '<S34>/Filter'
+                                 //  Referenced by: '<S37>/Filter'
+
+  real_T PIDJMS1_InitialConditionForFilt;
+                              // Mask Parameter: PIDJMS1_InitialConditionForFilt
+                                 //  Referenced by: '<S87>/Filter'
+
+  real_T PIDJMS0628_InitialConditionFo_d;
+                              // Mask Parameter: PIDJMS0628_InitialConditionFo_d
+                                 //  Referenced by: '<S137>/Filter'
 
   real_T PIDJMS0628_InitialConditionForI;
                               // Mask Parameter: PIDJMS0628_InitialConditionForI
-                                 //  Referenced by: '<S39>/Integrator'
+                                 //  Referenced by: '<S42>/Integrator'
+
+  real_T PIDJMS1_InitialConditionForInte;
+                              // Mask Parameter: PIDJMS1_InitialConditionForInte
+                                 //  Referenced by: '<S92>/Integrator'
+
+  real_T PIDJMS0628_InitialConditionFo_l;
+                              // Mask Parameter: PIDJMS0628_InitialConditionFo_l
+                                 //  Referenced by: '<S142>/Integrator'
 
   real_T PIDJMS0628_LowerSaturationLimit;
                               // Mask Parameter: PIDJMS0628_LowerSaturationLimit
                                  //  Referenced by:
-                                 //    '<S46>/Saturation'
-                                 //    '<S32>/DeadZone'
+                                 //    '<S49>/Saturation'
+                                 //    '<S35>/DeadZone'
+
+  real_T PIDJMS1_LowerSaturationLimit;
+                                 // Mask Parameter: PIDJMS1_LowerSaturationLimit
+                                    //  Referenced by:
+                                    //    '<S99>/Saturation'
+                                    //    '<S85>/DeadZone'
+
+  real_T PIDJMS0628_LowerSaturationLim_l;
+                              // Mask Parameter: PIDJMS0628_LowerSaturationLim_l
+                                 //  Referenced by: '<S135>/DeadZone'
 
   real_T PIDJMS0628_N;                 // Mask Parameter: PIDJMS0628_N
-                                          //  Referenced by: '<S42>/Filter Coefficient'
+                                          //  Referenced by: '<S45>/Filter Coefficient'
+
+  real_T PIDJMS1_N;                    // Mask Parameter: PIDJMS1_N
+                                          //  Referenced by: '<S95>/Filter Coefficient'
+
+  real_T PIDJMS0628_N_f;               // Mask Parameter: PIDJMS0628_N_f
+                                          //  Referenced by: '<S145>/Filter Coefficient'
 
   real_T PIDJMS0628_P;                 // Mask Parameter: PIDJMS0628_P
-                                          //  Referenced by: '<S44>/Proportional Gain'
+                                          //  Referenced by: '<S47>/Proportional Gain'
+
+  real_T PIDJMS1_P;                    // Mask Parameter: PIDJMS1_P
+                                          //  Referenced by: '<S97>/Proportional Gain'
+
+  real_T PIDJMS0628_P_a;               // Mask Parameter: PIDJMS0628_P_a
+                                          //  Referenced by: '<S147>/Proportional Gain'
 
   real_T PIDJMS0628_UpperSaturationLimit;
                               // Mask Parameter: PIDJMS0628_UpperSaturationLimit
                                  //  Referenced by:
-                                 //    '<S46>/Saturation'
-                                 //    '<S32>/DeadZone'
+                                 //    '<S49>/Saturation'
+                                 //    '<S35>/DeadZone'
+
+  real_T PIDJMS1_UpperSaturationLimit;
+                                 // Mask Parameter: PIDJMS1_UpperSaturationLimit
+                                    //  Referenced by:
+                                    //    '<S99>/Saturation'
+                                    //    '<S85>/DeadZone'
+
+  real_T PIDJMS0628_UpperSaturationLim_p;
+                              // Mask Parameter: PIDJMS0628_UpperSaturationLim_p
+                                 //  Referenced by: '<S135>/DeadZone'
 
   SL_Bus_ghost_mode_geometry_msgs_TwistStamped Out1_Y0;// Computed Parameter: Out1_Y0
-                                                          //  Referenced by: '<S56>/Out1'
+                                                          //  Referenced by: '<S159>/Out1'
 
   SL_Bus_ghost_mode_geometry_msgs_TwistStamped Constant_Value;// Computed Parameter: Constant_Value
-                                                                 //  Referenced by: '<S4>/Constant'
+                                                                 //  Referenced by: '<S5>/Constant'
 
   SL_Bus_ghost_mode_geometry_msgs_TwistStamped Out1_Y0_h;// Computed Parameter: Out1_Y0_h
-                                                            //  Referenced by: '<S57>/Out1'
+                                                            //  Referenced by: '<S160>/Out1'
 
   SL_Bus_ghost_mode_geometry_msgs_TwistStamped Constant_Value_j;// Computed Parameter: Constant_Value_j
-                                                                   //  Referenced by: '<S5>/Constant'
+                                                                   //  Referenced by: '<S6>/Constant'
 
   SL_Bus_ghost_mode_std_msgs_Float64 Constant_Value_d;// Computed Parameter: Constant_Value_d
                                                          //  Referenced by: '<S1>/Constant'
 
   real_T Constant1_Value;              // Expression: 0
-                                          //  Referenced by: '<S30>/Constant1'
+                                          //  Referenced by: '<S33>/Constant1'
+
+  real_T Constant1_Value_a;            // Expression: 0
+                                          //  Referenced by: '<S83>/Constant1'
+
+  real_T Constant1_Value_p;            // Expression: 0
+                                          //  Referenced by: '<S133>/Constant1'
+
+  real_T Switch_Threshold;             // Expression: -0.25
+                                          //  Referenced by: '<S2>/Switch'
 
   real_T Saturation_UpperSat;          // Expression: 1.5
                                           //  Referenced by: '<Root>/Saturation'
@@ -256,11 +352,25 @@ struct P_ghost_mode_T_ {
                                           //  Referenced by: '<Root>/Saturation'
 
   real_T ZeroGain_Gain;                // Expression: 0
-                                          //  Referenced by: '<S30>/ZeroGain'
+                                          //  Referenced by: '<S83>/ZeroGain'
+
+  real_T ZeroGain_Gain_l;              // Expression: 0
+                                          //  Referenced by: '<S33>/ZeroGain'
+
+  real_T ZeroGain_Gain_j;              // Expression: 0
+                                          //  Referenced by: '<S133>/ZeroGain'
 
   boolean_T Memory_InitialCondition;
                                   // Computed Parameter: Memory_InitialCondition
-                                     //  Referenced by: '<S30>/Memory'
+                                     //  Referenced by: '<S83>/Memory'
+
+  boolean_T Memory_InitialCondition_g;
+                                // Computed Parameter: Memory_InitialCondition_g
+                                   //  Referenced by: '<S33>/Memory'
+
+  boolean_T Memory_InitialCondition_p;
+                                // Computed Parameter: Memory_InitialCondition_p
+                                   //  Referenced by: '<S133>/Memory'
 
 };
 
@@ -276,8 +386,8 @@ struct tag_RTM_ghost_mode_T {
   boolean_T zCCacheNeedsReset;
   boolean_T derivCacheNeedsReset;
   boolean_T CTOutputIncnstWithState;
-  real_T odeY[2];
-  real_T odeF[3][2];
+  real_T odeY[6];
+  real_T odeF[3][6];
   ODE3_IntgData intgData;
 
   //
@@ -373,6 +483,12 @@ extern "C" {
 #endif
 
 //-
+//  These blocks were eliminated from the model due to optimizations:
+//
+//  Block '<S149>/Saturation' : Unused code path elimination
+
+
+//-
 //  The generated code includes comments that allow you to trace directly
 //  back to the appropriate location in the model.  The basic format
 //  is <system>/block_name, where system is the system number (uniquely
@@ -388,62 +504,165 @@ extern "C" {
 //
 //  '<Root>' : 'ghost_mode'
 //  '<S1>'   : 'ghost_mode/Blank Message'
-//  '<S2>'   : 'ghost_mode/PID JMS 0628'
-//  '<S3>'   : 'ghost_mode/Publish'
-//  '<S4>'   : 'ghost_mode/Subscribe'
-//  '<S5>'   : 'ghost_mode/Subscribe1'
-//  '<S6>'   : 'ghost_mode/PID JMS 0628/Anti-windup'
-//  '<S7>'   : 'ghost_mode/PID JMS 0628/D Gain'
-//  '<S8>'   : 'ghost_mode/PID JMS 0628/Filter'
-//  '<S9>'   : 'ghost_mode/PID JMS 0628/Filter ICs'
-//  '<S10>'  : 'ghost_mode/PID JMS 0628/I Gain'
-//  '<S11>'  : 'ghost_mode/PID JMS 0628/Ideal P Gain'
-//  '<S12>'  : 'ghost_mode/PID JMS 0628/Ideal P Gain Fdbk'
-//  '<S13>'  : 'ghost_mode/PID JMS 0628/Integrator'
-//  '<S14>'  : 'ghost_mode/PID JMS 0628/Integrator ICs'
-//  '<S15>'  : 'ghost_mode/PID JMS 0628/N Copy'
-//  '<S16>'  : 'ghost_mode/PID JMS 0628/N Gain'
-//  '<S17>'  : 'ghost_mode/PID JMS 0628/P Copy'
-//  '<S18>'  : 'ghost_mode/PID JMS 0628/Parallel P Gain'
-//  '<S19>'  : 'ghost_mode/PID JMS 0628/Reset Signal'
-//  '<S20>'  : 'ghost_mode/PID JMS 0628/Saturation'
-//  '<S21>'  : 'ghost_mode/PID JMS 0628/Saturation Fdbk'
-//  '<S22>'  : 'ghost_mode/PID JMS 0628/Sum'
-//  '<S23>'  : 'ghost_mode/PID JMS 0628/Sum Fdbk'
-//  '<S24>'  : 'ghost_mode/PID JMS 0628/Tracking Mode'
-//  '<S25>'  : 'ghost_mode/PID JMS 0628/Tracking Mode Sum'
-//  '<S26>'  : 'ghost_mode/PID JMS 0628/Tsamp - Integral'
-//  '<S27>'  : 'ghost_mode/PID JMS 0628/Tsamp - Ngain'
-//  '<S28>'  : 'ghost_mode/PID JMS 0628/postSat Signal'
-//  '<S29>'  : 'ghost_mode/PID JMS 0628/preSat Signal'
-//  '<S30>'  : 'ghost_mode/PID JMS 0628/Anti-windup/Cont. Clamping Parallel'
-//  '<S31>'  : 'ghost_mode/PID JMS 0628/Anti-windup/Cont. Clamping Parallel/Dead Zone'
-//  '<S32>'  : 'ghost_mode/PID JMS 0628/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
-//  '<S33>'  : 'ghost_mode/PID JMS 0628/D Gain/Internal Parameters'
-//  '<S34>'  : 'ghost_mode/PID JMS 0628/Filter/Cont. Filter'
-//  '<S35>'  : 'ghost_mode/PID JMS 0628/Filter ICs/Internal IC - Filter'
-//  '<S36>'  : 'ghost_mode/PID JMS 0628/I Gain/Internal Parameters'
-//  '<S37>'  : 'ghost_mode/PID JMS 0628/Ideal P Gain/Passthrough'
-//  '<S38>'  : 'ghost_mode/PID JMS 0628/Ideal P Gain Fdbk/Disabled'
-//  '<S39>'  : 'ghost_mode/PID JMS 0628/Integrator/Continuous'
-//  '<S40>'  : 'ghost_mode/PID JMS 0628/Integrator ICs/Internal IC'
-//  '<S41>'  : 'ghost_mode/PID JMS 0628/N Copy/Disabled'
-//  '<S42>'  : 'ghost_mode/PID JMS 0628/N Gain/Internal Parameters'
-//  '<S43>'  : 'ghost_mode/PID JMS 0628/P Copy/Disabled'
-//  '<S44>'  : 'ghost_mode/PID JMS 0628/Parallel P Gain/Internal Parameters'
-//  '<S45>'  : 'ghost_mode/PID JMS 0628/Reset Signal/Disabled'
-//  '<S46>'  : 'ghost_mode/PID JMS 0628/Saturation/Enabled'
-//  '<S47>'  : 'ghost_mode/PID JMS 0628/Saturation Fdbk/Disabled'
-//  '<S48>'  : 'ghost_mode/PID JMS 0628/Sum/Sum_PID'
-//  '<S49>'  : 'ghost_mode/PID JMS 0628/Sum Fdbk/Disabled'
-//  '<S50>'  : 'ghost_mode/PID JMS 0628/Tracking Mode/Disabled'
-//  '<S51>'  : 'ghost_mode/PID JMS 0628/Tracking Mode Sum/Passthrough'
-//  '<S52>'  : 'ghost_mode/PID JMS 0628/Tsamp - Integral/Passthrough'
-//  '<S53>'  : 'ghost_mode/PID JMS 0628/Tsamp - Ngain/Passthrough'
-//  '<S54>'  : 'ghost_mode/PID JMS 0628/postSat Signal/Forward_Path'
-//  '<S55>'  : 'ghost_mode/PID JMS 0628/preSat Signal/Forward_Path'
-//  '<S56>'  : 'ghost_mode/Subscribe/Enabled Subsystem'
-//  '<S57>'  : 'ghost_mode/Subscribe1/Enabled Subsystem'
+//  '<S2>'   : 'ghost_mode/Controller1'
+//  '<S3>'   : 'ghost_mode/PID JMS 0628'
+//  '<S4>'   : 'ghost_mode/Publish'
+//  '<S5>'   : 'ghost_mode/Subscribe'
+//  '<S6>'   : 'ghost_mode/Subscribe1'
+//  '<S7>'   : 'ghost_mode/Controller1/PID JMS 0628'
+//  '<S8>'   : 'ghost_mode/Controller1/PID JMS 1'
+//  '<S9>'   : 'ghost_mode/Controller1/PID JMS 0628/Anti-windup'
+//  '<S10>'  : 'ghost_mode/Controller1/PID JMS 0628/D Gain'
+//  '<S11>'  : 'ghost_mode/Controller1/PID JMS 0628/Filter'
+//  '<S12>'  : 'ghost_mode/Controller1/PID JMS 0628/Filter ICs'
+//  '<S13>'  : 'ghost_mode/Controller1/PID JMS 0628/I Gain'
+//  '<S14>'  : 'ghost_mode/Controller1/PID JMS 0628/Ideal P Gain'
+//  '<S15>'  : 'ghost_mode/Controller1/PID JMS 0628/Ideal P Gain Fdbk'
+//  '<S16>'  : 'ghost_mode/Controller1/PID JMS 0628/Integrator'
+//  '<S17>'  : 'ghost_mode/Controller1/PID JMS 0628/Integrator ICs'
+//  '<S18>'  : 'ghost_mode/Controller1/PID JMS 0628/N Copy'
+//  '<S19>'  : 'ghost_mode/Controller1/PID JMS 0628/N Gain'
+//  '<S20>'  : 'ghost_mode/Controller1/PID JMS 0628/P Copy'
+//  '<S21>'  : 'ghost_mode/Controller1/PID JMS 0628/Parallel P Gain'
+//  '<S22>'  : 'ghost_mode/Controller1/PID JMS 0628/Reset Signal'
+//  '<S23>'  : 'ghost_mode/Controller1/PID JMS 0628/Saturation'
+//  '<S24>'  : 'ghost_mode/Controller1/PID JMS 0628/Saturation Fdbk'
+//  '<S25>'  : 'ghost_mode/Controller1/PID JMS 0628/Sum'
+//  '<S26>'  : 'ghost_mode/Controller1/PID JMS 0628/Sum Fdbk'
+//  '<S27>'  : 'ghost_mode/Controller1/PID JMS 0628/Tracking Mode'
+//  '<S28>'  : 'ghost_mode/Controller1/PID JMS 0628/Tracking Mode Sum'
+//  '<S29>'  : 'ghost_mode/Controller1/PID JMS 0628/Tsamp - Integral'
+//  '<S30>'  : 'ghost_mode/Controller1/PID JMS 0628/Tsamp - Ngain'
+//  '<S31>'  : 'ghost_mode/Controller1/PID JMS 0628/postSat Signal'
+//  '<S32>'  : 'ghost_mode/Controller1/PID JMS 0628/preSat Signal'
+//  '<S33>'  : 'ghost_mode/Controller1/PID JMS 0628/Anti-windup/Cont. Clamping Parallel'
+//  '<S34>'  : 'ghost_mode/Controller1/PID JMS 0628/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+//  '<S35>'  : 'ghost_mode/Controller1/PID JMS 0628/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+//  '<S36>'  : 'ghost_mode/Controller1/PID JMS 0628/D Gain/Internal Parameters'
+//  '<S37>'  : 'ghost_mode/Controller1/PID JMS 0628/Filter/Cont. Filter'
+//  '<S38>'  : 'ghost_mode/Controller1/PID JMS 0628/Filter ICs/Internal IC - Filter'
+//  '<S39>'  : 'ghost_mode/Controller1/PID JMS 0628/I Gain/Internal Parameters'
+//  '<S40>'  : 'ghost_mode/Controller1/PID JMS 0628/Ideal P Gain/Passthrough'
+//  '<S41>'  : 'ghost_mode/Controller1/PID JMS 0628/Ideal P Gain Fdbk/Disabled'
+//  '<S42>'  : 'ghost_mode/Controller1/PID JMS 0628/Integrator/Continuous'
+//  '<S43>'  : 'ghost_mode/Controller1/PID JMS 0628/Integrator ICs/Internal IC'
+//  '<S44>'  : 'ghost_mode/Controller1/PID JMS 0628/N Copy/Disabled'
+//  '<S45>'  : 'ghost_mode/Controller1/PID JMS 0628/N Gain/Internal Parameters'
+//  '<S46>'  : 'ghost_mode/Controller1/PID JMS 0628/P Copy/Disabled'
+//  '<S47>'  : 'ghost_mode/Controller1/PID JMS 0628/Parallel P Gain/Internal Parameters'
+//  '<S48>'  : 'ghost_mode/Controller1/PID JMS 0628/Reset Signal/Disabled'
+//  '<S49>'  : 'ghost_mode/Controller1/PID JMS 0628/Saturation/Enabled'
+//  '<S50>'  : 'ghost_mode/Controller1/PID JMS 0628/Saturation Fdbk/Disabled'
+//  '<S51>'  : 'ghost_mode/Controller1/PID JMS 0628/Sum/Sum_PID'
+//  '<S52>'  : 'ghost_mode/Controller1/PID JMS 0628/Sum Fdbk/Disabled'
+//  '<S53>'  : 'ghost_mode/Controller1/PID JMS 0628/Tracking Mode/Disabled'
+//  '<S54>'  : 'ghost_mode/Controller1/PID JMS 0628/Tracking Mode Sum/Passthrough'
+//  '<S55>'  : 'ghost_mode/Controller1/PID JMS 0628/Tsamp - Integral/Passthrough'
+//  '<S56>'  : 'ghost_mode/Controller1/PID JMS 0628/Tsamp - Ngain/Passthrough'
+//  '<S57>'  : 'ghost_mode/Controller1/PID JMS 0628/postSat Signal/Forward_Path'
+//  '<S58>'  : 'ghost_mode/Controller1/PID JMS 0628/preSat Signal/Forward_Path'
+//  '<S59>'  : 'ghost_mode/Controller1/PID JMS 1/Anti-windup'
+//  '<S60>'  : 'ghost_mode/Controller1/PID JMS 1/D Gain'
+//  '<S61>'  : 'ghost_mode/Controller1/PID JMS 1/Filter'
+//  '<S62>'  : 'ghost_mode/Controller1/PID JMS 1/Filter ICs'
+//  '<S63>'  : 'ghost_mode/Controller1/PID JMS 1/I Gain'
+//  '<S64>'  : 'ghost_mode/Controller1/PID JMS 1/Ideal P Gain'
+//  '<S65>'  : 'ghost_mode/Controller1/PID JMS 1/Ideal P Gain Fdbk'
+//  '<S66>'  : 'ghost_mode/Controller1/PID JMS 1/Integrator'
+//  '<S67>'  : 'ghost_mode/Controller1/PID JMS 1/Integrator ICs'
+//  '<S68>'  : 'ghost_mode/Controller1/PID JMS 1/N Copy'
+//  '<S69>'  : 'ghost_mode/Controller1/PID JMS 1/N Gain'
+//  '<S70>'  : 'ghost_mode/Controller1/PID JMS 1/P Copy'
+//  '<S71>'  : 'ghost_mode/Controller1/PID JMS 1/Parallel P Gain'
+//  '<S72>'  : 'ghost_mode/Controller1/PID JMS 1/Reset Signal'
+//  '<S73>'  : 'ghost_mode/Controller1/PID JMS 1/Saturation'
+//  '<S74>'  : 'ghost_mode/Controller1/PID JMS 1/Saturation Fdbk'
+//  '<S75>'  : 'ghost_mode/Controller1/PID JMS 1/Sum'
+//  '<S76>'  : 'ghost_mode/Controller1/PID JMS 1/Sum Fdbk'
+//  '<S77>'  : 'ghost_mode/Controller1/PID JMS 1/Tracking Mode'
+//  '<S78>'  : 'ghost_mode/Controller1/PID JMS 1/Tracking Mode Sum'
+//  '<S79>'  : 'ghost_mode/Controller1/PID JMS 1/Tsamp - Integral'
+//  '<S80>'  : 'ghost_mode/Controller1/PID JMS 1/Tsamp - Ngain'
+//  '<S81>'  : 'ghost_mode/Controller1/PID JMS 1/postSat Signal'
+//  '<S82>'  : 'ghost_mode/Controller1/PID JMS 1/preSat Signal'
+//  '<S83>'  : 'ghost_mode/Controller1/PID JMS 1/Anti-windup/Cont. Clamping Parallel'
+//  '<S84>'  : 'ghost_mode/Controller1/PID JMS 1/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+//  '<S85>'  : 'ghost_mode/Controller1/PID JMS 1/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+//  '<S86>'  : 'ghost_mode/Controller1/PID JMS 1/D Gain/Internal Parameters'
+//  '<S87>'  : 'ghost_mode/Controller1/PID JMS 1/Filter/Cont. Filter'
+//  '<S88>'  : 'ghost_mode/Controller1/PID JMS 1/Filter ICs/Internal IC - Filter'
+//  '<S89>'  : 'ghost_mode/Controller1/PID JMS 1/I Gain/Internal Parameters'
+//  '<S90>'  : 'ghost_mode/Controller1/PID JMS 1/Ideal P Gain/Passthrough'
+//  '<S91>'  : 'ghost_mode/Controller1/PID JMS 1/Ideal P Gain Fdbk/Disabled'
+//  '<S92>'  : 'ghost_mode/Controller1/PID JMS 1/Integrator/Continuous'
+//  '<S93>'  : 'ghost_mode/Controller1/PID JMS 1/Integrator ICs/Internal IC'
+//  '<S94>'  : 'ghost_mode/Controller1/PID JMS 1/N Copy/Disabled'
+//  '<S95>'  : 'ghost_mode/Controller1/PID JMS 1/N Gain/Internal Parameters'
+//  '<S96>'  : 'ghost_mode/Controller1/PID JMS 1/P Copy/Disabled'
+//  '<S97>'  : 'ghost_mode/Controller1/PID JMS 1/Parallel P Gain/Internal Parameters'
+//  '<S98>'  : 'ghost_mode/Controller1/PID JMS 1/Reset Signal/Disabled'
+//  '<S99>'  : 'ghost_mode/Controller1/PID JMS 1/Saturation/Enabled'
+//  '<S100>' : 'ghost_mode/Controller1/PID JMS 1/Saturation Fdbk/Disabled'
+//  '<S101>' : 'ghost_mode/Controller1/PID JMS 1/Sum/Sum_PID'
+//  '<S102>' : 'ghost_mode/Controller1/PID JMS 1/Sum Fdbk/Disabled'
+//  '<S103>' : 'ghost_mode/Controller1/PID JMS 1/Tracking Mode/Disabled'
+//  '<S104>' : 'ghost_mode/Controller1/PID JMS 1/Tracking Mode Sum/Passthrough'
+//  '<S105>' : 'ghost_mode/Controller1/PID JMS 1/Tsamp - Integral/Passthrough'
+//  '<S106>' : 'ghost_mode/Controller1/PID JMS 1/Tsamp - Ngain/Passthrough'
+//  '<S107>' : 'ghost_mode/Controller1/PID JMS 1/postSat Signal/Forward_Path'
+//  '<S108>' : 'ghost_mode/Controller1/PID JMS 1/preSat Signal/Forward_Path'
+//  '<S109>' : 'ghost_mode/PID JMS 0628/Anti-windup'
+//  '<S110>' : 'ghost_mode/PID JMS 0628/D Gain'
+//  '<S111>' : 'ghost_mode/PID JMS 0628/Filter'
+//  '<S112>' : 'ghost_mode/PID JMS 0628/Filter ICs'
+//  '<S113>' : 'ghost_mode/PID JMS 0628/I Gain'
+//  '<S114>' : 'ghost_mode/PID JMS 0628/Ideal P Gain'
+//  '<S115>' : 'ghost_mode/PID JMS 0628/Ideal P Gain Fdbk'
+//  '<S116>' : 'ghost_mode/PID JMS 0628/Integrator'
+//  '<S117>' : 'ghost_mode/PID JMS 0628/Integrator ICs'
+//  '<S118>' : 'ghost_mode/PID JMS 0628/N Copy'
+//  '<S119>' : 'ghost_mode/PID JMS 0628/N Gain'
+//  '<S120>' : 'ghost_mode/PID JMS 0628/P Copy'
+//  '<S121>' : 'ghost_mode/PID JMS 0628/Parallel P Gain'
+//  '<S122>' : 'ghost_mode/PID JMS 0628/Reset Signal'
+//  '<S123>' : 'ghost_mode/PID JMS 0628/Saturation'
+//  '<S124>' : 'ghost_mode/PID JMS 0628/Saturation Fdbk'
+//  '<S125>' : 'ghost_mode/PID JMS 0628/Sum'
+//  '<S126>' : 'ghost_mode/PID JMS 0628/Sum Fdbk'
+//  '<S127>' : 'ghost_mode/PID JMS 0628/Tracking Mode'
+//  '<S128>' : 'ghost_mode/PID JMS 0628/Tracking Mode Sum'
+//  '<S129>' : 'ghost_mode/PID JMS 0628/Tsamp - Integral'
+//  '<S130>' : 'ghost_mode/PID JMS 0628/Tsamp - Ngain'
+//  '<S131>' : 'ghost_mode/PID JMS 0628/postSat Signal'
+//  '<S132>' : 'ghost_mode/PID JMS 0628/preSat Signal'
+//  '<S133>' : 'ghost_mode/PID JMS 0628/Anti-windup/Cont. Clamping Parallel'
+//  '<S134>' : 'ghost_mode/PID JMS 0628/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+//  '<S135>' : 'ghost_mode/PID JMS 0628/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+//  '<S136>' : 'ghost_mode/PID JMS 0628/D Gain/Internal Parameters'
+//  '<S137>' : 'ghost_mode/PID JMS 0628/Filter/Cont. Filter'
+//  '<S138>' : 'ghost_mode/PID JMS 0628/Filter ICs/Internal IC - Filter'
+//  '<S139>' : 'ghost_mode/PID JMS 0628/I Gain/Internal Parameters'
+//  '<S140>' : 'ghost_mode/PID JMS 0628/Ideal P Gain/Passthrough'
+//  '<S141>' : 'ghost_mode/PID JMS 0628/Ideal P Gain Fdbk/Disabled'
+//  '<S142>' : 'ghost_mode/PID JMS 0628/Integrator/Continuous'
+//  '<S143>' : 'ghost_mode/PID JMS 0628/Integrator ICs/Internal IC'
+//  '<S144>' : 'ghost_mode/PID JMS 0628/N Copy/Disabled'
+//  '<S145>' : 'ghost_mode/PID JMS 0628/N Gain/Internal Parameters'
+//  '<S146>' : 'ghost_mode/PID JMS 0628/P Copy/Disabled'
+//  '<S147>' : 'ghost_mode/PID JMS 0628/Parallel P Gain/Internal Parameters'
+//  '<S148>' : 'ghost_mode/PID JMS 0628/Reset Signal/Disabled'
+//  '<S149>' : 'ghost_mode/PID JMS 0628/Saturation/Enabled'
+//  '<S150>' : 'ghost_mode/PID JMS 0628/Saturation Fdbk/Disabled'
+//  '<S151>' : 'ghost_mode/PID JMS 0628/Sum/Sum_PID'
+//  '<S152>' : 'ghost_mode/PID JMS 0628/Sum Fdbk/Disabled'
+//  '<S153>' : 'ghost_mode/PID JMS 0628/Tracking Mode/Disabled'
+//  '<S154>' : 'ghost_mode/PID JMS 0628/Tracking Mode Sum/Passthrough'
+//  '<S155>' : 'ghost_mode/PID JMS 0628/Tsamp - Integral/Passthrough'
+//  '<S156>' : 'ghost_mode/PID JMS 0628/Tsamp - Ngain/Passthrough'
+//  '<S157>' : 'ghost_mode/PID JMS 0628/postSat Signal/Forward_Path'
+//  '<S158>' : 'ghost_mode/PID JMS 0628/preSat Signal/Forward_Path'
+//  '<S159>' : 'ghost_mode/Subscribe/Enabled Subsystem'
+//  '<S160>' : 'ghost_mode/Subscribe1/Enabled Subsystem'
 
 #endif                                 // RTW_HEADER_ghost_mode_h_
 
