@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.31
+// Model version                  : 1.32
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 07:44:34 2021
+// C/C++ source code generated on : Mon Jun 28 10:16:20 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -136,76 +136,76 @@ void ghost_mode_step(void)
 
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
     // Outputs for Atomic SubSystem: '<Root>/Subscribe1'
-    // MATLABSystem: '<S4>/SourceBlock' incorporates:
-    //   Inport: '<S7>/In1'
+    // MATLABSystem: '<S5>/SourceBlock' incorporates:
+    //   Inport: '<S57>/In1'
 
     b_varargout_1 = Sub_ghost_mode_31.getLatestMessage
       (&ghost_mode_B.b_varargout_2);
 
-    // Outputs for Enabled SubSystem: '<S4>/Enabled Subsystem' incorporates:
-    //   EnablePort: '<S7>/Enable'
+    // Outputs for Enabled SubSystem: '<S5>/Enabled Subsystem' incorporates:
+    //   EnablePort: '<S57>/Enable'
 
     if (b_varargout_1) {
       ghost_mode_B.In1 = ghost_mode_B.b_varargout_2;
     }
 
-    // End of MATLABSystem: '<S4>/SourceBlock'
-    // End of Outputs for SubSystem: '<S4>/Enabled Subsystem'
+    // End of MATLABSystem: '<S5>/SourceBlock'
+    // End of Outputs for SubSystem: '<S5>/Enabled Subsystem'
     // End of Outputs for SubSystem: '<Root>/Subscribe1'
 
     // Outputs for Atomic SubSystem: '<Root>/Subscribe'
-    // MATLABSystem: '<S3>/SourceBlock' incorporates:
-    //   Inport: '<S6>/In1'
+    // MATLABSystem: '<S4>/SourceBlock' incorporates:
+    //   Inport: '<S56>/In1'
 
     b_varargout_1 = Sub_ghost_mode_10.getLatestMessage
       (&ghost_mode_B.b_varargout_2);
 
-    // Outputs for Enabled SubSystem: '<S3>/Enabled Subsystem' incorporates:
-    //   EnablePort: '<S6>/Enable'
+    // Outputs for Enabled SubSystem: '<S4>/Enabled Subsystem' incorporates:
+    //   EnablePort: '<S56>/Enable'
 
     if (b_varargout_1) {
       ghost_mode_B.In1_d = ghost_mode_B.b_varargout_2;
     }
 
-    // End of MATLABSystem: '<S3>/SourceBlock'
-    // End of Outputs for SubSystem: '<S3>/Enabled Subsystem'
+    // End of MATLABSystem: '<S4>/SourceBlock'
+    // End of Outputs for SubSystem: '<S4>/Enabled Subsystem'
     // End of Outputs for SubSystem: '<Root>/Subscribe'
 
     // Sum: '<Root>/Sum'
     rtb_IntegralGain = ghost_mode_B.In1.Twist.Linear.X -
       ghost_mode_B.In1_d.Twist.Linear.X;
 
-    // Gain: '<S46>/Proportional Gain'
-    ghost_mode_B.ProportionalGain = ghost_mode_P.TunedPIDv2_P * rtb_IntegralGain;
+    // Gain: '<S44>/Proportional Gain'
+    ghost_mode_B.ProportionalGain = ghost_mode_P.PIDJMS0628_P * rtb_IntegralGain;
 
-    // Gain: '<S35>/Derivative Gain'
-    ghost_mode_B.DerivativeGain = ghost_mode_P.TunedPIDv2_D * rtb_IntegralGain;
+    // Gain: '<S33>/Derivative Gain'
+    ghost_mode_B.DerivativeGain = ghost_mode_P.PIDJMS0628_D * rtb_IntegralGain;
   }
 
-  // Gain: '<S44>/Filter Coefficient' incorporates:
-  //   Integrator: '<S36>/Filter'
-  //   Sum: '<S36>/SumD'
+  // Gain: '<S42>/Filter Coefficient' incorporates:
+  //   Integrator: '<S34>/Filter'
+  //   Sum: '<S34>/SumD'
 
   ghost_mode_B.FilterCoefficient = (ghost_mode_B.DerivativeGain -
-    ghost_mode_X.Filter_CSTATE) * ghost_mode_P.TunedPIDv2_N;
+    ghost_mode_X.Filter_CSTATE) * ghost_mode_P.PIDJMS0628_N;
 
-  // Sum: '<S50>/Sum' incorporates:
-  //   Integrator: '<S41>/Integrator'
+  // Sum: '<S48>/Sum' incorporates:
+  //   Integrator: '<S39>/Integrator'
 
   rtb_SignPreSat = (ghost_mode_B.ProportionalGain +
                     ghost_mode_X.Integrator_CSTATE) +
     ghost_mode_B.FilterCoefficient;
 
-  // Saturate: '<S48>/Saturation'
-  if (rtb_SignPreSat > ghost_mode_P.TunedPIDv2_UpperSaturationLimit) {
-    rtb_ZeroGain = ghost_mode_P.TunedPIDv2_UpperSaturationLimit;
-  } else if (rtb_SignPreSat < ghost_mode_P.TunedPIDv2_LowerSaturationLimit) {
-    rtb_ZeroGain = ghost_mode_P.TunedPIDv2_LowerSaturationLimit;
+  // Saturate: '<S46>/Saturation'
+  if (rtb_SignPreSat > ghost_mode_P.PIDJMS0628_UpperSaturationLimit) {
+    rtb_ZeroGain = ghost_mode_P.PIDJMS0628_UpperSaturationLimit;
+  } else if (rtb_SignPreSat < ghost_mode_P.PIDJMS0628_LowerSaturationLimit) {
+    rtb_ZeroGain = ghost_mode_P.PIDJMS0628_LowerSaturationLimit;
   } else {
     rtb_ZeroGain = rtb_SignPreSat;
   }
 
-  // End of Saturate: '<S48>/Saturation'
+  // End of Saturate: '<S46>/Saturation'
 
   // Saturate: '<Root>/Saturation'
   if (rtb_ZeroGain > ghost_mode_P.Saturation_UpperSat) {
@@ -222,112 +222,112 @@ void ghost_mode_step(void)
   // End of Saturate: '<Root>/Saturation'
 
   // Outputs for Atomic SubSystem: '<Root>/Publish'
-  // MATLABSystem: '<S2>/SinkBlock'
+  // MATLABSystem: '<S3>/SinkBlock'
   Pub_ghost_mode_3.publish(&rtb_BusAssignment);
 
   // End of Outputs for SubSystem: '<Root>/Publish'
 
-  // Gain: '<S32>/ZeroGain'
+  // Gain: '<S30>/ZeroGain'
   rtb_ZeroGain = ghost_mode_P.ZeroGain_Gain * rtb_SignPreSat;
 
-  // DeadZone: '<S34>/DeadZone'
-  if (rtb_SignPreSat > ghost_mode_P.TunedPIDv2_UpperSaturationLimit) {
-    rtb_SignPreSat -= ghost_mode_P.TunedPIDv2_UpperSaturationLimit;
-  } else if (rtb_SignPreSat >= ghost_mode_P.TunedPIDv2_LowerSaturationLimit) {
+  // DeadZone: '<S32>/DeadZone'
+  if (rtb_SignPreSat > ghost_mode_P.PIDJMS0628_UpperSaturationLimit) {
+    rtb_SignPreSat -= ghost_mode_P.PIDJMS0628_UpperSaturationLimit;
+  } else if (rtb_SignPreSat >= ghost_mode_P.PIDJMS0628_LowerSaturationLimit) {
     rtb_SignPreSat = 0.0;
   } else {
-    rtb_SignPreSat -= ghost_mode_P.TunedPIDv2_LowerSaturationLimit;
+    rtb_SignPreSat -= ghost_mode_P.PIDJMS0628_LowerSaturationLimit;
   }
 
-  // End of DeadZone: '<S34>/DeadZone'
+  // End of DeadZone: '<S32>/DeadZone'
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Gain: '<S38>/Integral Gain'
-    rtb_IntegralGain *= ghost_mode_P.TunedPIDv2_I;
+    // Gain: '<S36>/Integral Gain'
+    rtb_IntegralGain *= ghost_mode_P.PIDJMS0628_I;
 
-    // Signum: '<S32>/SignPreIntegrator'
+    // Signum: '<S30>/SignPreIntegrator'
     if (rtb_IntegralGain < 0.0) {
-      // DataTypeConversion: '<S32>/DataTypeConv2'
+      // DataTypeConversion: '<S30>/DataTypeConv2'
       tmp = -1.0;
     } else if (rtb_IntegralGain > 0.0) {
-      // DataTypeConversion: '<S32>/DataTypeConv2'
+      // DataTypeConversion: '<S30>/DataTypeConv2'
       tmp = 1.0;
     } else if (rtb_IntegralGain == 0.0) {
-      // DataTypeConversion: '<S32>/DataTypeConv2'
+      // DataTypeConversion: '<S30>/DataTypeConv2'
       tmp = 0.0;
     } else {
-      // DataTypeConversion: '<S32>/DataTypeConv2'
+      // DataTypeConversion: '<S30>/DataTypeConv2'
       tmp = (rtNaN);
     }
 
-    // End of Signum: '<S32>/SignPreIntegrator'
+    // End of Signum: '<S30>/SignPreIntegrator'
 
-    // DataTypeConversion: '<S32>/DataTypeConv2'
+    // DataTypeConversion: '<S30>/DataTypeConv2'
     if (rtIsNaN(tmp)) {
       tmp = 0.0;
     } else {
       tmp = fmod(tmp, 256.0);
     }
 
-    // DataTypeConversion: '<S32>/DataTypeConv2'
+    // DataTypeConversion: '<S30>/DataTypeConv2'
     ghost_mode_B.DataTypeConv2 = static_cast<int8_T>(tmp < 0.0 ?
       static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>(static_cast<
       uint8_T>(-tmp)))) : static_cast<int32_T>(static_cast<int8_T>
       (static_cast<uint8_T>(tmp))));
   }
 
-  // Signum: '<S32>/SignPreSat'
+  // Signum: '<S30>/SignPreSat'
   if (rtb_SignPreSat < 0.0) {
-    // DataTypeConversion: '<S32>/DataTypeConv1'
+    // DataTypeConversion: '<S30>/DataTypeConv1'
     tmp = -1.0;
   } else if (rtb_SignPreSat > 0.0) {
-    // DataTypeConversion: '<S32>/DataTypeConv1'
+    // DataTypeConversion: '<S30>/DataTypeConv1'
     tmp = 1.0;
   } else if (rtb_SignPreSat == 0.0) {
-    // DataTypeConversion: '<S32>/DataTypeConv1'
+    // DataTypeConversion: '<S30>/DataTypeConv1'
     tmp = 0.0;
   } else {
-    // DataTypeConversion: '<S32>/DataTypeConv1'
+    // DataTypeConversion: '<S30>/DataTypeConv1'
     tmp = (rtNaN);
   }
 
-  // End of Signum: '<S32>/SignPreSat'
+  // End of Signum: '<S30>/SignPreSat'
 
-  // DataTypeConversion: '<S32>/DataTypeConv1'
+  // DataTypeConversion: '<S30>/DataTypeConv1'
   if (rtIsNaN(tmp)) {
     tmp = 0.0;
   } else {
     tmp = fmod(tmp, 256.0);
   }
 
-  // Logic: '<S32>/AND3' incorporates:
-  //   DataTypeConversion: '<S32>/DataTypeConv1'
-  //   RelationalOperator: '<S32>/Equal1'
-  //   RelationalOperator: '<S32>/NotEqual'
+  // Logic: '<S30>/AND3' incorporates:
+  //   DataTypeConversion: '<S30>/DataTypeConv1'
+  //   RelationalOperator: '<S30>/Equal1'
+  //   RelationalOperator: '<S30>/NotEqual'
 
   ghost_mode_B.AND3 = ((rtb_ZeroGain != rtb_SignPreSat) && ((tmp < 0.0 ?
     static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>
     (static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(static_cast<int8_T>(
     static_cast<uint8_T>(tmp)))) == ghost_mode_B.DataTypeConv2));
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Switch: '<S32>/Switch' incorporates:
-    //   Memory: '<S32>/Memory'
+    // Switch: '<S30>/Switch' incorporates:
+    //   Memory: '<S30>/Memory'
 
     if (ghost_mode_DW.Memory_PreviousInput) {
-      // Switch: '<S32>/Switch' incorporates:
-      //   Constant: '<S32>/Constant1'
+      // Switch: '<S30>/Switch' incorporates:
+      //   Constant: '<S30>/Constant1'
 
       ghost_mode_B.Switch = ghost_mode_P.Constant1_Value;
     } else {
-      // Switch: '<S32>/Switch'
+      // Switch: '<S30>/Switch'
       ghost_mode_B.Switch = rtb_IntegralGain;
     }
 
-    // End of Switch: '<S32>/Switch'
+    // End of Switch: '<S30>/Switch'
   }
 
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
     if (rtmIsMajorTimeStep(ghost_mode_M)) {
-      // Update for Memory: '<S32>/Memory'
+      // Update for Memory: '<S30>/Memory'
       ghost_mode_DW.Memory_PreviousInput = ghost_mode_B.AND3;
     }
   }                                    // end MajorTimeStep
@@ -362,10 +362,10 @@ void ghost_mode_derivatives(void)
   XDot_ghost_mode_T *_rtXdot;
   _rtXdot = ((XDot_ghost_mode_T *) ghost_mode_M->derivs);
 
-  // Derivatives for Integrator: '<S41>/Integrator'
+  // Derivatives for Integrator: '<S39>/Integrator'
   _rtXdot->Integrator_CSTATE = ghost_mode_B.Switch;
 
-  // Derivatives for Integrator: '<S36>/Filter'
+  // Derivatives for Integrator: '<S34>/Filter'
   _rtXdot->Filter_CSTATE = ghost_mode_B.FilterCoefficient;
 }
 
@@ -425,26 +425,26 @@ void ghost_mode_initialize(void)
     static const char_T tmp_1[12] = { '/', 't', 'i', 'm', 'e', 'd', '_', 'a',
       'c', 'c', 'e', 'l' };
 
-    // InitializeConditions for Integrator: '<S41>/Integrator'
+    // InitializeConditions for Integrator: '<S39>/Integrator'
     ghost_mode_X.Integrator_CSTATE =
-      ghost_mode_P.TunedPIDv2_InitialConditionForI;
+      ghost_mode_P.PIDJMS0628_InitialConditionForI;
 
-    // InitializeConditions for Integrator: '<S36>/Filter'
-    ghost_mode_X.Filter_CSTATE = ghost_mode_P.TunedPIDv2_InitialConditionForF;
+    // InitializeConditions for Integrator: '<S34>/Filter'
+    ghost_mode_X.Filter_CSTATE = ghost_mode_P.PIDJMS0628_InitialConditionForF;
 
-    // InitializeConditions for Memory: '<S32>/Memory'
+    // InitializeConditions for Memory: '<S30>/Memory'
     ghost_mode_DW.Memory_PreviousInput = ghost_mode_P.Memory_InitialCondition;
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe1'
-    // SystemInitialize for Enabled SubSystem: '<S4>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S7>/Out1' incorporates:
-    //   Inport: '<S7>/In1'
+    // SystemInitialize for Enabled SubSystem: '<S5>/Enabled Subsystem'
+    // SystemInitialize for Outport: '<S57>/Out1' incorporates:
+    //   Inport: '<S57>/In1'
 
     ghost_mode_B.In1 = ghost_mode_P.Out1_Y0_h;
 
-    // End of SystemInitialize for SubSystem: '<S4>/Enabled Subsystem'
+    // End of SystemInitialize for SubSystem: '<S5>/Enabled Subsystem'
 
-    // Start for MATLABSystem: '<S4>/SourceBlock'
+    // Start for MATLABSystem: '<S5>/SourceBlock'
     ghost_mode_DW.obj_g.matlabCodegenIsDeleted = false;
     ghost_mode_DW.obj_g.isInitialized = 1;
     for (i = 0; i < 18; i++) {
@@ -455,19 +455,19 @@ void ghost_mode_initialize(void)
     Sub_ghost_mode_31.createSubscriber(&b_zeroDelimTopic[0], 1);
     ghost_mode_DW.obj_g.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S4>/SourceBlock'
+    // End of Start for MATLABSystem: '<S5>/SourceBlock'
     // End of SystemInitialize for SubSystem: '<Root>/Subscribe1'
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe'
-    // SystemInitialize for Enabled SubSystem: '<S3>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S6>/Out1' incorporates:
-    //   Inport: '<S6>/In1'
+    // SystemInitialize for Enabled SubSystem: '<S4>/Enabled Subsystem'
+    // SystemInitialize for Outport: '<S56>/Out1' incorporates:
+    //   Inport: '<S56>/In1'
 
     ghost_mode_B.In1_d = ghost_mode_P.Out1_Y0;
 
-    // End of SystemInitialize for SubSystem: '<S3>/Enabled Subsystem'
+    // End of SystemInitialize for SubSystem: '<S4>/Enabled Subsystem'
 
-    // Start for MATLABSystem: '<S3>/SourceBlock'
+    // Start for MATLABSystem: '<S4>/SourceBlock'
     ghost_mode_DW.obj_n.matlabCodegenIsDeleted = false;
     ghost_mode_DW.obj_n.isInitialized = 1;
     for (i = 0; i < 12; i++) {
@@ -478,11 +478,11 @@ void ghost_mode_initialize(void)
     Sub_ghost_mode_10.createSubscriber(&b_zeroDelimTopic_0[0], 1);
     ghost_mode_DW.obj_n.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S3>/SourceBlock'
+    // End of Start for MATLABSystem: '<S4>/SourceBlock'
     // End of SystemInitialize for SubSystem: '<Root>/Subscribe'
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Publish'
-    // Start for MATLABSystem: '<S2>/SinkBlock'
+    // Start for MATLABSystem: '<S3>/SinkBlock'
     ghost_mode_DW.obj.matlabCodegenIsDeleted = false;
     ghost_mode_DW.obj.isInitialized = 1;
     for (i = 0; i < 12; i++) {
@@ -493,7 +493,7 @@ void ghost_mode_initialize(void)
     Pub_ghost_mode_3.createPublisher(&b_zeroDelimTopic_0[0], 1);
     ghost_mode_DW.obj.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S2>/SinkBlock'
+    // End of Start for MATLABSystem: '<S3>/SinkBlock'
     // End of SystemInitialize for SubSystem: '<Root>/Publish'
   }
 }
@@ -502,30 +502,30 @@ void ghost_mode_initialize(void)
 void ghost_mode_terminate(void)
 {
   // Terminate for Atomic SubSystem: '<Root>/Subscribe1'
-  // Terminate for MATLABSystem: '<S4>/SourceBlock'
+  // Terminate for MATLABSystem: '<S5>/SourceBlock'
   if (!ghost_mode_DW.obj_g.matlabCodegenIsDeleted) {
     ghost_mode_DW.obj_g.matlabCodegenIsDeleted = true;
   }
 
-  // End of Terminate for MATLABSystem: '<S4>/SourceBlock'
+  // End of Terminate for MATLABSystem: '<S5>/SourceBlock'
   // End of Terminate for SubSystem: '<Root>/Subscribe1'
 
   // Terminate for Atomic SubSystem: '<Root>/Subscribe'
-  // Terminate for MATLABSystem: '<S3>/SourceBlock'
+  // Terminate for MATLABSystem: '<S4>/SourceBlock'
   if (!ghost_mode_DW.obj_n.matlabCodegenIsDeleted) {
     ghost_mode_DW.obj_n.matlabCodegenIsDeleted = true;
   }
 
-  // End of Terminate for MATLABSystem: '<S3>/SourceBlock'
+  // End of Terminate for MATLABSystem: '<S4>/SourceBlock'
   // End of Terminate for SubSystem: '<Root>/Subscribe'
 
   // Terminate for Atomic SubSystem: '<Root>/Publish'
-  // Terminate for MATLABSystem: '<S2>/SinkBlock'
+  // Terminate for MATLABSystem: '<S3>/SinkBlock'
   if (!ghost_mode_DW.obj.matlabCodegenIsDeleted) {
     ghost_mode_DW.obj.matlabCodegenIsDeleted = true;
   }
 
-  // End of Terminate for MATLABSystem: '<S2>/SinkBlock'
+  // End of Terminate for MATLABSystem: '<S3>/SinkBlock'
   // End of Terminate for SubSystem: '<Root>/Publish'
 }
 

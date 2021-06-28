@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.31
+// Model version                  : 1.32
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 07:44:34 2021
+// C/C++ source code generated on : Mon Jun 28 10:16:20 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -21,52 +21,52 @@
 
 // Block parameters (default storage)
 P_ghost_mode_T ghost_mode_P = {
-  // Mask Parameter: TunedPIDv2_D
-  //  Referenced by: '<S35>/Derivative Gain'
+  // Mask Parameter: PIDJMS0628_D
+  //  Referenced by: '<S33>/Derivative Gain'
 
-  2.32546025751059,
+  1.2886782091662,
 
-  // Mask Parameter: TunedPIDv2_I
-  //  Referenced by: '<S38>/Integral Gain'
+  // Mask Parameter: PIDJMS0628_I
+  //  Referenced by: '<S36>/Integral Gain'
 
-  3.10638557466951,
+  0.561856950087048,
 
-  // Mask Parameter: TunedPIDv2_InitialConditionForF
-  //  Referenced by: '<S36>/Filter'
-
-  0.0,
-
-  // Mask Parameter: TunedPIDv2_InitialConditionForI
-  //  Referenced by: '<S41>/Integrator'
+  // Mask Parameter: PIDJMS0628_InitialConditionForF
+  //  Referenced by: '<S34>/Filter'
 
   0.0,
 
-  // Mask Parameter: TunedPIDv2_LowerSaturationLimit
+  // Mask Parameter: PIDJMS0628_InitialConditionForI
+  //  Referenced by: '<S39>/Integrator'
+
+  0.0,
+
+  // Mask Parameter: PIDJMS0628_LowerSaturationLimit
   //  Referenced by:
-  //    '<S48>/Saturation'
-  //    '<S34>/DeadZone'
+  //    '<S46>/Saturation'
+  //    '<S32>/DeadZone'
 
   -3.0,
 
-  // Mask Parameter: TunedPIDv2_N
-  //  Referenced by: '<S44>/Filter Coefficient'
+  // Mask Parameter: PIDJMS0628_N
+  //  Referenced by: '<S42>/Filter Coefficient'
 
-  16.8800712523244,
+  24.3345419624922,
 
-  // Mask Parameter: TunedPIDv2_P
-  //  Referenced by: '<S46>/Proportional Gain'
+  // Mask Parameter: PIDJMS0628_P
+  //  Referenced by: '<S44>/Proportional Gain'
 
-  6.24181129252033,
+  2.25627287381491,
 
-  // Mask Parameter: TunedPIDv2_UpperSaturationLimit
+  // Mask Parameter: PIDJMS0628_UpperSaturationLimit
   //  Referenced by:
-  //    '<S48>/Saturation'
-  //    '<S34>/DeadZone'
+  //    '<S46>/Saturation'
+  //    '<S32>/DeadZone'
 
   1.5,
 
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S6>/Out1'
+  //  Referenced by: '<S56>/Out1'
 
   {
     {
@@ -110,7 +110,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value
-  //  Referenced by: '<S3>/Constant'
+  //  Referenced by: '<S4>/Constant'
 
   {
     {
@@ -154,7 +154,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Out1_Y0_h
-  //  Referenced by: '<S7>/Out1'
+  //  Referenced by: '<S57>/Out1'
 
   {
     {
@@ -198,7 +198,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value_j
-  //  Referenced by: '<S4>/Constant'
+  //  Referenced by: '<S5>/Constant'
 
   {
     {
@@ -249,7 +249,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Expression: 0
-  //  Referenced by: '<S32>/Constant1'
+  //  Referenced by: '<S30>/Constant1'
 
   0.0,
 
@@ -264,12 +264,12 @@ P_ghost_mode_T ghost_mode_P = {
   -3.0,
 
   // Expression: 0
-  //  Referenced by: '<S32>/ZeroGain'
+  //  Referenced by: '<S30>/ZeroGain'
 
   0.0,
 
   // Computed Parameter: Memory_InitialCondition
-  //  Referenced by: '<S32>/Memory'
+  //  Referenced by: '<S30>/Memory'
 
   0
 };
