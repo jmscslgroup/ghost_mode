@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.40
+// Model version                  : 1.41
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 16:03:32 2021
+// C/C++ source code generated on : Mon Jun 28 18:00:54 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -36,15 +36,15 @@ P_ghost_mode_T ghost_mode_P = {
 
   1.2886782091662,
 
-  // Mask Parameter: PIDJMS1_I
-  //  Referenced by: '<S89>/Integral Gain'
-
-  0.207355055407799,
-
   // Mask Parameter: PIDJMS0628_I
   //  Referenced by: '<S39>/Integral Gain'
 
   0.561856950087048,
+
+  // Mask Parameter: PIDJMS1_I
+  //  Referenced by: '<S89>/Integral Gain'
+
+  0.207355055407799,
 
   // Mask Parameter: PIDJMS0628_I_m
   //  Referenced by: '<S139>/Integral Gain'
@@ -80,6 +80,16 @@ P_ghost_mode_T ghost_mode_P = {
   //  Referenced by: '<S142>/Integrator'
 
   0.0,
+
+  // Mask Parameter: PIDJMS0628_Kt
+  //  Referenced by: '<S53>/Kt'
+
+  1.0,
+
+  // Mask Parameter: PIDJMS1_Kt
+  //  Referenced by: '<S103>/Kt'
+
+  1.0,
 
   // Mask Parameter: PIDJMS0628_LowerSaturationLimit
   //  Referenced by:
@@ -363,12 +373,12 @@ P_ghost_mode_T ghost_mode_P = {
   -3.0,
 
   // Expression: 0
-  //  Referenced by: '<S83>/ZeroGain'
+  //  Referenced by: '<S33>/ZeroGain'
 
   0.0,
 
   // Expression: 0
-  //  Referenced by: '<S33>/ZeroGain'
+  //  Referenced by: '<S83>/ZeroGain'
 
   0.0,
 
@@ -378,12 +388,12 @@ P_ghost_mode_T ghost_mode_P = {
   0.0,
 
   // Computed Parameter: Memory_InitialCondition
-  //  Referenced by: '<S83>/Memory'
+  //  Referenced by: '<S33>/Memory'
 
   0,
 
-  // Computed Parameter: Memory_InitialCondition_g
-  //  Referenced by: '<S33>/Memory'
+  // Computed Parameter: Memory_InitialCondition_c
+  //  Referenced by: '<S83>/Memory'
 
   0,
 

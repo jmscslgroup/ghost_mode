@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.40
+// Model version                  : 1.41
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 16:03:32 2021
+// C/C++ source code generated on : Mon Jun 28 18:00:54 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -159,17 +159,20 @@ struct B_ghost_mode_T {
   real_T ProportionalGain_e;           // '<S97>/Proportional Gain'
   real_T DerivativeGain_b;             // '<S86>/Derivative Gain'
   real_T FilterCoefficient_c;          // '<S95>/Filter Coefficient'
-  real_T Switch;                       // '<S83>/Switch'
-  real_T Switch_a;                     // '<S33>/Switch'
+  real_T IntegralGain;                 // '<S39>/Integral Gain'
+  real_T Switch;                       // '<S33>/Switch'
+  real_T IntegralGain_p;               // '<S89>/Integral Gain'
+  real_T Switch_l;                     // '<S83>/Switch'
   real_T Switch_j;                     // '<S133>/Switch'
   real_T ProportionalGain_f;           // '<S147>/Proportional Gain'
   real_T DerivativeGain_e;             // '<S136>/Derivative Gain'
   real_T FilterCoefficient_p;          // '<S145>/Filter Coefficient'
-  int8_T DataTypeConv2;                // '<S83>/DataTypeConv2'
-  int8_T DataTypeConv2_o;              // '<S33>/DataTypeConv2'
-  int8_T DataTypeConv2_a;              // '<S133>/DataTypeConv2'
-  boolean_T AND3;                      // '<S83>/AND3'
-  boolean_T AND3_c;                    // '<S33>/AND3'
+  real_T Sum_m;                        // '<S51>/Sum'
+  int8_T DataTypeConv2;                // '<S133>/DataTypeConv2'
+  boolean_T AND3;                      // '<S33>/AND3'
+  boolean_T Memory;                    // '<S33>/Memory'
+  boolean_T AND3_h;                    // '<S83>/AND3'
+  boolean_T Memory_g;                  // '<S83>/Memory'
   boolean_T AND3_e;                    // '<S133>/AND3'
 };
 
@@ -178,8 +181,8 @@ struct DW_ghost_mode_T {
   ros_slroscpp_internal_block_P_T obj; // '<S4>/SinkBlock'
   ros_slroscpp_internal_block_S_T obj_g;// '<S6>/SourceBlock'
   ros_slroscpp_internal_block_S_T obj_n;// '<S5>/SourceBlock'
-  boolean_T Memory_PreviousInput;      // '<S83>/Memory'
-  boolean_T Memory_PreviousInput_f;    // '<S33>/Memory'
+  boolean_T Memory_PreviousInput;      // '<S33>/Memory'
+  boolean_T Memory_PreviousInput_j;    // '<S83>/Memory'
   boolean_T Memory_PreviousInput_n;    // '<S133>/Memory'
 };
 
@@ -235,11 +238,11 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS0628_D_e;               // Mask Parameter: PIDJMS0628_D_e
                                           //  Referenced by: '<S136>/Derivative Gain'
 
-  real_T PIDJMS1_I;                    // Mask Parameter: PIDJMS1_I
-                                          //  Referenced by: '<S89>/Integral Gain'
-
   real_T PIDJMS0628_I;                 // Mask Parameter: PIDJMS0628_I
                                           //  Referenced by: '<S39>/Integral Gain'
+
+  real_T PIDJMS1_I;                    // Mask Parameter: PIDJMS1_I
+                                          //  Referenced by: '<S89>/Integral Gain'
 
   real_T PIDJMS0628_I_m;               // Mask Parameter: PIDJMS0628_I_m
                                           //  Referenced by: '<S139>/Integral Gain'
@@ -267,6 +270,12 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS0628_InitialConditionFo_l;
                               // Mask Parameter: PIDJMS0628_InitialConditionFo_l
                                  //  Referenced by: '<S142>/Integrator'
+
+  real_T PIDJMS0628_Kt;                // Mask Parameter: PIDJMS0628_Kt
+                                          //  Referenced by: '<S53>/Kt'
+
+  real_T PIDJMS1_Kt;                   // Mask Parameter: PIDJMS1_Kt
+                                          //  Referenced by: '<S103>/Kt'
 
   real_T PIDJMS0628_LowerSaturationLimit;
                               // Mask Parameter: PIDJMS0628_LowerSaturationLimit
@@ -352,21 +361,21 @@ struct P_ghost_mode_T_ {
                                           //  Referenced by: '<Root>/Saturation'
 
   real_T ZeroGain_Gain;                // Expression: 0
-                                          //  Referenced by: '<S83>/ZeroGain'
-
-  real_T ZeroGain_Gain_l;              // Expression: 0
                                           //  Referenced by: '<S33>/ZeroGain'
+
+  real_T ZeroGain_Gain_i;              // Expression: 0
+                                          //  Referenced by: '<S83>/ZeroGain'
 
   real_T ZeroGain_Gain_j;              // Expression: 0
                                           //  Referenced by: '<S133>/ZeroGain'
 
   boolean_T Memory_InitialCondition;
                                   // Computed Parameter: Memory_InitialCondition
-                                     //  Referenced by: '<S83>/Memory'
+                                     //  Referenced by: '<S33>/Memory'
 
-  boolean_T Memory_InitialCondition_g;
-                                // Computed Parameter: Memory_InitialCondition_g
-                                   //  Referenced by: '<S33>/Memory'
+  boolean_T Memory_InitialCondition_c;
+                                // Computed Parameter: Memory_InitialCondition_c
+                                   //  Referenced by: '<S83>/Memory'
 
   boolean_T Memory_InitialCondition_p;
                                 // Computed Parameter: Memory_InitialCondition_p
@@ -555,8 +564,8 @@ extern "C" {
 //  '<S50>'  : 'ghost_mode/Controller1/PID JMS 0628/Saturation Fdbk/Disabled'
 //  '<S51>'  : 'ghost_mode/Controller1/PID JMS 0628/Sum/Sum_PID'
 //  '<S52>'  : 'ghost_mode/Controller1/PID JMS 0628/Sum Fdbk/Disabled'
-//  '<S53>'  : 'ghost_mode/Controller1/PID JMS 0628/Tracking Mode/Disabled'
-//  '<S54>'  : 'ghost_mode/Controller1/PID JMS 0628/Tracking Mode Sum/Passthrough'
+//  '<S53>'  : 'ghost_mode/Controller1/PID JMS 0628/Tracking Mode/Enabled'
+//  '<S54>'  : 'ghost_mode/Controller1/PID JMS 0628/Tracking Mode Sum/Tracking Mode'
 //  '<S55>'  : 'ghost_mode/Controller1/PID JMS 0628/Tsamp - Integral/Passthrough'
 //  '<S56>'  : 'ghost_mode/Controller1/PID JMS 0628/Tsamp - Ngain/Passthrough'
 //  '<S57>'  : 'ghost_mode/Controller1/PID JMS 0628/postSat Signal/Forward_Path'
@@ -605,8 +614,8 @@ extern "C" {
 //  '<S100>' : 'ghost_mode/Controller1/PID JMS 1/Saturation Fdbk/Disabled'
 //  '<S101>' : 'ghost_mode/Controller1/PID JMS 1/Sum/Sum_PID'
 //  '<S102>' : 'ghost_mode/Controller1/PID JMS 1/Sum Fdbk/Disabled'
-//  '<S103>' : 'ghost_mode/Controller1/PID JMS 1/Tracking Mode/Disabled'
-//  '<S104>' : 'ghost_mode/Controller1/PID JMS 1/Tracking Mode Sum/Passthrough'
+//  '<S103>' : 'ghost_mode/Controller1/PID JMS 1/Tracking Mode/Enabled'
+//  '<S104>' : 'ghost_mode/Controller1/PID JMS 1/Tracking Mode Sum/Tracking Mode'
 //  '<S105>' : 'ghost_mode/Controller1/PID JMS 1/Tsamp - Integral/Passthrough'
 //  '<S106>' : 'ghost_mode/Controller1/PID JMS 1/Tsamp - Ngain/Passthrough'
 //  '<S107>' : 'ghost_mode/Controller1/PID JMS 1/postSat Signal/Forward_Path'
