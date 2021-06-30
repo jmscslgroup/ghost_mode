@@ -1,44 +1,6 @@
 #include "slros_busmsg_conversion.h"
 
 
-// Conversions between SL_Bus_ghost_mode_geometry_msgs_Accel and geometry_msgs::Accel
-
-void convertFromBus(geometry_msgs::Accel* msgPtr, SL_Bus_ghost_mode_geometry_msgs_Accel const* busPtr)
-{
-  const std::string rosMessageType("geometry_msgs/Accel");
-
-  convertFromBus(&msgPtr->angular, &busPtr->Angular);
-  convertFromBus(&msgPtr->linear, &busPtr->Linear);
-}
-
-void convertToBus(SL_Bus_ghost_mode_geometry_msgs_Accel* busPtr, geometry_msgs::Accel const* msgPtr)
-{
-  const std::string rosMessageType("geometry_msgs/Accel");
-
-  convertToBus(&busPtr->Angular, &msgPtr->angular);
-  convertToBus(&busPtr->Linear, &msgPtr->linear);
-}
-
-
-// Conversions between SL_Bus_ghost_mode_geometry_msgs_AccelStamped and geometry_msgs::AccelStamped
-
-void convertFromBus(geometry_msgs::AccelStamped* msgPtr, SL_Bus_ghost_mode_geometry_msgs_AccelStamped const* busPtr)
-{
-  const std::string rosMessageType("geometry_msgs/AccelStamped");
-
-  convertFromBus(&msgPtr->accel, &busPtr->Accel);
-  convertFromBus(&msgPtr->header, &busPtr->Header);
-}
-
-void convertToBus(SL_Bus_ghost_mode_geometry_msgs_AccelStamped* busPtr, geometry_msgs::AccelStamped const* msgPtr)
-{
-  const std::string rosMessageType("geometry_msgs/AccelStamped");
-
-  convertToBus(&busPtr->Accel, &msgPtr->accel);
-  convertToBus(&busPtr->Header, &msgPtr->header);
-}
-
-
 // Conversions between SL_Bus_ghost_mode_geometry_msgs_Twist and geometry_msgs::Twist
 
 void convertFromBus(geometry_msgs::Twist* msgPtr, SL_Bus_ghost_mode_geometry_msgs_Twist const* busPtr)

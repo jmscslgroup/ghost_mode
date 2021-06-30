@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.47
+// Model version                  : 1.51
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Wed Jun 30 12:01:14 2021
+// C/C++ source code generated on : Wed Jun 30 13:52:12 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -114,36 +114,6 @@ struct SL_Bus_ghost_mode_geometry_msgs_TwistStamped
 
   // MsgType=geometry_msgs/Twist
   SL_Bus_ghost_mode_geometry_msgs_Twist Twist;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_SL_Bus_ghost_mode_geometry_msgs_Accel_
-#define DEFINED_TYPEDEF_FOR_SL_Bus_ghost_mode_geometry_msgs_Accel_
-
-// MsgType=geometry_msgs/Accel
-struct SL_Bus_ghost_mode_geometry_msgs_Accel
-{
-  // MsgType=geometry_msgs/Vector3
-  SL_Bus_ghost_mode_geometry_msgs_Vector3 Linear;
-
-  // MsgType=geometry_msgs/Vector3
-  SL_Bus_ghost_mode_geometry_msgs_Vector3 Angular;
-};
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_SL_Bus_ghost_mode_geometry_msgs_AccelStamped_
-#define DEFINED_TYPEDEF_FOR_SL_Bus_ghost_mode_geometry_msgs_AccelStamped_
-
-// MsgType=geometry_msgs/AccelStamped
-struct SL_Bus_ghost_mode_geometry_msgs_AccelStamped
-{
-  // MsgType=std_msgs/Header
-  SL_Bus_ghost_mode_std_msgs_Header Header;
-
-  // MsgType=geometry_msgs/Accel
-  SL_Bus_ghost_mode_geometry_msgs_Accel Accel;
 };
 
 #endif

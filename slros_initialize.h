@@ -13,9 +13,6 @@ extern SimulinkSubscriber<geometry_msgs::TwistStamped, SL_Bus_ghost_mode_geometr
 // For Block ghost_mode/Subscribe1
 extern SimulinkSubscriber<geometry_msgs::TwistStamped, SL_Bus_ghost_mode_geometry_msgs_TwistStamped> Sub_ghost_mode_31;
 
-// For Block ghost_mode/Subscribe2
-extern SimulinkSubscriber<geometry_msgs::AccelStamped, SL_Bus_ghost_mode_geometry_msgs_AccelStamped> Sub_ghost_mode_99;
-
 // For Block ghost_mode/Publish
 extern SimulinkPublisher<std_msgs::Float64, SL_Bus_ghost_mode_std_msgs_Float64> Pub_ghost_mode_3;
 
