@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.43
+// Model version                  : 1.44
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Wed Jun 30 10:16:19 2021
+// C/C++ source code generated on : Wed Jun 30 11:00:03 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -154,18 +154,22 @@ struct B_ghost_mode_T {
   SL_Bus_ghost_mode_geometry_msgs_AccelStamped In1_e;// '<S369>/In1'
   SL_Bus_ghost_mode_geometry_msgs_TwistStamped b_varargout_2;
   SL_Bus_ghost_mode_geometry_msgs_AccelStamped b_varargout_2_m;
-  real_T Sum;                          // '<Root>/Sum'
-  real_T ProportionalGain;             // '<S50>/Proportional Gain'
-  real_T DerivativeGain;               // '<S39>/Derivative Gain'
-  real_T FilterCoefficient;            // '<S48>/Filter Coefficient'
+  real_T ProportionalGain;             // '<S355>/Proportional Gain'
+  real_T DerivativeGain;               // '<S344>/Derivative Gain'
+  real_T FilterCoefficient;            // '<S353>/Filter Coefficient'
+  real_T IntegralGain;                 // '<S347>/Integral Gain'
+  real_T Switch;                       // '<S341>/Switch'
+  real_T IntegralGain_l;               // '<S42>/Integral Gain'
+  real_T ProportionalGain_f;           // '<S50>/Proportional Gain'
+  real_T DerivativeGain_j;             // '<S39>/Derivative Gain'
+  real_T FilterCoefficient_c;          // '<S48>/Filter Coefficient'
+  real_T Switch_k;                     // '<S36>/Switch'
+  real_T IntegralGain_f;               // '<S92>/Integral Gain'
   real_T ProportionalGain_l;           // '<S100>/Proportional Gain'
   real_T DerivativeGain_n;             // '<S89>/Derivative Gain'
   real_T FilterCoefficient_g;          // '<S98>/Filter Coefficient'
-  real_T IntegralGain;                 // '<S92>/Integral Gain'
-  real_T Switch;                       // '<S86>/Switch'
-  real_T IntegralGain_l;               // '<S42>/Integral Gain'
-  real_T Switch_k;                     // '<S36>/Switch'
-  real_T IntegralGain_f;               // '<S144>/Integral Gain'
+  real_T Switch_d;                     // '<S86>/Switch'
+  real_T IntegralGain_f0;              // '<S144>/Integral Gain'
   real_T ProportionalGain_k;           // '<S152>/Proportional Gain'
   real_T DerivativeGain_g;             // '<S141>/Derivative Gain'
   real_T FilterCoefficient_d;          // '<S150>/Filter Coefficient'
@@ -183,27 +187,22 @@ struct B_ghost_mode_T {
   real_T IntegralGain_pq;              // '<S297>/Integral Gain'
   real_T ProportionalGain_e;           // '<S305>/Proportional Gain'
   real_T DerivativeGain_bz;            // '<S294>/Derivative Gain'
-  real_T FilterCoefficient_c;          // '<S303>/Filter Coefficient'
+  real_T FilterCoefficient_cc;         // '<S303>/Filter Coefficient'
   real_T Switch_l;                     // '<S291>/Switch'
-  real_T Switch_j;                     // '<S341>/Switch'
-  real_T ProportionalGain_f;           // '<S355>/Proportional Gain'
-  real_T DerivativeGain_e;             // '<S344>/Derivative Gain'
-  real_T FilterCoefficient_p;          // '<S353>/Filter Coefficient'
-  real_T Sum_c;                        // '<S54>/Sum'
-  int8_T DataTypeConv2;                // '<S341>/DataTypeConv2'
-  boolean_T AND3;                      // '<S86>/AND3'
-  boolean_T Memory;                    // '<S86>/Memory'
-  boolean_T AND3_c;                    // '<S36>/AND3'
+  boolean_T AND3;                      // '<S341>/AND3'
+  boolean_T Memory;                    // '<S341>/Memory'
   boolean_T Memory_d;                  // '<S36>/Memory'
+  boolean_T AND3_c;                    // '<S36>/AND3'
+  boolean_T Memory_m;                  // '<S86>/Memory'
+  boolean_T AND3_h;                    // '<S86>/AND3'
   boolean_T Memory_n;                  // '<S138>/Memory'
   boolean_T AND3_k;                    // '<S138>/AND3'
   boolean_T Memory_a;                  // '<S188>/Memory'
-  boolean_T AND3_h;                    // '<S188>/AND3'
+  boolean_T AND3_ha;                   // '<S188>/AND3'
   boolean_T Memory_dp;                 // '<S241>/Memory'
   boolean_T AND3_cz;                   // '<S241>/AND3'
   boolean_T Memory_g;                  // '<S291>/Memory'
   boolean_T AND3_h0;                   // '<S291>/AND3'
-  boolean_T AND3_e;                    // '<S341>/AND3'
 };
 
 // Block states (default storage) for system '<Root>'
@@ -215,19 +214,21 @@ struct DW_ghost_mode_T {
   uint8_T is_active_c3_ghost_mode;     // '<S4>/Chart'
   uint8_T is_c3_ghost_mode;            // '<S4>/Chart'
   uint8_T temporalCounter_i1;          // '<S4>/Chart'
-  boolean_T Memory_PreviousInput;      // '<S86>/Memory'
+  boolean_T Memory_PreviousInput;      // '<S341>/Memory'
   boolean_T Memory_PreviousInput_p;    // '<S36>/Memory'
+  boolean_T Memory_PreviousInput_k;    // '<S86>/Memory'
   boolean_T Memory_PreviousInput_i;    // '<S138>/Memory'
   boolean_T Memory_PreviousInput_pv;   // '<S188>/Memory'
   boolean_T Memory_PreviousInput_f;    // '<S241>/Memory'
   boolean_T Memory_PreviousInput_j;    // '<S291>/Memory'
-  boolean_T Memory_PreviousInput_n;    // '<S341>/Memory'
 };
 
 // Continuous states (default storage)
 struct X_ghost_mode_T {
-  real_T Integrator_CSTATE;            // '<S45>/Integrator'
-  real_T Filter_CSTATE;                // '<S40>/Filter'
+  real_T Integrator_CSTATE;            // '<S350>/Integrator'
+  real_T Filter_CSTATE;                // '<S345>/Filter'
+  real_T Integrator_CSTATE_f;          // '<S45>/Integrator'
+  real_T Filter_CSTATE_i;              // '<S40>/Filter'
   real_T Integrator_CSTATE_p;          // '<S95>/Integrator'
   real_T Filter_CSTATE_l;              // '<S90>/Filter'
   real_T Integrator_CSTATE_h;          // '<S147>/Integrator'
@@ -238,14 +239,14 @@ struct X_ghost_mode_T {
   real_T Filter_CSTATE_e;              // '<S245>/Filter'
   real_T Integrator_CSTATE_i;          // '<S300>/Integrator'
   real_T Filter_CSTATE_fu;             // '<S295>/Filter'
-  real_T Integrator_CSTATE_f;          // '<S350>/Integrator'
-  real_T Filter_CSTATE_d;              // '<S345>/Filter'
 };
 
 // State derivatives (default storage)
 struct XDot_ghost_mode_T {
-  real_T Integrator_CSTATE;            // '<S45>/Integrator'
-  real_T Filter_CSTATE;                // '<S40>/Filter'
+  real_T Integrator_CSTATE;            // '<S350>/Integrator'
+  real_T Filter_CSTATE;                // '<S345>/Filter'
+  real_T Integrator_CSTATE_f;          // '<S45>/Integrator'
+  real_T Filter_CSTATE_i;              // '<S40>/Filter'
   real_T Integrator_CSTATE_p;          // '<S95>/Integrator'
   real_T Filter_CSTATE_l;              // '<S90>/Filter'
   real_T Integrator_CSTATE_h;          // '<S147>/Integrator'
@@ -256,14 +257,14 @@ struct XDot_ghost_mode_T {
   real_T Filter_CSTATE_e;              // '<S245>/Filter'
   real_T Integrator_CSTATE_i;          // '<S300>/Integrator'
   real_T Filter_CSTATE_fu;             // '<S295>/Filter'
-  real_T Integrator_CSTATE_f;          // '<S350>/Integrator'
-  real_T Filter_CSTATE_d;              // '<S345>/Filter'
 };
 
 // State disabled
 struct XDis_ghost_mode_T {
-  boolean_T Integrator_CSTATE;         // '<S45>/Integrator'
-  boolean_T Filter_CSTATE;             // '<S40>/Filter'
+  boolean_T Integrator_CSTATE;         // '<S350>/Integrator'
+  boolean_T Filter_CSTATE;             // '<S345>/Filter'
+  boolean_T Integrator_CSTATE_f;       // '<S45>/Integrator'
+  boolean_T Filter_CSTATE_i;           // '<S40>/Filter'
   boolean_T Integrator_CSTATE_p;       // '<S95>/Integrator'
   boolean_T Filter_CSTATE_l;           // '<S90>/Filter'
   boolean_T Integrator_CSTATE_h;       // '<S147>/Integrator'
@@ -274,8 +275,6 @@ struct XDis_ghost_mode_T {
   boolean_T Filter_CSTATE_e;           // '<S245>/Filter'
   boolean_T Integrator_CSTATE_i;       // '<S300>/Integrator'
   boolean_T Filter_CSTATE_fu;          // '<S295>/Filter'
-  boolean_T Integrator_CSTATE_f;       // '<S350>/Integrator'
-  boolean_T Filter_CSTATE_d;           // '<S345>/Filter'
 };
 
 #ifndef ODE3_INTG
@@ -292,6 +291,9 @@ struct ODE3_IntgData {
 // Parameters (default storage)
 struct P_ghost_mode_T_ {
   real_T PIDJMS0628_D;                 // Mask Parameter: PIDJMS0628_D
+                                          //  Referenced by: '<S344>/Derivative Gain'
+
+  real_T PIDJMS0628_D_p;               // Mask Parameter: PIDJMS0628_D_p
                                           //  Referenced by: '<S39>/Derivative Gain'
 
   real_T PIDJMS1_D;                    // Mask Parameter: PIDJMS1_D
@@ -309,14 +311,14 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS1_D_cd;                 // Mask Parameter: PIDJMS1_D_cd
                                           //  Referenced by: '<S294>/Derivative Gain'
 
-  real_T PIDJMS0628_D_e;               // Mask Parameter: PIDJMS0628_D_e
-                                          //  Referenced by: '<S344>/Derivative Gain'
+  real_T PIDJMS0628_I;                 // Mask Parameter: PIDJMS0628_I
+                                          //  Referenced by: '<S347>/Integral Gain'
+
+  real_T PIDJMS0628_I_f;               // Mask Parameter: PIDJMS0628_I_f
+                                          //  Referenced by: '<S42>/Integral Gain'
 
   real_T PIDJMS1_I;                    // Mask Parameter: PIDJMS1_I
                                           //  Referenced by: '<S92>/Integral Gain'
-
-  real_T PIDJMS0628_I;                 // Mask Parameter: PIDJMS0628_I
-                                          //  Referenced by: '<S42>/Integral Gain'
 
   real_T PIDJMS0628_I_n;               // Mask Parameter: PIDJMS0628_I_n
                                           //  Referenced by: '<S144>/Integral Gain'
@@ -330,11 +332,12 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS1_I_hb;                 // Mask Parameter: PIDJMS1_I_hb
                                           //  Referenced by: '<S297>/Integral Gain'
 
-  real_T PIDJMS0628_I_m;               // Mask Parameter: PIDJMS0628_I_m
-                                          //  Referenced by: '<S347>/Integral Gain'
-
   real_T PIDJMS0628_InitialConditionForF;
                               // Mask Parameter: PIDJMS0628_InitialConditionForF
+                                 //  Referenced by: '<S345>/Filter'
+
+  real_T PIDJMS0628_InitialConditionFo_c;
+                              // Mask Parameter: PIDJMS0628_InitialConditionFo_c
                                  //  Referenced by: '<S40>/Filter'
 
   real_T PIDJMS1_InitialConditionForFilt;
@@ -357,12 +360,12 @@ struct P_ghost_mode_T_ {
                               // Mask Parameter: PIDJMS1_InitialConditionForFi_n
                                  //  Referenced by: '<S295>/Filter'
 
-  real_T PIDJMS0628_InitialConditionFo_d;
-                              // Mask Parameter: PIDJMS0628_InitialConditionFo_d
-                                 //  Referenced by: '<S345>/Filter'
-
   real_T PIDJMS0628_InitialConditionForI;
                               // Mask Parameter: PIDJMS0628_InitialConditionForI
+                                 //  Referenced by: '<S350>/Integrator'
+
+  real_T PIDJMS0628_InitialConditionFo_p;
+                              // Mask Parameter: PIDJMS0628_InitialConditionFo_p
                                  //  Referenced by: '<S45>/Integrator'
 
   real_T PIDJMS1_InitialConditionForInte;
@@ -377,23 +380,22 @@ struct P_ghost_mode_T_ {
                               // Mask Parameter: PIDJMS1_InitialConditionForIn_m
                                  //  Referenced by: '<S197>/Integrator'
 
-  real_T PIDJMS0628_InitialConditionF_d4;
-                              // Mask Parameter: PIDJMS0628_InitialConditionF_d4
+  real_T PIDJMS0628_InitialConditionFo_d;
+                              // Mask Parameter: PIDJMS0628_InitialConditionFo_d
                                  //  Referenced by: '<S250>/Integrator'
 
   real_T PIDJMS1_InitialConditionForIn_g;
                               // Mask Parameter: PIDJMS1_InitialConditionForIn_g
                                  //  Referenced by: '<S300>/Integrator'
 
-  real_T PIDJMS0628_InitialConditionF_la;
-                              // Mask Parameter: PIDJMS0628_InitialConditionF_la
-                                 //  Referenced by: '<S350>/Integrator'
+  real_T PIDJMS0628_Kt;                // Mask Parameter: PIDJMS0628_Kt
+                                          //  Referenced by: '<S361>/Kt'
+
+  real_T PIDJMS0628_Kt_a;              // Mask Parameter: PIDJMS0628_Kt_a
+                                          //  Referenced by: '<S56>/Kt'
 
   real_T PIDJMS1_Kt;                   // Mask Parameter: PIDJMS1_Kt
                                           //  Referenced by: '<S106>/Kt'
-
-  real_T PIDJMS0628_Kt;                // Mask Parameter: PIDJMS0628_Kt
-                                          //  Referenced by: '<S56>/Kt'
 
   real_T PIDJMS0628_Kt_b;              // Mask Parameter: PIDJMS0628_Kt_b
                                           //  Referenced by: '<S158>/Kt'
@@ -409,6 +411,12 @@ struct P_ghost_mode_T_ {
 
   real_T PIDJMS0628_LowerSaturationLimit;
                               // Mask Parameter: PIDJMS0628_LowerSaturationLimit
+                                 //  Referenced by:
+                                 //    '<S357>/Saturation'
+                                 //    '<S343>/DeadZone'
+
+  real_T PIDJMS0628_LowerSaturationLim_p;
+                              // Mask Parameter: PIDJMS0628_LowerSaturationLim_p
                                  //  Referenced by:
                                  //    '<S52>/Saturation'
                                  //    '<S38>/DeadZone'
@@ -443,11 +451,10 @@ struct P_ghost_mode_T_ {
                                   //    '<S307>/Saturation'
                                   //    '<S293>/DeadZone'
 
-  real_T PIDJMS0628_LowerSaturationLim_l;
-                              // Mask Parameter: PIDJMS0628_LowerSaturationLim_l
-                                 //  Referenced by: '<S343>/DeadZone'
-
   real_T PIDJMS0628_N;                 // Mask Parameter: PIDJMS0628_N
+                                          //  Referenced by: '<S353>/Filter Coefficient'
+
+  real_T PIDJMS0628_N_l;               // Mask Parameter: PIDJMS0628_N_l
                                           //  Referenced by: '<S48>/Filter Coefficient'
 
   real_T PIDJMS1_N;                    // Mask Parameter: PIDJMS1_N
@@ -465,10 +472,10 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS1_N_m;                  // Mask Parameter: PIDJMS1_N_m
                                           //  Referenced by: '<S303>/Filter Coefficient'
 
-  real_T PIDJMS0628_N_fj;              // Mask Parameter: PIDJMS0628_N_fj
-                                          //  Referenced by: '<S353>/Filter Coefficient'
-
   real_T PIDJMS0628_P;                 // Mask Parameter: PIDJMS0628_P
+                                          //  Referenced by: '<S355>/Proportional Gain'
+
+  real_T PIDJMS0628_P_l;               // Mask Parameter: PIDJMS0628_P_l
                                           //  Referenced by: '<S50>/Proportional Gain'
 
   real_T PIDJMS1_P;                    // Mask Parameter: PIDJMS1_P
@@ -486,11 +493,14 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS1_P_f;                  // Mask Parameter: PIDJMS1_P_f
                                           //  Referenced by: '<S305>/Proportional Gain'
 
-  real_T PIDJMS0628_P_a;               // Mask Parameter: PIDJMS0628_P_a
-                                          //  Referenced by: '<S355>/Proportional Gain'
-
   real_T PIDJMS0628_UpperSaturationLimit;
                               // Mask Parameter: PIDJMS0628_UpperSaturationLimit
+                                 //  Referenced by:
+                                 //    '<S357>/Saturation'
+                                 //    '<S343>/DeadZone'
+
+  real_T PIDJMS0628_UpperSaturationLim_m;
+                              // Mask Parameter: PIDJMS0628_UpperSaturationLim_m
                                  //  Referenced by:
                                  //    '<S52>/Saturation'
                                  //    '<S38>/DeadZone'
@@ -525,10 +535,6 @@ struct P_ghost_mode_T_ {
                                   //    '<S307>/Saturation'
                                   //    '<S293>/DeadZone'
 
-  real_T PIDJMS0628_UpperSaturationLi_py;
-                              // Mask Parameter: PIDJMS0628_UpperSaturationLi_py
-                                 //  Referenced by: '<S343>/DeadZone'
-
   SL_Bus_ghost_mode_geometry_msgs_AccelStamped Out1_Y0;// Computed Parameter: Out1_Y0
                                                           //  Referenced by: '<S369>/Out1'
 
@@ -551,6 +557,9 @@ struct P_ghost_mode_T_ {
                                                          //  Referenced by: '<S1>/Constant'
 
   real_T Constant1_Value;              // Expression: 0
+                                          //  Referenced by: '<S341>/Constant1'
+
+  real_T Constant1_Value_o;            // Expression: 0
                                           //  Referenced by: '<S36>/Constant1'
 
   real_T Constant1_Value_c;            // Expression: 0
@@ -568,12 +577,6 @@ struct P_ghost_mode_T_ {
   real_T Constant1_Value_a;            // Expression: 0
                                           //  Referenced by: '<S291>/Constant1'
 
-  real_T Constant1_Value_p;            // Expression: 0
-                                          //  Referenced by: '<S341>/Constant1'
-
-  real_T Switch_Threshold;             // Expression: -0.25
-                                          //  Referenced by: '<S2>/Switch'
-
   real_T Saturation_UpperSat;          // Expression: 1.5
                                           //  Referenced by: '<Root>/Saturation'
 
@@ -581,10 +584,13 @@ struct P_ghost_mode_T_ {
                                           //  Referenced by: '<Root>/Saturation'
 
   real_T ZeroGain_Gain;                // Expression: 0
-                                          //  Referenced by: '<S86>/ZeroGain'
+                                          //  Referenced by: '<S341>/ZeroGain'
 
   real_T ZeroGain_Gain_g;              // Expression: 0
                                           //  Referenced by: '<S36>/ZeroGain'
+
+  real_T ZeroGain_Gain_i;              // Expression: 0
+                                          //  Referenced by: '<S86>/ZeroGain'
 
   real_T ZeroGain_Gain_j;              // Expression: 0
                                           //  Referenced by: '<S138>/ZeroGain'
@@ -595,19 +601,20 @@ struct P_ghost_mode_T_ {
   real_T ZeroGain_Gain_li;             // Expression: 0
                                           //  Referenced by: '<S241>/ZeroGain'
 
-  real_T ZeroGain_Gain_i;              // Expression: 0
+  real_T ZeroGain_Gain_i1;             // Expression: 0
                                           //  Referenced by: '<S291>/ZeroGain'
-
-  real_T ZeroGain_Gain_jm;             // Expression: 0
-                                          //  Referenced by: '<S341>/ZeroGain'
 
   boolean_T Memory_InitialCondition;
                                   // Computed Parameter: Memory_InitialCondition
-                                     //  Referenced by: '<S86>/Memory'
+                                     //  Referenced by: '<S341>/Memory'
 
   boolean_T Memory_InitialCondition_p;
                                 // Computed Parameter: Memory_InitialCondition_p
                                    //  Referenced by: '<S36>/Memory'
+
+  boolean_T Memory_InitialCondition_j;
+                                // Computed Parameter: Memory_InitialCondition_j
+                                   //  Referenced by: '<S86>/Memory'
 
   boolean_T Memory_InitialCondition_g;
                                 // Computed Parameter: Memory_InitialCondition_g
@@ -624,10 +631,6 @@ struct P_ghost_mode_T_ {
   boolean_T Memory_InitialCondition_c;
                                 // Computed Parameter: Memory_InitialCondition_c
                                    //  Referenced by: '<S291>/Memory'
-
-  boolean_T Memory_InitialCondition_ps;
-                               // Computed Parameter: Memory_InitialCondition_ps
-                                  //  Referenced by: '<S341>/Memory'
 
 };
 
@@ -742,9 +745,9 @@ extern "C" {
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
+//  Block '<S2>/Switch' : Unused code path elimination
 //  Block '<S3>/Switch' : Unused code path elimination
 //  Block '<S4>/Switch' : Unused code path elimination
-//  Block '<S357>/Saturation' : Unused code path elimination
 
 
 //-
@@ -1122,8 +1125,8 @@ extern "C" {
 //  '<S358>' : 'ghost_mode/PID JMS 0628/Saturation Fdbk/Disabled'
 //  '<S359>' : 'ghost_mode/PID JMS 0628/Sum/Sum_PID'
 //  '<S360>' : 'ghost_mode/PID JMS 0628/Sum Fdbk/Disabled'
-//  '<S361>' : 'ghost_mode/PID JMS 0628/Tracking Mode/Disabled'
-//  '<S362>' : 'ghost_mode/PID JMS 0628/Tracking Mode Sum/Passthrough'
+//  '<S361>' : 'ghost_mode/PID JMS 0628/Tracking Mode/Enabled'
+//  '<S362>' : 'ghost_mode/PID JMS 0628/Tracking Mode Sum/Tracking Mode'
 //  '<S363>' : 'ghost_mode/PID JMS 0628/Tsamp - Integral/Passthrough'
 //  '<S364>' : 'ghost_mode/PID JMS 0628/Tsamp - Ngain/Passthrough'
 //  '<S365>' : 'ghost_mode/PID JMS 0628/postSat Signal/Forward_Path'
