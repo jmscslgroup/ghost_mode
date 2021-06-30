@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.41
+// Model version                  : 1.43
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Mon Jun 28 18:00:54 2021
+// C/C++ source code generated on : Wed Jun 30 10:16:19 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -18,6 +18,12 @@
 //
 #include "ghost_mode.h"
 #include "ghost_mode_private.h"
+
+// Named constants for Chart: '<S4>/Chart'
+const uint8_T ghost_mode_IN_ChatterDown = 1U;
+const uint8_T ghost_mode_IN_ChatterUp = 2U;
+const uint8_T ghost_mode_IN_SlowDown = 3U;
+const uint8_T ghost_mode_IN_SpeedUp = 4U;
 
 // Block signals (default storage)
 B_ghost_mode_T ghost_mode_B;
@@ -62,7 +68,7 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   real_T *f2 = id->f[2];
   real_T hB[3];
   int_T i;
-  int_T nXc = 6;
+  int_T nXc = 14;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
 
   // Save the state values at time t in y, we'll use x as ynew.
@@ -118,9 +124,9 @@ void ghost_mode_step(void)
 {
   SL_Bus_ghost_mode_std_msgs_Float64 rtb_BusAssignment;
   real_T rtb_DeadZone;
-  real_T rtb_Saturation;
   real_T rtb_SignPreSat;
-  real_T rtb_Sum_c;
+  real_T rtb_SumI3;
+  real_T rtb_Sum_m;
   real_T tmp;
   real_T tmp_0;
   boolean_T b_varargout_1;
@@ -138,320 +144,339 @@ void ghost_mode_step(void)
 
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
     // Outputs for Atomic SubSystem: '<Root>/Subscribe1'
-    // MATLABSystem: '<S6>/SourceBlock' incorporates:
-    //   Inport: '<S160>/In1'
+    // MATLABSystem: '<S8>/SourceBlock' incorporates:
+    //   Inport: '<S368>/In1'
 
     b_varargout_1 = Sub_ghost_mode_31.getLatestMessage
       (&ghost_mode_B.b_varargout_2);
 
-    // Outputs for Enabled SubSystem: '<S6>/Enabled Subsystem' incorporates:
-    //   EnablePort: '<S160>/Enable'
+    // Outputs for Enabled SubSystem: '<S8>/Enabled Subsystem' incorporates:
+    //   EnablePort: '<S368>/Enable'
 
     if (b_varargout_1) {
       ghost_mode_B.In1 = ghost_mode_B.b_varargout_2;
     }
 
-    // End of MATLABSystem: '<S6>/SourceBlock'
-    // End of Outputs for SubSystem: '<S6>/Enabled Subsystem'
+    // End of MATLABSystem: '<S8>/SourceBlock'
+    // End of Outputs for SubSystem: '<S8>/Enabled Subsystem'
     // End of Outputs for SubSystem: '<Root>/Subscribe1'
 
     // Outputs for Atomic SubSystem: '<Root>/Subscribe'
-    // MATLABSystem: '<S5>/SourceBlock' incorporates:
-    //   Inport: '<S159>/In1'
+    // MATLABSystem: '<S7>/SourceBlock' incorporates:
+    //   Inport: '<S367>/In1'
 
     b_varargout_1 = Sub_ghost_mode_10.getLatestMessage
       (&ghost_mode_B.b_varargout_2);
 
-    // Outputs for Enabled SubSystem: '<S5>/Enabled Subsystem' incorporates:
-    //   EnablePort: '<S159>/Enable'
+    // Outputs for Enabled SubSystem: '<S7>/Enabled Subsystem' incorporates:
+    //   EnablePort: '<S367>/Enable'
 
     if (b_varargout_1) {
       ghost_mode_B.In1_d = ghost_mode_B.b_varargout_2;
     }
 
-    // End of MATLABSystem: '<S5>/SourceBlock'
-    // End of Outputs for SubSystem: '<S5>/Enabled Subsystem'
+    // End of MATLABSystem: '<S7>/SourceBlock'
+    // End of Outputs for SubSystem: '<S7>/Enabled Subsystem'
     // End of Outputs for SubSystem: '<Root>/Subscribe'
 
     // Sum: '<Root>/Sum'
     ghost_mode_B.Sum = ghost_mode_B.In1.Twist.Linear.X -
       ghost_mode_B.In1_d.Twist.Linear.X;
 
-    // Gain: '<S47>/Proportional Gain'
+    // Gain: '<S50>/Proportional Gain'
     ghost_mode_B.ProportionalGain = ghost_mode_P.PIDJMS0628_P * ghost_mode_B.Sum;
 
-    // Gain: '<S36>/Derivative Gain'
+    // Gain: '<S39>/Derivative Gain'
     ghost_mode_B.DerivativeGain = ghost_mode_P.PIDJMS0628_D * ghost_mode_B.Sum;
   }
 
-  // Gain: '<S45>/Filter Coefficient' incorporates:
-  //   Integrator: '<S37>/Filter'
-  //   Sum: '<S37>/SumD'
+  // Gain: '<S48>/Filter Coefficient' incorporates:
+  //   Integrator: '<S40>/Filter'
+  //   Sum: '<S40>/SumD'
 
   ghost_mode_B.FilterCoefficient = (ghost_mode_B.DerivativeGain -
     ghost_mode_X.Filter_CSTATE) * ghost_mode_P.PIDJMS0628_N;
 
-  // Sum: '<S51>/Sum' incorporates:
-  //   Integrator: '<S42>/Integrator'
+  // Sum: '<S54>/Sum' incorporates:
+  //   Integrator: '<S45>/Integrator'
 
-  ghost_mode_B.Sum_m = (ghost_mode_B.ProportionalGain +
+  ghost_mode_B.Sum_c = (ghost_mode_B.ProportionalGain +
                         ghost_mode_X.Integrator_CSTATE) +
     ghost_mode_B.FilterCoefficient;
 
-  // Saturate: '<S49>/Saturation'
-  if (ghost_mode_B.Sum_m > ghost_mode_P.PIDJMS0628_UpperSaturationLimit) {
-    // Sum: '<S54>/SumI1'
-    ghost_mode_B.Switch = ghost_mode_P.PIDJMS0628_UpperSaturationLimit;
-  } else if (ghost_mode_B.Sum_m < ghost_mode_P.PIDJMS0628_LowerSaturationLimit)
+  // Saturate: '<S52>/Saturation'
+  if (ghost_mode_B.Sum_c > ghost_mode_P.PIDJMS0628_UpperSaturationLimit) {
+    rtb_SumI3 = ghost_mode_P.PIDJMS0628_UpperSaturationLimit;
+  } else if (ghost_mode_B.Sum_c < ghost_mode_P.PIDJMS0628_LowerSaturationLimit)
   {
-    // Sum: '<S54>/SumI1'
-    ghost_mode_B.Switch = ghost_mode_P.PIDJMS0628_LowerSaturationLimit;
+    rtb_SumI3 = ghost_mode_P.PIDJMS0628_LowerSaturationLimit;
   } else {
-    // Sum: '<S54>/SumI1'
-    ghost_mode_B.Switch = ghost_mode_B.Sum_m;
+    rtb_SumI3 = ghost_mode_B.Sum_c;
   }
 
-  // End of Saturate: '<S49>/Saturation'
+  // End of Saturate: '<S52>/Saturation'
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Gain: '<S97>/Proportional Gain'
-    ghost_mode_B.ProportionalGain_e = ghost_mode_P.PIDJMS1_P * ghost_mode_B.Sum;
+    // Gain: '<S100>/Proportional Gain'
+    ghost_mode_B.ProportionalGain_l = ghost_mode_P.PIDJMS1_P * ghost_mode_B.Sum;
 
-    // Gain: '<S86>/Derivative Gain'
-    ghost_mode_B.DerivativeGain_b = ghost_mode_P.PIDJMS1_D * ghost_mode_B.Sum;
+    // Gain: '<S89>/Derivative Gain'
+    ghost_mode_B.DerivativeGain_n = ghost_mode_P.PIDJMS1_D * ghost_mode_B.Sum;
   }
 
-  // Gain: '<S95>/Filter Coefficient' incorporates:
-  //   Integrator: '<S87>/Filter'
-  //   Sum: '<S87>/SumD'
+  // Gain: '<S98>/Filter Coefficient' incorporates:
+  //   Integrator: '<S90>/Filter'
+  //   Sum: '<S90>/SumD'
 
-  ghost_mode_B.FilterCoefficient_c = (ghost_mode_B.DerivativeGain_b -
-    ghost_mode_X.Filter_CSTATE_f) * ghost_mode_P.PIDJMS1_N;
+  ghost_mode_B.FilterCoefficient_g = (ghost_mode_B.DerivativeGain_n -
+    ghost_mode_X.Filter_CSTATE_l) * ghost_mode_P.PIDJMS1_N;
 
-  // Sum: '<S101>/Sum' incorporates:
-  //   Integrator: '<S92>/Integrator'
+  // Sum: '<S104>/Sum' incorporates:
+  //   Integrator: '<S95>/Integrator'
 
-  rtb_Sum_c = (ghost_mode_B.ProportionalGain_e +
-               ghost_mode_X.Integrator_CSTATE_i) +
-    ghost_mode_B.FilterCoefficient_c;
+  rtb_Sum_m = (ghost_mode_B.ProportionalGain_l +
+               ghost_mode_X.Integrator_CSTATE_p) +
+    ghost_mode_B.FilterCoefficient_g;
 
-  // Saturate: '<S99>/Saturation'
-  if (rtb_Sum_c > ghost_mode_P.PIDJMS1_UpperSaturationLimit) {
-    rtb_Saturation = ghost_mode_P.PIDJMS1_UpperSaturationLimit;
-  } else if (rtb_Sum_c < ghost_mode_P.PIDJMS1_LowerSaturationLimit) {
-    rtb_Saturation = ghost_mode_P.PIDJMS1_LowerSaturationLimit;
+  // Saturate: '<S102>/Saturation'
+  if (rtb_Sum_m > ghost_mode_P.PIDJMS1_UpperSaturationLimit) {
+    rtb_SignPreSat = ghost_mode_P.PIDJMS1_UpperSaturationLimit;
+  } else if (rtb_Sum_m < ghost_mode_P.PIDJMS1_LowerSaturationLimit) {
+    rtb_SignPreSat = ghost_mode_P.PIDJMS1_LowerSaturationLimit;
   } else {
-    rtb_Saturation = rtb_Sum_c;
+    rtb_SignPreSat = rtb_Sum_m;
   }
 
-  // End of Saturate: '<S99>/Saturation'
+  // End of Saturate: '<S102>/Saturation'
 
   // Switch: '<S2>/Switch'
   if (ghost_mode_B.Sum > ghost_mode_P.Switch_Threshold) {
-    rtb_SignPreSat = ghost_mode_B.Switch;
+    rtb_DeadZone = rtb_SumI3;
   } else {
-    rtb_SignPreSat = rtb_Saturation;
+    rtb_DeadZone = rtb_SignPreSat;
   }
 
   // End of Switch: '<S2>/Switch'
 
   // Saturate: '<Root>/Saturation'
-  if (rtb_SignPreSat > ghost_mode_P.Saturation_UpperSat) {
-    rtb_SignPreSat = ghost_mode_P.Saturation_UpperSat;
-  } else if (rtb_SignPreSat < ghost_mode_P.Saturation_LowerSat) {
-    rtb_SignPreSat = ghost_mode_P.Saturation_LowerSat;
+  if (rtb_DeadZone > ghost_mode_P.Saturation_UpperSat) {
+    // BusAssignment: '<Root>/Bus Assignment'
+    rtb_BusAssignment.Data = ghost_mode_P.Saturation_UpperSat;
+  } else if (rtb_DeadZone < ghost_mode_P.Saturation_LowerSat) {
+    // BusAssignment: '<Root>/Bus Assignment'
+    rtb_BusAssignment.Data = ghost_mode_P.Saturation_LowerSat;
+  } else {
+    // BusAssignment: '<Root>/Bus Assignment'
+    rtb_BusAssignment.Data = rtb_DeadZone;
   }
 
   // End of Saturate: '<Root>/Saturation'
 
-  // BusAssignment: '<Root>/Bus Assignment'
-  rtb_BusAssignment.Data = rtb_SignPreSat;
-
   // Outputs for Atomic SubSystem: '<Root>/Publish'
-  // MATLABSystem: '<S4>/SinkBlock'
+  // MATLABSystem: '<S6>/SinkBlock'
   Pub_ghost_mode_3.publish(&rtb_BusAssignment);
 
   // End of Outputs for SubSystem: '<Root>/Publish'
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Gain: '<S39>/Integral Gain'
-    ghost_mode_B.IntegralGain = ghost_mode_P.PIDJMS0628_I * ghost_mode_B.Sum;
+    // Outputs for Atomic SubSystem: '<Root>/Subscribe2'
+    // MATLABSystem: '<S9>/SourceBlock' incorporates:
+    //   Inport: '<S369>/In1'
+
+    b_varargout_1 = Sub_ghost_mode_99.getLatestMessage
+      (&ghost_mode_B.b_varargout_2_m);
+
+    // Outputs for Enabled SubSystem: '<S9>/Enabled Subsystem' incorporates:
+    //   EnablePort: '<S369>/Enable'
+
+    if (b_varargout_1) {
+      ghost_mode_B.In1_e = ghost_mode_B.b_varargout_2_m;
+    }
+
+    // End of MATLABSystem: '<S9>/SourceBlock'
+    // End of Outputs for SubSystem: '<S9>/Enabled Subsystem'
+    // End of Outputs for SubSystem: '<Root>/Subscribe2'
+
+    // Gain: '<S92>/Integral Gain'
+    ghost_mode_B.IntegralGain = ghost_mode_P.PIDJMS1_I * ghost_mode_B.Sum;
   }
 
-  // Sum: '<S54>/SumI1' incorporates:
-  //   Gain: '<S53>/Kt'
-  //   Sum: '<S53>/SumI3'
+  // Sum: '<S107>/SumI1' incorporates:
+  //   Gain: '<S106>/Kt'
+  //   Sum: '<S106>/SumI3'
 
-  ghost_mode_B.Switch = (rtb_SignPreSat - ghost_mode_B.Switch) *
-    ghost_mode_P.PIDJMS0628_Kt + ghost_mode_B.IntegralGain;
+  rtb_DeadZone = (ghost_mode_B.In1_e.Accel.Linear.X - rtb_SignPreSat) *
+    ghost_mode_P.PIDJMS1_Kt + ghost_mode_B.IntegralGain;
 
-  // DeadZone: '<S35>/DeadZone'
-  if (ghost_mode_B.Sum_m > ghost_mode_P.PIDJMS0628_UpperSaturationLimit) {
-    rtb_DeadZone = ghost_mode_B.Sum_m -
-      ghost_mode_P.PIDJMS0628_UpperSaturationLimit;
-  } else if (ghost_mode_B.Sum_m >= ghost_mode_P.PIDJMS0628_LowerSaturationLimit)
-  {
-    rtb_DeadZone = 0.0;
+  // DeadZone: '<S88>/DeadZone'
+  if (rtb_Sum_m > ghost_mode_P.PIDJMS1_UpperSaturationLimit) {
+    rtb_SignPreSat = rtb_Sum_m - ghost_mode_P.PIDJMS1_UpperSaturationLimit;
+  } else if (rtb_Sum_m >= ghost_mode_P.PIDJMS1_LowerSaturationLimit) {
+    rtb_SignPreSat = 0.0;
   } else {
-    rtb_DeadZone = ghost_mode_B.Sum_m -
-      ghost_mode_P.PIDJMS0628_LowerSaturationLimit;
+    rtb_SignPreSat = rtb_Sum_m - ghost_mode_P.PIDJMS1_LowerSaturationLimit;
   }
 
-  // End of DeadZone: '<S35>/DeadZone'
+  // End of DeadZone: '<S88>/DeadZone'
 
-  // Signum: '<S33>/SignPreSat'
-  if (rtb_DeadZone < 0.0) {
-    // DataTypeConversion: '<S33>/DataTypeConv1'
+  // Signum: '<S86>/SignPreSat'
+  if (rtb_SignPreSat < 0.0) {
+    // DataTypeConversion: '<S86>/DataTypeConv1'
     tmp = -1.0;
-  } else if (rtb_DeadZone > 0.0) {
-    // DataTypeConversion: '<S33>/DataTypeConv1'
+  } else if (rtb_SignPreSat > 0.0) {
+    // DataTypeConversion: '<S86>/DataTypeConv1'
     tmp = 1.0;
-  } else if (rtb_DeadZone == 0.0) {
-    // DataTypeConversion: '<S33>/DataTypeConv1'
+  } else if (rtb_SignPreSat == 0.0) {
+    // DataTypeConversion: '<S86>/DataTypeConv1'
     tmp = 0.0;
   } else {
-    // DataTypeConversion: '<S33>/DataTypeConv1'
+    // DataTypeConversion: '<S86>/DataTypeConv1'
     tmp = (rtNaN);
   }
 
-  // End of Signum: '<S33>/SignPreSat'
+  // End of Signum: '<S86>/SignPreSat'
 
-  // DataTypeConversion: '<S33>/DataTypeConv1'
+  // DataTypeConversion: '<S86>/DataTypeConv1'
   if (rtIsNaN(tmp)) {
     tmp = 0.0;
   } else {
     tmp = fmod(tmp, 256.0);
   }
 
-  // Signum: '<S33>/SignPreIntegrator'
-  if (ghost_mode_B.Switch < 0.0) {
-    // DataTypeConversion: '<S33>/DataTypeConv2'
+  // Signum: '<S86>/SignPreIntegrator'
+  if (rtb_DeadZone < 0.0) {
+    // DataTypeConversion: '<S86>/DataTypeConv2'
     tmp_0 = -1.0;
-  } else if (ghost_mode_B.Switch > 0.0) {
-    // DataTypeConversion: '<S33>/DataTypeConv2'
+  } else if (rtb_DeadZone > 0.0) {
+    // DataTypeConversion: '<S86>/DataTypeConv2'
     tmp_0 = 1.0;
-  } else if (ghost_mode_B.Switch == 0.0) {
-    // DataTypeConversion: '<S33>/DataTypeConv2'
+  } else if (rtb_DeadZone == 0.0) {
+    // DataTypeConversion: '<S86>/DataTypeConv2'
     tmp_0 = 0.0;
   } else {
-    // DataTypeConversion: '<S33>/DataTypeConv2'
+    // DataTypeConversion: '<S86>/DataTypeConv2'
     tmp_0 = (rtNaN);
   }
 
-  // End of Signum: '<S33>/SignPreIntegrator'
+  // End of Signum: '<S86>/SignPreIntegrator'
 
-  // DataTypeConversion: '<S33>/DataTypeConv2'
+  // DataTypeConversion: '<S86>/DataTypeConv2'
   if (rtIsNaN(tmp_0)) {
     tmp_0 = 0.0;
   } else {
     tmp_0 = fmod(tmp_0, 256.0);
   }
 
-  // Logic: '<S33>/AND3' incorporates:
-  //   DataTypeConversion: '<S33>/DataTypeConv1'
-  //   DataTypeConversion: '<S33>/DataTypeConv2'
-  //   Gain: '<S33>/ZeroGain'
-  //   RelationalOperator: '<S33>/Equal1'
-  //   RelationalOperator: '<S33>/NotEqual'
+  // Logic: '<S86>/AND3' incorporates:
+  //   DataTypeConversion: '<S86>/DataTypeConv1'
+  //   DataTypeConversion: '<S86>/DataTypeConv2'
+  //   Gain: '<S86>/ZeroGain'
+  //   RelationalOperator: '<S86>/Equal1'
+  //   RelationalOperator: '<S86>/NotEqual'
 
-  ghost_mode_B.AND3 = ((ghost_mode_P.ZeroGain_Gain * ghost_mode_B.Sum_m !=
-                        rtb_DeadZone) && ((tmp < 0.0 ? static_cast<int32_T>(
-    static_cast<int8_T>(-static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) :
-    static_cast<int32_T>(static_cast<int8_T>(static_cast<uint8_T>(tmp)))) ==
-    (tmp_0 < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>
+  ghost_mode_B.AND3 = ((ghost_mode_P.ZeroGain_Gain * rtb_Sum_m != rtb_SignPreSat)
+                       && ((tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>
+    (-static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
+    static_cast<int8_T>(static_cast<uint8_T>(tmp)))) == (tmp_0 < 0.0 ?
+    static_cast<int32_T>(static_cast<int8_T>(-static_cast<int8_T>
     (static_cast<uint8_T>(-tmp_0)))) : static_cast<int32_T>(static_cast<int8_T>(
     static_cast<uint8_T>(tmp_0))))));
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Memory: '<S33>/Memory'
+    // Memory: '<S86>/Memory'
     ghost_mode_B.Memory = ghost_mode_DW.Memory_PreviousInput;
 
-    // Gain: '<S89>/Integral Gain'
-    ghost_mode_B.IntegralGain_p = ghost_mode_P.PIDJMS1_I * ghost_mode_B.Sum;
+    // Gain: '<S42>/Integral Gain'
+    ghost_mode_B.IntegralGain_l = ghost_mode_P.PIDJMS0628_I * ghost_mode_B.Sum;
   }
 
-  // Switch: '<S33>/Switch'
+  // Switch: '<S86>/Switch'
   if (ghost_mode_B.Memory) {
-    // Sum: '<S54>/SumI1' incorporates:
-    //   Constant: '<S33>/Constant1'
-    //   Switch: '<S33>/Switch'
+    // Switch: '<S86>/Switch' incorporates:
+    //   Constant: '<S86>/Constant1'
 
-    ghost_mode_B.Switch = ghost_mode_P.Constant1_Value;
+    ghost_mode_B.Switch = ghost_mode_P.Constant1_Value_c;
+  } else {
+    // Switch: '<S86>/Switch'
+    ghost_mode_B.Switch = rtb_DeadZone;
   }
 
-  // End of Switch: '<S33>/Switch'
+  // End of Switch: '<S86>/Switch'
 
-  // Sum: '<S104>/SumI1' incorporates:
-  //   Gain: '<S103>/Kt'
-  //   Sum: '<S103>/SumI3'
+  // Sum: '<S57>/SumI1' incorporates:
+  //   Gain: '<S56>/Kt'
+  //   Sum: '<S56>/SumI3'
 
-  ghost_mode_B.Sum_m = (rtb_SignPreSat - rtb_Saturation) *
-    ghost_mode_P.PIDJMS1_Kt + ghost_mode_B.IntegralGain_p;
+  rtb_SumI3 = (ghost_mode_B.In1_e.Accel.Linear.X - rtb_SumI3) *
+    ghost_mode_P.PIDJMS0628_Kt + ghost_mode_B.IntegralGain_l;
 
-  // DeadZone: '<S85>/DeadZone'
-  if (rtb_Sum_c > ghost_mode_P.PIDJMS1_UpperSaturationLimit) {
-    rtb_DeadZone = rtb_Sum_c - ghost_mode_P.PIDJMS1_UpperSaturationLimit;
-  } else if (rtb_Sum_c >= ghost_mode_P.PIDJMS1_LowerSaturationLimit) {
+  // DeadZone: '<S38>/DeadZone'
+  if (ghost_mode_B.Sum_c > ghost_mode_P.PIDJMS0628_UpperSaturationLimit) {
+    rtb_DeadZone = ghost_mode_B.Sum_c -
+      ghost_mode_P.PIDJMS0628_UpperSaturationLimit;
+  } else if (ghost_mode_B.Sum_c >= ghost_mode_P.PIDJMS0628_LowerSaturationLimit)
+  {
     rtb_DeadZone = 0.0;
   } else {
-    rtb_DeadZone = rtb_Sum_c - ghost_mode_P.PIDJMS1_LowerSaturationLimit;
+    rtb_DeadZone = ghost_mode_B.Sum_c -
+      ghost_mode_P.PIDJMS0628_LowerSaturationLimit;
   }
 
-  // End of DeadZone: '<S85>/DeadZone'
+  // End of DeadZone: '<S38>/DeadZone'
 
-  // Signum: '<S83>/SignPreSat'
+  // Signum: '<S36>/SignPreSat'
   if (rtb_DeadZone < 0.0) {
-    // DataTypeConversion: '<S83>/DataTypeConv1'
+    // DataTypeConversion: '<S36>/DataTypeConv1'
     tmp = -1.0;
   } else if (rtb_DeadZone > 0.0) {
-    // DataTypeConversion: '<S83>/DataTypeConv1'
+    // DataTypeConversion: '<S36>/DataTypeConv1'
     tmp = 1.0;
   } else if (rtb_DeadZone == 0.0) {
-    // DataTypeConversion: '<S83>/DataTypeConv1'
+    // DataTypeConversion: '<S36>/DataTypeConv1'
     tmp = 0.0;
   } else {
-    // DataTypeConversion: '<S83>/DataTypeConv1'
+    // DataTypeConversion: '<S36>/DataTypeConv1'
     tmp = (rtNaN);
   }
 
-  // End of Signum: '<S83>/SignPreSat'
+  // End of Signum: '<S36>/SignPreSat'
 
-  // DataTypeConversion: '<S83>/DataTypeConv1'
+  // DataTypeConversion: '<S36>/DataTypeConv1'
   if (rtIsNaN(tmp)) {
     tmp = 0.0;
   } else {
     tmp = fmod(tmp, 256.0);
   }
 
-  // Signum: '<S83>/SignPreIntegrator'
-  if (ghost_mode_B.Sum_m < 0.0) {
-    // DataTypeConversion: '<S83>/DataTypeConv2'
+  // Signum: '<S36>/SignPreIntegrator'
+  if (rtb_SumI3 < 0.0) {
+    // DataTypeConversion: '<S36>/DataTypeConv2'
     tmp_0 = -1.0;
-  } else if (ghost_mode_B.Sum_m > 0.0) {
-    // DataTypeConversion: '<S83>/DataTypeConv2'
+  } else if (rtb_SumI3 > 0.0) {
+    // DataTypeConversion: '<S36>/DataTypeConv2'
     tmp_0 = 1.0;
-  } else if (ghost_mode_B.Sum_m == 0.0) {
-    // DataTypeConversion: '<S83>/DataTypeConv2'
+  } else if (rtb_SumI3 == 0.0) {
+    // DataTypeConversion: '<S36>/DataTypeConv2'
     tmp_0 = 0.0;
   } else {
-    // DataTypeConversion: '<S83>/DataTypeConv2'
+    // DataTypeConversion: '<S36>/DataTypeConv2'
     tmp_0 = (rtNaN);
   }
 
-  // End of Signum: '<S83>/SignPreIntegrator'
+  // End of Signum: '<S36>/SignPreIntegrator'
 
-  // DataTypeConversion: '<S83>/DataTypeConv2'
+  // DataTypeConversion: '<S36>/DataTypeConv2'
   if (rtIsNaN(tmp_0)) {
     tmp_0 = 0.0;
   } else {
     tmp_0 = fmod(tmp_0, 256.0);
   }
 
-  // Logic: '<S83>/AND3' incorporates:
-  //   DataTypeConversion: '<S83>/DataTypeConv1'
-  //   DataTypeConversion: '<S83>/DataTypeConv2'
-  //   Gain: '<S83>/ZeroGain'
-  //   RelationalOperator: '<S83>/Equal1'
-  //   RelationalOperator: '<S83>/NotEqual'
+  // Logic: '<S36>/AND3' incorporates:
+  //   DataTypeConversion: '<S36>/DataTypeConv1'
+  //   DataTypeConversion: '<S36>/DataTypeConv2'
+  //   Gain: '<S36>/ZeroGain'
+  //   RelationalOperator: '<S36>/Equal1'
+  //   RelationalOperator: '<S36>/NotEqual'
 
-  ghost_mode_B.AND3_h = ((ghost_mode_P.ZeroGain_Gain_i * rtb_Sum_c !=
+  ghost_mode_B.AND3_c = ((ghost_mode_P.ZeroGain_Gain_g * ghost_mode_B.Sum_c !=
     rtb_DeadZone) && ((tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
     static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
     static_cast<int8_T>(static_cast<uint8_T>(tmp)))) == (tmp_0 < 0.0 ?
@@ -459,121 +484,702 @@ void ghost_mode_step(void)
     uint8_T>(-tmp_0)))) : static_cast<int32_T>(static_cast<int8_T>
     (static_cast<uint8_T>(tmp_0))))));
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
-    // Memory: '<S83>/Memory'
-    ghost_mode_B.Memory_g = ghost_mode_DW.Memory_PreviousInput_j;
+    // Memory: '<S36>/Memory'
+    ghost_mode_B.Memory_d = ghost_mode_DW.Memory_PreviousInput_p;
 
-    // Switch: '<S133>/Switch' incorporates:
-    //   Memory: '<S133>/Memory'
+    // Gain: '<S144>/Integral Gain'
+    ghost_mode_B.IntegralGain_f = ghost_mode_P.PIDJMS0628_I_n * 0.0;
 
-    if (ghost_mode_DW.Memory_PreviousInput_n) {
-      // Switch: '<S133>/Switch' incorporates:
-      //   Constant: '<S133>/Constant1'
+    // Gain: '<S152>/Proportional Gain'
+    ghost_mode_B.ProportionalGain_k = ghost_mode_P.PIDJMS0628_P_b * 0.0;
 
-      ghost_mode_B.Switch_j = ghost_mode_P.Constant1_Value_p;
-    } else {
-      // Switch: '<S133>/Switch' incorporates:
-      //   Gain: '<S139>/Integral Gain'
-
-      ghost_mode_B.Switch_j = ghost_mode_P.PIDJMS0628_I_m * 0.0;
-    }
-
-    // End of Switch: '<S133>/Switch'
-
-    // DataTypeConversion: '<S133>/DataTypeConv2'
-    ghost_mode_B.DataTypeConv2 = 0;
-
-    // Gain: '<S147>/Proportional Gain'
-    ghost_mode_B.ProportionalGain_f = ghost_mode_P.PIDJMS0628_P_a * 0.0;
-
-    // Gain: '<S136>/Derivative Gain'
-    ghost_mode_B.DerivativeGain_e = ghost_mode_P.PIDJMS0628_D_e * 0.0;
+    // Gain: '<S141>/Derivative Gain'
+    ghost_mode_B.DerivativeGain_g = ghost_mode_P.PIDJMS0628_D_l * 0.0;
   }
 
-  // Switch: '<S83>/Switch'
-  if (ghost_mode_B.Memory_g) {
-    // Switch: '<S83>/Switch' incorporates:
-    //   Constant: '<S83>/Constant1'
+  // Switch: '<S36>/Switch'
+  if (ghost_mode_B.Memory_d) {
+    // Switch: '<S36>/Switch' incorporates:
+    //   Constant: '<S36>/Constant1'
 
-    ghost_mode_B.Switch_l = ghost_mode_P.Constant1_Value_a;
+    ghost_mode_B.Switch_k = ghost_mode_P.Constant1_Value;
   } else {
-    // Switch: '<S83>/Switch'
-    ghost_mode_B.Switch_l = ghost_mode_B.Sum_m;
+    // Switch: '<S36>/Switch'
+    ghost_mode_B.Switch_k = rtb_SumI3;
   }
 
-  // End of Switch: '<S83>/Switch'
+  // End of Switch: '<S36>/Switch'
 
-  // Gain: '<S145>/Filter Coefficient' incorporates:
-  //   Integrator: '<S137>/Filter'
-  //   Sum: '<S137>/SumD'
+  // Gain: '<S150>/Filter Coefficient' incorporates:
+  //   Integrator: '<S142>/Filter'
+  //   Sum: '<S142>/SumD'
 
-  ghost_mode_B.FilterCoefficient_p = (ghost_mode_B.DerivativeGain_e -
-    ghost_mode_X.Filter_CSTATE_d) * ghost_mode_P.PIDJMS0628_N_f;
+  ghost_mode_B.FilterCoefficient_d = (ghost_mode_B.DerivativeGain_g -
+    ghost_mode_X.Filter_CSTATE_f) * ghost_mode_P.PIDJMS0628_N_j;
 
-  // Sum: '<S151>/Sum' incorporates:
-  //   Integrator: '<S142>/Integrator'
+  // Sum: '<S156>/Sum' incorporates:
+  //   Integrator: '<S147>/Integrator'
 
-  ghost_mode_B.Sum_m = (ghost_mode_B.ProportionalGain_f +
-                        ghost_mode_X.Integrator_CSTATE_f) +
-    ghost_mode_B.FilterCoefficient_p;
+  rtb_SumI3 = (ghost_mode_B.ProportionalGain_k +
+               ghost_mode_X.Integrator_CSTATE_h) +
+    ghost_mode_B.FilterCoefficient_d;
 
-  // DeadZone: '<S135>/DeadZone'
-  if (ghost_mode_B.Sum_m > ghost_mode_P.PIDJMS0628_UpperSaturationLim_p) {
-    rtb_DeadZone = ghost_mode_B.Sum_m -
-      ghost_mode_P.PIDJMS0628_UpperSaturationLim_p;
-  } else if (ghost_mode_B.Sum_m >= ghost_mode_P.PIDJMS0628_LowerSaturationLim_l)
-  {
-    rtb_DeadZone = 0.0;
+  // Saturate: '<S154>/Saturation'
+  if (rtb_SumI3 > ghost_mode_P.PIDJMS0628_UpperSaturationLim_p) {
+    rtb_DeadZone = ghost_mode_P.PIDJMS0628_UpperSaturationLim_p;
+  } else if (rtb_SumI3 < ghost_mode_P.PIDJMS0628_LowerSaturationLim_k) {
+    rtb_DeadZone = ghost_mode_P.PIDJMS0628_LowerSaturationLim_k;
   } else {
-    rtb_DeadZone = ghost_mode_B.Sum_m -
-      ghost_mode_P.PIDJMS0628_LowerSaturationLim_l;
+    rtb_DeadZone = rtb_SumI3;
   }
 
-  // End of DeadZone: '<S135>/DeadZone'
+  // End of Saturate: '<S154>/Saturation'
 
-  // Signum: '<S133>/SignPreSat'
+  // Sum: '<S159>/SumI1' incorporates:
+  //   Gain: '<S158>/Kt'
+  //   Sum: '<S158>/SumI3'
+
+  rtb_DeadZone = (0.0 - rtb_DeadZone) * ghost_mode_P.PIDJMS0628_Kt_b +
+    ghost_mode_B.IntegralGain_f;
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Memory: '<S138>/Memory'
+    ghost_mode_B.Memory_n = ghost_mode_DW.Memory_PreviousInput_i;
+  }
+
+  // Switch: '<S138>/Switch'
+  if (ghost_mode_B.Memory_n) {
+    // Switch: '<S138>/Switch' incorporates:
+    //   Constant: '<S138>/Constant1'
+
+    ghost_mode_B.Switch_m = ghost_mode_P.Constant1_Value_l;
+  } else {
+    // Switch: '<S138>/Switch'
+    ghost_mode_B.Switch_m = rtb_DeadZone;
+  }
+
+  // End of Switch: '<S138>/Switch'
+
+  // Signum: '<S138>/SignPreIntegrator'
   if (rtb_DeadZone < 0.0) {
-    // DataTypeConversion: '<S133>/DataTypeConv1'
+    // DataTypeConversion: '<S138>/DataTypeConv2'
     tmp = -1.0;
   } else if (rtb_DeadZone > 0.0) {
-    // DataTypeConversion: '<S133>/DataTypeConv1'
+    // DataTypeConversion: '<S138>/DataTypeConv2'
     tmp = 1.0;
   } else if (rtb_DeadZone == 0.0) {
-    // DataTypeConversion: '<S133>/DataTypeConv1'
+    // DataTypeConversion: '<S138>/DataTypeConv2'
     tmp = 0.0;
   } else {
-    // DataTypeConversion: '<S133>/DataTypeConv1'
+    // DataTypeConversion: '<S138>/DataTypeConv2'
     tmp = (rtNaN);
   }
 
-  // End of Signum: '<S133>/SignPreSat'
+  // End of Signum: '<S138>/SignPreIntegrator'
 
-  // DataTypeConversion: '<S133>/DataTypeConv1'
+  // DataTypeConversion: '<S138>/DataTypeConv2'
   if (rtIsNaN(tmp)) {
     tmp = 0.0;
   } else {
     tmp = fmod(tmp, 256.0);
   }
 
-  // Logic: '<S133>/AND3' incorporates:
-  //   DataTypeConversion: '<S133>/DataTypeConv1'
-  //   Gain: '<S133>/ZeroGain'
-  //   RelationalOperator: '<S133>/Equal1'
-  //   RelationalOperator: '<S133>/NotEqual'
+  // DeadZone: '<S140>/DeadZone'
+  if (rtb_SumI3 > ghost_mode_P.PIDJMS0628_UpperSaturationLim_p) {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS0628_UpperSaturationLim_p;
+  } else if (rtb_SumI3 >= ghost_mode_P.PIDJMS0628_LowerSaturationLim_k) {
+    rtb_DeadZone = 0.0;
+  } else {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS0628_LowerSaturationLim_k;
+  }
 
-  ghost_mode_B.AND3_e = ((ghost_mode_P.ZeroGain_Gain_j * ghost_mode_B.Sum_m !=
+  // End of DeadZone: '<S140>/DeadZone'
+
+  // Signum: '<S138>/SignPreSat'
+  if (rtb_DeadZone < 0.0) {
+    // DataTypeConversion: '<S138>/DataTypeConv1'
+    tmp_0 = -1.0;
+  } else if (rtb_DeadZone > 0.0) {
+    // DataTypeConversion: '<S138>/DataTypeConv1'
+    tmp_0 = 1.0;
+  } else if (rtb_DeadZone == 0.0) {
+    // DataTypeConversion: '<S138>/DataTypeConv1'
+    tmp_0 = 0.0;
+  } else {
+    // DataTypeConversion: '<S138>/DataTypeConv1'
+    tmp_0 = (rtNaN);
+  }
+
+  // End of Signum: '<S138>/SignPreSat'
+
+  // DataTypeConversion: '<S138>/DataTypeConv1'
+  if (rtIsNaN(tmp_0)) {
+    tmp_0 = 0.0;
+  } else {
+    tmp_0 = fmod(tmp_0, 256.0);
+  }
+
+  // Logic: '<S138>/AND3' incorporates:
+  //   DataTypeConversion: '<S138>/DataTypeConv1'
+  //   DataTypeConversion: '<S138>/DataTypeConv2'
+  //   Gain: '<S138>/ZeroGain'
+  //   RelationalOperator: '<S138>/Equal1'
+  //   RelationalOperator: '<S138>/NotEqual'
+
+  ghost_mode_B.AND3_k = ((ghost_mode_P.ZeroGain_Gain_j * rtb_SumI3 !=
+    rtb_DeadZone) && ((tmp_0 < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
+    static_cast<int8_T>(static_cast<uint8_T>(-tmp_0)))) : static_cast<int32_T>(
+    static_cast<int8_T>(static_cast<uint8_T>(tmp_0)))) == static_cast<int8_T>
+                      (tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
+    static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
+    static_cast<int8_T>(static_cast<uint8_T>(tmp))))));
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Gain: '<S194>/Integral Gain'
+    ghost_mode_B.IntegralGain_lk = ghost_mode_P.PIDJMS1_I_h * 0.0;
+
+    // Gain: '<S202>/Proportional Gain'
+    ghost_mode_B.ProportionalGain_m = ghost_mode_P.PIDJMS1_P_a * 0.0;
+
+    // Gain: '<S191>/Derivative Gain'
+    ghost_mode_B.DerivativeGain_c = ghost_mode_P.PIDJMS1_D_c * 0.0;
+  }
+
+  // Gain: '<S200>/Filter Coefficient' incorporates:
+  //   Integrator: '<S192>/Filter'
+  //   Sum: '<S192>/SumD'
+
+  ghost_mode_B.FilterCoefficient_j = (ghost_mode_B.DerivativeGain_c -
+    ghost_mode_X.Filter_CSTATE_o) * ghost_mode_P.PIDJMS1_N_n;
+
+  // Sum: '<S206>/Sum' incorporates:
+  //   Integrator: '<S197>/Integrator'
+
+  rtb_SumI3 = (ghost_mode_B.ProportionalGain_m +
+               ghost_mode_X.Integrator_CSTATE_p5) +
+    ghost_mode_B.FilterCoefficient_j;
+
+  // Saturate: '<S204>/Saturation'
+  if (rtb_SumI3 > ghost_mode_P.PIDJMS1_UpperSaturationLimit_n) {
+    rtb_DeadZone = ghost_mode_P.PIDJMS1_UpperSaturationLimit_n;
+  } else if (rtb_SumI3 < ghost_mode_P.PIDJMS1_LowerSaturationLimit_l) {
+    rtb_DeadZone = ghost_mode_P.PIDJMS1_LowerSaturationLimit_l;
+  } else {
+    rtb_DeadZone = rtb_SumI3;
+  }
+
+  // End of Saturate: '<S204>/Saturation'
+
+  // Sum: '<S209>/SumI1' incorporates:
+  //   Gain: '<S208>/Kt'
+  //   Sum: '<S208>/SumI3'
+
+  rtb_DeadZone = (0.0 - rtb_DeadZone) * ghost_mode_P.PIDJMS1_Kt_d +
+    ghost_mode_B.IntegralGain_lk;
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Memory: '<S188>/Memory'
+    ghost_mode_B.Memory_a = ghost_mode_DW.Memory_PreviousInput_pv;
+  }
+
+  // Switch: '<S188>/Switch'
+  if (ghost_mode_B.Memory_a) {
+    // Switch: '<S188>/Switch' incorporates:
+    //   Constant: '<S188>/Constant1'
+
+    ghost_mode_B.Switch_a = ghost_mode_P.Constant1_Value_k;
+  } else {
+    // Switch: '<S188>/Switch'
+    ghost_mode_B.Switch_a = rtb_DeadZone;
+  }
+
+  // End of Switch: '<S188>/Switch'
+
+  // Signum: '<S188>/SignPreIntegrator'
+  if (rtb_DeadZone < 0.0) {
+    // DataTypeConversion: '<S188>/DataTypeConv2'
+    tmp = -1.0;
+  } else if (rtb_DeadZone > 0.0) {
+    // DataTypeConversion: '<S188>/DataTypeConv2'
+    tmp = 1.0;
+  } else if (rtb_DeadZone == 0.0) {
+    // DataTypeConversion: '<S188>/DataTypeConv2'
+    tmp = 0.0;
+  } else {
+    // DataTypeConversion: '<S188>/DataTypeConv2'
+    tmp = (rtNaN);
+  }
+
+  // End of Signum: '<S188>/SignPreIntegrator'
+
+  // DataTypeConversion: '<S188>/DataTypeConv2'
+  if (rtIsNaN(tmp)) {
+    tmp = 0.0;
+  } else {
+    tmp = fmod(tmp, 256.0);
+  }
+
+  // DeadZone: '<S190>/DeadZone'
+  if (rtb_SumI3 > ghost_mode_P.PIDJMS1_UpperSaturationLimit_n) {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS1_UpperSaturationLimit_n;
+  } else if (rtb_SumI3 >= ghost_mode_P.PIDJMS1_LowerSaturationLimit_l) {
+    rtb_DeadZone = 0.0;
+  } else {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS1_LowerSaturationLimit_l;
+  }
+
+  // End of DeadZone: '<S190>/DeadZone'
+
+  // Signum: '<S188>/SignPreSat'
+  if (rtb_DeadZone < 0.0) {
+    // DataTypeConversion: '<S188>/DataTypeConv1'
+    tmp_0 = -1.0;
+  } else if (rtb_DeadZone > 0.0) {
+    // DataTypeConversion: '<S188>/DataTypeConv1'
+    tmp_0 = 1.0;
+  } else if (rtb_DeadZone == 0.0) {
+    // DataTypeConversion: '<S188>/DataTypeConv1'
+    tmp_0 = 0.0;
+  } else {
+    // DataTypeConversion: '<S188>/DataTypeConv1'
+    tmp_0 = (rtNaN);
+  }
+
+  // End of Signum: '<S188>/SignPreSat'
+
+  // DataTypeConversion: '<S188>/DataTypeConv1'
+  if (rtIsNaN(tmp_0)) {
+    tmp_0 = 0.0;
+  } else {
+    tmp_0 = fmod(tmp_0, 256.0);
+  }
+
+  // Logic: '<S188>/AND3' incorporates:
+  //   DataTypeConversion: '<S188>/DataTypeConv1'
+  //   DataTypeConversion: '<S188>/DataTypeConv2'
+  //   Gain: '<S188>/ZeroGain'
+  //   RelationalOperator: '<S188>/Equal1'
+  //   RelationalOperator: '<S188>/NotEqual'
+
+  ghost_mode_B.AND3_h = ((ghost_mode_P.ZeroGain_Gain_l * rtb_SumI3 !=
+    rtb_DeadZone) && ((tmp_0 < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
+    static_cast<int8_T>(static_cast<uint8_T>(-tmp_0)))) : static_cast<int32_T>(
+    static_cast<int8_T>(static_cast<uint8_T>(tmp_0)))) == static_cast<int8_T>
+                      (tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
+    static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
+    static_cast<int8_T>(static_cast<uint8_T>(tmp))))));
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Gain: '<S247>/Integral Gain'
+    ghost_mode_B.IntegralGain_p = ghost_mode_P.PIDJMS0628_I_c * 0.0;
+
+    // Gain: '<S255>/Proportional Gain'
+    ghost_mode_B.ProportionalGain_m4 = ghost_mode_P.PIDJMS0628_P_bi * 0.0;
+
+    // Gain: '<S244>/Derivative Gain'
+    ghost_mode_B.DerivativeGain_b = ghost_mode_P.PIDJMS0628_D_g * 0.0;
+  }
+
+  // Gain: '<S253>/Filter Coefficient' incorporates:
+  //   Integrator: '<S245>/Filter'
+  //   Sum: '<S245>/SumD'
+
+  ghost_mode_B.FilterCoefficient_i = (ghost_mode_B.DerivativeGain_b -
+    ghost_mode_X.Filter_CSTATE_e) * ghost_mode_P.PIDJMS0628_N_f;
+
+  // Sum: '<S259>/Sum' incorporates:
+  //   Integrator: '<S250>/Integrator'
+
+  rtb_SumI3 = (ghost_mode_B.ProportionalGain_m4 +
+               ghost_mode_X.Integrator_CSTATE_m) +
+    ghost_mode_B.FilterCoefficient_i;
+
+  // Saturate: '<S257>/Saturation'
+  if (rtb_SumI3 > ghost_mode_P.PIDJMS0628_UpperSaturationLim_l) {
+    rtb_DeadZone = ghost_mode_P.PIDJMS0628_UpperSaturationLim_l;
+  } else if (rtb_SumI3 < ghost_mode_P.PIDJMS0628_LowerSaturationLi_km) {
+    rtb_DeadZone = ghost_mode_P.PIDJMS0628_LowerSaturationLi_km;
+  } else {
+    rtb_DeadZone = rtb_SumI3;
+  }
+
+  // End of Saturate: '<S257>/Saturation'
+
+  // Sum: '<S262>/SumI1' incorporates:
+  //   Gain: '<S261>/Kt'
+  //   Sum: '<S261>/SumI3'
+
+  rtb_DeadZone = (0.0 - rtb_DeadZone) * ghost_mode_P.PIDJMS0628_Kt_j +
+    ghost_mode_B.IntegralGain_p;
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Memory: '<S241>/Memory'
+    ghost_mode_B.Memory_dp = ghost_mode_DW.Memory_PreviousInput_f;
+  }
+
+  // Switch: '<S241>/Switch'
+  if (ghost_mode_B.Memory_dp) {
+    // Switch: '<S241>/Switch' incorporates:
+    //   Constant: '<S241>/Constant1'
+
+    ghost_mode_B.Switch_ab = ghost_mode_P.Constant1_Value_n;
+  } else {
+    // Switch: '<S241>/Switch'
+    ghost_mode_B.Switch_ab = rtb_DeadZone;
+  }
+
+  // End of Switch: '<S241>/Switch'
+
+  // Signum: '<S241>/SignPreIntegrator'
+  if (rtb_DeadZone < 0.0) {
+    // DataTypeConversion: '<S241>/DataTypeConv2'
+    tmp = -1.0;
+  } else if (rtb_DeadZone > 0.0) {
+    // DataTypeConversion: '<S241>/DataTypeConv2'
+    tmp = 1.0;
+  } else if (rtb_DeadZone == 0.0) {
+    // DataTypeConversion: '<S241>/DataTypeConv2'
+    tmp = 0.0;
+  } else {
+    // DataTypeConversion: '<S241>/DataTypeConv2'
+    tmp = (rtNaN);
+  }
+
+  // End of Signum: '<S241>/SignPreIntegrator'
+
+  // DataTypeConversion: '<S241>/DataTypeConv2'
+  if (rtIsNaN(tmp)) {
+    tmp = 0.0;
+  } else {
+    tmp = fmod(tmp, 256.0);
+  }
+
+  // DeadZone: '<S243>/DeadZone'
+  if (rtb_SumI3 > ghost_mode_P.PIDJMS0628_UpperSaturationLim_l) {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS0628_UpperSaturationLim_l;
+  } else if (rtb_SumI3 >= ghost_mode_P.PIDJMS0628_LowerSaturationLi_km) {
+    rtb_DeadZone = 0.0;
+  } else {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS0628_LowerSaturationLi_km;
+  }
+
+  // End of DeadZone: '<S243>/DeadZone'
+
+  // Signum: '<S241>/SignPreSat'
+  if (rtb_DeadZone < 0.0) {
+    // DataTypeConversion: '<S241>/DataTypeConv1'
+    tmp_0 = -1.0;
+  } else if (rtb_DeadZone > 0.0) {
+    // DataTypeConversion: '<S241>/DataTypeConv1'
+    tmp_0 = 1.0;
+  } else if (rtb_DeadZone == 0.0) {
+    // DataTypeConversion: '<S241>/DataTypeConv1'
+    tmp_0 = 0.0;
+  } else {
+    // DataTypeConversion: '<S241>/DataTypeConv1'
+    tmp_0 = (rtNaN);
+  }
+
+  // End of Signum: '<S241>/SignPreSat'
+
+  // DataTypeConversion: '<S241>/DataTypeConv1'
+  if (rtIsNaN(tmp_0)) {
+    tmp_0 = 0.0;
+  } else {
+    tmp_0 = fmod(tmp_0, 256.0);
+  }
+
+  // Logic: '<S241>/AND3' incorporates:
+  //   DataTypeConversion: '<S241>/DataTypeConv1'
+  //   DataTypeConversion: '<S241>/DataTypeConv2'
+  //   Gain: '<S241>/ZeroGain'
+  //   RelationalOperator: '<S241>/Equal1'
+  //   RelationalOperator: '<S241>/NotEqual'
+
+  ghost_mode_B.AND3_cz = ((ghost_mode_P.ZeroGain_Gain_li * rtb_SumI3 !=
+    rtb_DeadZone) && ((tmp_0 < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
+    static_cast<int8_T>(static_cast<uint8_T>(-tmp_0)))) : static_cast<int32_T>(
+    static_cast<int8_T>(static_cast<uint8_T>(tmp_0)))) == static_cast<int8_T>
+                      (tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
+    static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
+    static_cast<int8_T>(static_cast<uint8_T>(tmp))))));
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Gain: '<S297>/Integral Gain'
+    ghost_mode_B.IntegralGain_pq = ghost_mode_P.PIDJMS1_I_hb * 0.0;
+
+    // Gain: '<S305>/Proportional Gain'
+    ghost_mode_B.ProportionalGain_e = ghost_mode_P.PIDJMS1_P_f * 0.0;
+
+    // Gain: '<S294>/Derivative Gain'
+    ghost_mode_B.DerivativeGain_bz = ghost_mode_P.PIDJMS1_D_cd * 0.0;
+  }
+
+  // Gain: '<S303>/Filter Coefficient' incorporates:
+  //   Integrator: '<S295>/Filter'
+  //   Sum: '<S295>/SumD'
+
+  ghost_mode_B.FilterCoefficient_c = (ghost_mode_B.DerivativeGain_bz -
+    ghost_mode_X.Filter_CSTATE_fu) * ghost_mode_P.PIDJMS1_N_m;
+
+  // Sum: '<S309>/Sum' incorporates:
+  //   Integrator: '<S300>/Integrator'
+
+  rtb_SumI3 = (ghost_mode_B.ProportionalGain_e +
+               ghost_mode_X.Integrator_CSTATE_i) +
+    ghost_mode_B.FilterCoefficient_c;
+
+  // Saturate: '<S307>/Saturation'
+  if (rtb_SumI3 > ghost_mode_P.PIDJMS1_UpperSaturationLimit_b) {
+    rtb_DeadZone = ghost_mode_P.PIDJMS1_UpperSaturationLimit_b;
+  } else if (rtb_SumI3 < ghost_mode_P.PIDJMS1_LowerSaturationLimit_f) {
+    rtb_DeadZone = ghost_mode_P.PIDJMS1_LowerSaturationLimit_f;
+  } else {
+    rtb_DeadZone = rtb_SumI3;
+  }
+
+  // End of Saturate: '<S307>/Saturation'
+
+  // Sum: '<S312>/SumI1' incorporates:
+  //   Gain: '<S311>/Kt'
+  //   Sum: '<S311>/SumI3'
+
+  rtb_DeadZone = (0.0 - rtb_DeadZone) * ghost_mode_P.PIDJMS1_Kt_i +
+    ghost_mode_B.IntegralGain_pq;
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Memory: '<S291>/Memory'
+    ghost_mode_B.Memory_g = ghost_mode_DW.Memory_PreviousInput_j;
+  }
+
+  // Switch: '<S291>/Switch'
+  if (ghost_mode_B.Memory_g) {
+    // Switch: '<S291>/Switch' incorporates:
+    //   Constant: '<S291>/Constant1'
+
+    ghost_mode_B.Switch_l = ghost_mode_P.Constant1_Value_a;
+  } else {
+    // Switch: '<S291>/Switch'
+    ghost_mode_B.Switch_l = rtb_DeadZone;
+  }
+
+  // End of Switch: '<S291>/Switch'
+
+  // Signum: '<S291>/SignPreIntegrator'
+  if (rtb_DeadZone < 0.0) {
+    // DataTypeConversion: '<S291>/DataTypeConv2'
+    tmp = -1.0;
+  } else if (rtb_DeadZone > 0.0) {
+    // DataTypeConversion: '<S291>/DataTypeConv2'
+    tmp = 1.0;
+  } else if (rtb_DeadZone == 0.0) {
+    // DataTypeConversion: '<S291>/DataTypeConv2'
+    tmp = 0.0;
+  } else {
+    // DataTypeConversion: '<S291>/DataTypeConv2'
+    tmp = (rtNaN);
+  }
+
+  // End of Signum: '<S291>/SignPreIntegrator'
+
+  // DataTypeConversion: '<S291>/DataTypeConv2'
+  if (rtIsNaN(tmp)) {
+    tmp = 0.0;
+  } else {
+    tmp = fmod(tmp, 256.0);
+  }
+
+  // DeadZone: '<S293>/DeadZone'
+  if (rtb_SumI3 > ghost_mode_P.PIDJMS1_UpperSaturationLimit_b) {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS1_UpperSaturationLimit_b;
+  } else if (rtb_SumI3 >= ghost_mode_P.PIDJMS1_LowerSaturationLimit_f) {
+    rtb_DeadZone = 0.0;
+  } else {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS1_LowerSaturationLimit_f;
+  }
+
+  // End of DeadZone: '<S293>/DeadZone'
+
+  // Signum: '<S291>/SignPreSat'
+  if (rtb_DeadZone < 0.0) {
+    // DataTypeConversion: '<S291>/DataTypeConv1'
+    tmp_0 = -1.0;
+  } else if (rtb_DeadZone > 0.0) {
+    // DataTypeConversion: '<S291>/DataTypeConv1'
+    tmp_0 = 1.0;
+  } else if (rtb_DeadZone == 0.0) {
+    // DataTypeConversion: '<S291>/DataTypeConv1'
+    tmp_0 = 0.0;
+  } else {
+    // DataTypeConversion: '<S291>/DataTypeConv1'
+    tmp_0 = (rtNaN);
+  }
+
+  // End of Signum: '<S291>/SignPreSat'
+
+  // DataTypeConversion: '<S291>/DataTypeConv1'
+  if (rtIsNaN(tmp_0)) {
+    tmp_0 = 0.0;
+  } else {
+    tmp_0 = fmod(tmp_0, 256.0);
+  }
+
+  // Logic: '<S291>/AND3' incorporates:
+  //   DataTypeConversion: '<S291>/DataTypeConv1'
+  //   DataTypeConversion: '<S291>/DataTypeConv2'
+  //   Gain: '<S291>/ZeroGain'
+  //   RelationalOperator: '<S291>/Equal1'
+  //   RelationalOperator: '<S291>/NotEqual'
+
+  ghost_mode_B.AND3_h0 = ((ghost_mode_P.ZeroGain_Gain_i * rtb_SumI3 !=
+    rtb_DeadZone) && ((tmp_0 < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
+    static_cast<int8_T>(static_cast<uint8_T>(-tmp_0)))) : static_cast<int32_T>(
+    static_cast<int8_T>(static_cast<uint8_T>(tmp_0)))) == static_cast<int8_T>
+                      (tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
+    static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
+    static_cast<int8_T>(static_cast<uint8_T>(tmp))))));
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Switch: '<S341>/Switch' incorporates:
+    //   Memory: '<S341>/Memory'
+
+    if (ghost_mode_DW.Memory_PreviousInput_n) {
+      // Switch: '<S341>/Switch' incorporates:
+      //   Constant: '<S341>/Constant1'
+
+      ghost_mode_B.Switch_j = ghost_mode_P.Constant1_Value_p;
+    } else {
+      // Switch: '<S341>/Switch' incorporates:
+      //   Gain: '<S347>/Integral Gain'
+
+      ghost_mode_B.Switch_j = ghost_mode_P.PIDJMS0628_I_m * 0.0;
+    }
+
+    // End of Switch: '<S341>/Switch'
+
+    // DataTypeConversion: '<S341>/DataTypeConv2'
+    ghost_mode_B.DataTypeConv2 = 0;
+
+    // Gain: '<S355>/Proportional Gain'
+    ghost_mode_B.ProportionalGain_f = ghost_mode_P.PIDJMS0628_P_a * 0.0;
+
+    // Gain: '<S344>/Derivative Gain'
+    ghost_mode_B.DerivativeGain_e = ghost_mode_P.PIDJMS0628_D_e * 0.0;
+  }
+
+  // Gain: '<S353>/Filter Coefficient' incorporates:
+  //   Integrator: '<S345>/Filter'
+  //   Sum: '<S345>/SumD'
+
+  ghost_mode_B.FilterCoefficient_p = (ghost_mode_B.DerivativeGain_e -
+    ghost_mode_X.Filter_CSTATE_d) * ghost_mode_P.PIDJMS0628_N_fj;
+
+  // Sum: '<S359>/Sum' incorporates:
+  //   Integrator: '<S350>/Integrator'
+
+  rtb_SumI3 = (ghost_mode_B.ProportionalGain_f +
+               ghost_mode_X.Integrator_CSTATE_f) +
+    ghost_mode_B.FilterCoefficient_p;
+
+  // DeadZone: '<S343>/DeadZone'
+  if (rtb_SumI3 > ghost_mode_P.PIDJMS0628_UpperSaturationLi_py) {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS0628_UpperSaturationLi_py;
+  } else if (rtb_SumI3 >= ghost_mode_P.PIDJMS0628_LowerSaturationLim_l) {
+    rtb_DeadZone = 0.0;
+  } else {
+    rtb_DeadZone = rtb_SumI3 - ghost_mode_P.PIDJMS0628_LowerSaturationLim_l;
+  }
+
+  // End of DeadZone: '<S343>/DeadZone'
+
+  // Signum: '<S341>/SignPreSat'
+  if (rtb_DeadZone < 0.0) {
+    // DataTypeConversion: '<S341>/DataTypeConv1'
+    tmp = -1.0;
+  } else if (rtb_DeadZone > 0.0) {
+    // DataTypeConversion: '<S341>/DataTypeConv1'
+    tmp = 1.0;
+  } else if (rtb_DeadZone == 0.0) {
+    // DataTypeConversion: '<S341>/DataTypeConv1'
+    tmp = 0.0;
+  } else {
+    // DataTypeConversion: '<S341>/DataTypeConv1'
+    tmp = (rtNaN);
+  }
+
+  // End of Signum: '<S341>/SignPreSat'
+
+  // DataTypeConversion: '<S341>/DataTypeConv1'
+  if (rtIsNaN(tmp)) {
+    tmp = 0.0;
+  } else {
+    tmp = fmod(tmp, 256.0);
+  }
+
+  // Logic: '<S341>/AND3' incorporates:
+  //   DataTypeConversion: '<S341>/DataTypeConv1'
+  //   Gain: '<S341>/ZeroGain'
+  //   RelationalOperator: '<S341>/Equal1'
+  //   RelationalOperator: '<S341>/NotEqual'
+
+  ghost_mode_B.AND3_e = ((ghost_mode_P.ZeroGain_Gain_jm * rtb_SumI3 !=
     rtb_DeadZone) && ((tmp < 0.0 ? static_cast<int32_T>(static_cast<int8_T>(-
     static_cast<int8_T>(static_cast<uint8_T>(-tmp)))) : static_cast<int32_T>(
     static_cast<int8_T>(static_cast<uint8_T>(tmp)))) ==
                       ghost_mode_B.DataTypeConv2));
   if (rtmIsMajorTimeStep(ghost_mode_M)) {
+    // Chart: '<S4>/Chart'
+    if (ghost_mode_DW.temporalCounter_i1 < 7U) {
+      ghost_mode_DW.temporalCounter_i1 = static_cast<uint8_T>
+        (ghost_mode_DW.temporalCounter_i1 + 1U);
+    }
+
+    if (ghost_mode_DW.is_active_c3_ghost_mode == 0U) {
+      ghost_mode_DW.is_active_c3_ghost_mode = 1U;
+      ghost_mode_DW.is_c3_ghost_mode = ghost_mode_IN_SpeedUp;
+    } else {
+      switch (ghost_mode_DW.is_c3_ghost_mode) {
+       case ghost_mode_IN_ChatterDown:
+        if (ghost_mode_DW.temporalCounter_i1 >= 6U) {
+          ghost_mode_DW.is_c3_ghost_mode = ghost_mode_IN_SlowDown;
+        }
+        break;
+
+       case ghost_mode_IN_ChatterUp:
+        if (ghost_mode_DW.temporalCounter_i1 >= 6U) {
+          ghost_mode_DW.is_c3_ghost_mode = ghost_mode_IN_SpeedUp;
+        }
+        break;
+
+       case ghost_mode_IN_SlowDown:
+        ghost_mode_DW.is_c3_ghost_mode = ghost_mode_IN_ChatterUp;
+        ghost_mode_DW.temporalCounter_i1 = 0U;
+        break;
+
+       default:
+        // case IN_SpeedUp:
+        ghost_mode_DW.is_c3_ghost_mode = ghost_mode_IN_ChatterDown;
+        ghost_mode_DW.temporalCounter_i1 = 0U;
+        break;
+      }
+    }
+
+    // End of Chart: '<S4>/Chart'
+  }
+
+  if (rtmIsMajorTimeStep(ghost_mode_M)) {
     if (rtmIsMajorTimeStep(ghost_mode_M)) {
-      // Update for Memory: '<S33>/Memory'
+      // Update for Memory: '<S86>/Memory'
       ghost_mode_DW.Memory_PreviousInput = ghost_mode_B.AND3;
 
-      // Update for Memory: '<S83>/Memory'
-      ghost_mode_DW.Memory_PreviousInput_j = ghost_mode_B.AND3_h;
+      // Update for Memory: '<S36>/Memory'
+      ghost_mode_DW.Memory_PreviousInput_p = ghost_mode_B.AND3_c;
 
-      // Update for Memory: '<S133>/Memory'
+      // Update for Memory: '<S138>/Memory'
+      ghost_mode_DW.Memory_PreviousInput_i = ghost_mode_B.AND3_k;
+
+      // Update for Memory: '<S188>/Memory'
+      ghost_mode_DW.Memory_PreviousInput_pv = ghost_mode_B.AND3_h;
+
+      // Update for Memory: '<S241>/Memory'
+      ghost_mode_DW.Memory_PreviousInput_f = ghost_mode_B.AND3_cz;
+
+      // Update for Memory: '<S291>/Memory'
+      ghost_mode_DW.Memory_PreviousInput_j = ghost_mode_B.AND3_h0;
+
+      // Update for Memory: '<S341>/Memory'
       ghost_mode_DW.Memory_PreviousInput_n = ghost_mode_B.AND3_e;
     }
   }                                    // end MajorTimeStep
@@ -608,22 +1214,46 @@ void ghost_mode_derivatives(void)
   XDot_ghost_mode_T *_rtXdot;
   _rtXdot = ((XDot_ghost_mode_T *) ghost_mode_M->derivs);
 
-  // Derivatives for Integrator: '<S42>/Integrator'
-  _rtXdot->Integrator_CSTATE = ghost_mode_B.Switch;
+  // Derivatives for Integrator: '<S45>/Integrator'
+  _rtXdot->Integrator_CSTATE = ghost_mode_B.Switch_k;
 
-  // Derivatives for Integrator: '<S37>/Filter'
+  // Derivatives for Integrator: '<S40>/Filter'
   _rtXdot->Filter_CSTATE = ghost_mode_B.FilterCoefficient;
 
-  // Derivatives for Integrator: '<S92>/Integrator'
+  // Derivatives for Integrator: '<S95>/Integrator'
+  _rtXdot->Integrator_CSTATE_p = ghost_mode_B.Switch;
+
+  // Derivatives for Integrator: '<S90>/Filter'
+  _rtXdot->Filter_CSTATE_l = ghost_mode_B.FilterCoefficient_g;
+
+  // Derivatives for Integrator: '<S147>/Integrator'
+  _rtXdot->Integrator_CSTATE_h = ghost_mode_B.Switch_m;
+
+  // Derivatives for Integrator: '<S142>/Filter'
+  _rtXdot->Filter_CSTATE_f = ghost_mode_B.FilterCoefficient_d;
+
+  // Derivatives for Integrator: '<S197>/Integrator'
+  _rtXdot->Integrator_CSTATE_p5 = ghost_mode_B.Switch_a;
+
+  // Derivatives for Integrator: '<S192>/Filter'
+  _rtXdot->Filter_CSTATE_o = ghost_mode_B.FilterCoefficient_j;
+
+  // Derivatives for Integrator: '<S250>/Integrator'
+  _rtXdot->Integrator_CSTATE_m = ghost_mode_B.Switch_ab;
+
+  // Derivatives for Integrator: '<S245>/Filter'
+  _rtXdot->Filter_CSTATE_e = ghost_mode_B.FilterCoefficient_i;
+
+  // Derivatives for Integrator: '<S300>/Integrator'
   _rtXdot->Integrator_CSTATE_i = ghost_mode_B.Switch_l;
 
-  // Derivatives for Integrator: '<S87>/Filter'
-  _rtXdot->Filter_CSTATE_f = ghost_mode_B.FilterCoefficient_c;
+  // Derivatives for Integrator: '<S295>/Filter'
+  _rtXdot->Filter_CSTATE_fu = ghost_mode_B.FilterCoefficient_c;
 
-  // Derivatives for Integrator: '<S142>/Integrator'
+  // Derivatives for Integrator: '<S350>/Integrator'
   _rtXdot->Integrator_CSTATE_f = ghost_mode_B.Switch_j;
 
-  // Derivatives for Integrator: '<S137>/Filter'
+  // Derivatives for Integrator: '<S345>/Filter'
   _rtXdot->Filter_CSTATE_d = ghost_mode_B.FilterCoefficient_p;
 }
 
@@ -673,6 +1303,7 @@ void ghost_mode_initialize(void)
   {
     int32_T i;
     char_T b_zeroDelimTopic[19];
+    char_T b_zeroDelimTopic_1[15];
     char_T b_zeroDelimTopic_0[13];
     static const char_T tmp[18] = { '/', 'g', 'h', 'o', 's', 't', '/', 'v', 'e',
       'h', 'i', 'c', 'l', 'e', '/', 'v', 'e', 'l' };
@@ -683,48 +1314,95 @@ void ghost_mode_initialize(void)
     static const char_T tmp_1[12] = { '/', 't', 'i', 'm', 'e', 'd', '_', 'a',
       'c', 'c', 'e', 'l' };
 
-    // InitializeConditions for Integrator: '<S42>/Integrator'
+    static const char_T tmp_2[14] = { '/', 'v', 'e', 'h', 'i', 'c', 'l', 'e',
+      '/', 'a', 'c', 'c', 'e', 'l' };
+
+    // InitializeConditions for Integrator: '<S45>/Integrator'
     ghost_mode_X.Integrator_CSTATE =
       ghost_mode_P.PIDJMS0628_InitialConditionForI;
 
-    // InitializeConditions for Integrator: '<S37>/Filter'
+    // InitializeConditions for Integrator: '<S40>/Filter'
     ghost_mode_X.Filter_CSTATE = ghost_mode_P.PIDJMS0628_InitialConditionForF;
 
-    // InitializeConditions for Integrator: '<S92>/Integrator'
-    ghost_mode_X.Integrator_CSTATE_i =
+    // InitializeConditions for Integrator: '<S95>/Integrator'
+    ghost_mode_X.Integrator_CSTATE_p =
       ghost_mode_P.PIDJMS1_InitialConditionForInte;
 
-    // InitializeConditions for Integrator: '<S87>/Filter'
-    ghost_mode_X.Filter_CSTATE_f = ghost_mode_P.PIDJMS1_InitialConditionForFilt;
+    // InitializeConditions for Integrator: '<S90>/Filter'
+    ghost_mode_X.Filter_CSTATE_l = ghost_mode_P.PIDJMS1_InitialConditionForFilt;
 
-    // InitializeConditions for Memory: '<S33>/Memory'
+    // InitializeConditions for Memory: '<S86>/Memory'
     ghost_mode_DW.Memory_PreviousInput = ghost_mode_P.Memory_InitialCondition;
 
-    // InitializeConditions for Memory: '<S83>/Memory'
+    // InitializeConditions for Memory: '<S36>/Memory'
+    ghost_mode_DW.Memory_PreviousInput_p =
+      ghost_mode_P.Memory_InitialCondition_p;
+
+    // InitializeConditions for Integrator: '<S147>/Integrator'
+    ghost_mode_X.Integrator_CSTATE_h =
+      ghost_mode_P.PIDJMS0628_InitialConditionFo_f;
+
+    // InitializeConditions for Integrator: '<S142>/Filter'
+    ghost_mode_X.Filter_CSTATE_f = ghost_mode_P.PIDJMS0628_InitialConditionFo_g;
+
+    // InitializeConditions for Memory: '<S138>/Memory'
+    ghost_mode_DW.Memory_PreviousInput_i =
+      ghost_mode_P.Memory_InitialCondition_g;
+
+    // InitializeConditions for Integrator: '<S197>/Integrator'
+    ghost_mode_X.Integrator_CSTATE_p5 =
+      ghost_mode_P.PIDJMS1_InitialConditionForIn_m;
+
+    // InitializeConditions for Integrator: '<S192>/Filter'
+    ghost_mode_X.Filter_CSTATE_o = ghost_mode_P.PIDJMS1_InitialConditionForFi_e;
+
+    // InitializeConditions for Memory: '<S188>/Memory'
+    ghost_mode_DW.Memory_PreviousInput_pv =
+      ghost_mode_P.Memory_InitialCondition_d;
+
+    // InitializeConditions for Integrator: '<S250>/Integrator'
+    ghost_mode_X.Integrator_CSTATE_m =
+      ghost_mode_P.PIDJMS0628_InitialConditionF_d4;
+
+    // InitializeConditions for Integrator: '<S245>/Filter'
+    ghost_mode_X.Filter_CSTATE_e = ghost_mode_P.PIDJMS0628_InitialConditionFo_l;
+
+    // InitializeConditions for Memory: '<S241>/Memory'
+    ghost_mode_DW.Memory_PreviousInput_f =
+      ghost_mode_P.Memory_InitialCondition_gk;
+
+    // InitializeConditions for Integrator: '<S300>/Integrator'
+    ghost_mode_X.Integrator_CSTATE_i =
+      ghost_mode_P.PIDJMS1_InitialConditionForIn_g;
+
+    // InitializeConditions for Integrator: '<S295>/Filter'
+    ghost_mode_X.Filter_CSTATE_fu = ghost_mode_P.PIDJMS1_InitialConditionForFi_n;
+
+    // InitializeConditions for Memory: '<S291>/Memory'
     ghost_mode_DW.Memory_PreviousInput_j =
       ghost_mode_P.Memory_InitialCondition_c;
 
-    // InitializeConditions for Memory: '<S133>/Memory'
+    // InitializeConditions for Memory: '<S341>/Memory'
     ghost_mode_DW.Memory_PreviousInput_n =
-      ghost_mode_P.Memory_InitialCondition_p;
+      ghost_mode_P.Memory_InitialCondition_ps;
 
-    // InitializeConditions for Integrator: '<S142>/Integrator'
+    // InitializeConditions for Integrator: '<S350>/Integrator'
     ghost_mode_X.Integrator_CSTATE_f =
-      ghost_mode_P.PIDJMS0628_InitialConditionFo_l;
+      ghost_mode_P.PIDJMS0628_InitialConditionF_la;
 
-    // InitializeConditions for Integrator: '<S137>/Filter'
+    // InitializeConditions for Integrator: '<S345>/Filter'
     ghost_mode_X.Filter_CSTATE_d = ghost_mode_P.PIDJMS0628_InitialConditionFo_d;
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe1'
-    // SystemInitialize for Enabled SubSystem: '<S6>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S160>/Out1' incorporates:
-    //   Inport: '<S160>/In1'
+    // SystemInitialize for Enabled SubSystem: '<S8>/Enabled Subsystem'
+    // SystemInitialize for Outport: '<S368>/Out1' incorporates:
+    //   Inport: '<S368>/In1'
 
     ghost_mode_B.In1 = ghost_mode_P.Out1_Y0_h;
 
-    // End of SystemInitialize for SubSystem: '<S6>/Enabled Subsystem'
+    // End of SystemInitialize for SubSystem: '<S8>/Enabled Subsystem'
 
-    // Start for MATLABSystem: '<S6>/SourceBlock'
+    // Start for MATLABSystem: '<S8>/SourceBlock'
     ghost_mode_DW.obj_g.matlabCodegenIsDeleted = false;
     ghost_mode_DW.obj_g.isInitialized = 1;
     for (i = 0; i < 18; i++) {
@@ -735,19 +1413,19 @@ void ghost_mode_initialize(void)
     Sub_ghost_mode_31.createSubscriber(&b_zeroDelimTopic[0], 1);
     ghost_mode_DW.obj_g.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S6>/SourceBlock'
+    // End of Start for MATLABSystem: '<S8>/SourceBlock'
     // End of SystemInitialize for SubSystem: '<Root>/Subscribe1'
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe'
-    // SystemInitialize for Enabled SubSystem: '<S5>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S159>/Out1' incorporates:
-    //   Inport: '<S159>/In1'
+    // SystemInitialize for Enabled SubSystem: '<S7>/Enabled Subsystem'
+    // SystemInitialize for Outport: '<S367>/Out1' incorporates:
+    //   Inport: '<S367>/In1'
 
-    ghost_mode_B.In1_d = ghost_mode_P.Out1_Y0;
+    ghost_mode_B.In1_d = ghost_mode_P.Out1_Y0_p;
 
-    // End of SystemInitialize for SubSystem: '<S5>/Enabled Subsystem'
+    // End of SystemInitialize for SubSystem: '<S7>/Enabled Subsystem'
 
-    // Start for MATLABSystem: '<S5>/SourceBlock'
+    // Start for MATLABSystem: '<S7>/SourceBlock'
     ghost_mode_DW.obj_n.matlabCodegenIsDeleted = false;
     ghost_mode_DW.obj_n.isInitialized = 1;
     for (i = 0; i < 12; i++) {
@@ -758,11 +1436,11 @@ void ghost_mode_initialize(void)
     Sub_ghost_mode_10.createSubscriber(&b_zeroDelimTopic_0[0], 1);
     ghost_mode_DW.obj_n.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S5>/SourceBlock'
+    // End of Start for MATLABSystem: '<S7>/SourceBlock'
     // End of SystemInitialize for SubSystem: '<Root>/Subscribe'
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Publish'
-    // Start for MATLABSystem: '<S4>/SinkBlock'
+    // Start for MATLABSystem: '<S6>/SinkBlock'
     ghost_mode_DW.obj.matlabCodegenIsDeleted = false;
     ghost_mode_DW.obj.isInitialized = 1;
     for (i = 0; i < 12; i++) {
@@ -773,8 +1451,31 @@ void ghost_mode_initialize(void)
     Pub_ghost_mode_3.createPublisher(&b_zeroDelimTopic_0[0], 1);
     ghost_mode_DW.obj.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S4>/SinkBlock'
+    // End of Start for MATLABSystem: '<S6>/SinkBlock'
     // End of SystemInitialize for SubSystem: '<Root>/Publish'
+
+    // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe2'
+    // SystemInitialize for Enabled SubSystem: '<S9>/Enabled Subsystem'
+    // SystemInitialize for Outport: '<S369>/Out1' incorporates:
+    //   Inport: '<S369>/In1'
+
+    ghost_mode_B.In1_e = ghost_mode_P.Out1_Y0;
+
+    // End of SystemInitialize for SubSystem: '<S9>/Enabled Subsystem'
+
+    // Start for MATLABSystem: '<S9>/SourceBlock'
+    ghost_mode_DW.obj_f.matlabCodegenIsDeleted = false;
+    ghost_mode_DW.obj_f.isInitialized = 1;
+    for (i = 0; i < 14; i++) {
+      b_zeroDelimTopic_1[i] = tmp_2[i];
+    }
+
+    b_zeroDelimTopic_1[14] = '\x00';
+    Sub_ghost_mode_99.createSubscriber(&b_zeroDelimTopic_1[0], 1);
+    ghost_mode_DW.obj_f.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<S9>/SourceBlock'
+    // End of SystemInitialize for SubSystem: '<Root>/Subscribe2'
   }
 }
 
@@ -782,31 +1483,40 @@ void ghost_mode_initialize(void)
 void ghost_mode_terminate(void)
 {
   // Terminate for Atomic SubSystem: '<Root>/Subscribe1'
-  // Terminate for MATLABSystem: '<S6>/SourceBlock'
+  // Terminate for MATLABSystem: '<S8>/SourceBlock'
   if (!ghost_mode_DW.obj_g.matlabCodegenIsDeleted) {
     ghost_mode_DW.obj_g.matlabCodegenIsDeleted = true;
   }
 
-  // End of Terminate for MATLABSystem: '<S6>/SourceBlock'
+  // End of Terminate for MATLABSystem: '<S8>/SourceBlock'
   // End of Terminate for SubSystem: '<Root>/Subscribe1'
 
   // Terminate for Atomic SubSystem: '<Root>/Subscribe'
-  // Terminate for MATLABSystem: '<S5>/SourceBlock'
+  // Terminate for MATLABSystem: '<S7>/SourceBlock'
   if (!ghost_mode_DW.obj_n.matlabCodegenIsDeleted) {
     ghost_mode_DW.obj_n.matlabCodegenIsDeleted = true;
   }
 
-  // End of Terminate for MATLABSystem: '<S5>/SourceBlock'
+  // End of Terminate for MATLABSystem: '<S7>/SourceBlock'
   // End of Terminate for SubSystem: '<Root>/Subscribe'
 
   // Terminate for Atomic SubSystem: '<Root>/Publish'
-  // Terminate for MATLABSystem: '<S4>/SinkBlock'
+  // Terminate for MATLABSystem: '<S6>/SinkBlock'
   if (!ghost_mode_DW.obj.matlabCodegenIsDeleted) {
     ghost_mode_DW.obj.matlabCodegenIsDeleted = true;
   }
 
-  // End of Terminate for MATLABSystem: '<S4>/SinkBlock'
+  // End of Terminate for MATLABSystem: '<S6>/SinkBlock'
   // End of Terminate for SubSystem: '<Root>/Publish'
+
+  // Terminate for Atomic SubSystem: '<Root>/Subscribe2'
+  // Terminate for MATLABSystem: '<S9>/SourceBlock'
+  if (!ghost_mode_DW.obj_f.matlabCodegenIsDeleted) {
+    ghost_mode_DW.obj_f.matlabCodegenIsDeleted = true;
+  }
+
+  // End of Terminate for MATLABSystem: '<S9>/SourceBlock'
+  // End of Terminate for SubSystem: '<Root>/Subscribe2'
 }
 
 //

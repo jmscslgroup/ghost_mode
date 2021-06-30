@@ -2,6 +2,8 @@
 #define _SLROS_BUSMSG_CONVERSION_H_
 
 #include <ros/ros.h>
+#include <geometry_msgs/Accel.h>
+#include <geometry_msgs/AccelStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/TwistStamped.h>
 #include <geometry_msgs/Vector3.h>
@@ -11,6 +13,12 @@
 #include "ghost_mode_types.h"
 #include "slros_msgconvert_utils.h"
 
+
+void convertFromBus(geometry_msgs::Accel* msgPtr, SL_Bus_ghost_mode_geometry_msgs_Accel const* busPtr);
+void convertToBus(SL_Bus_ghost_mode_geometry_msgs_Accel* busPtr, geometry_msgs::Accel const* msgPtr);
+
+void convertFromBus(geometry_msgs::AccelStamped* msgPtr, SL_Bus_ghost_mode_geometry_msgs_AccelStamped const* busPtr);
+void convertToBus(SL_Bus_ghost_mode_geometry_msgs_AccelStamped* busPtr, geometry_msgs::AccelStamped const* msgPtr);
 
 void convertFromBus(geometry_msgs::Twist* msgPtr, SL_Bus_ghost_mode_geometry_msgs_Twist const* busPtr);
 void convertToBus(SL_Bus_ghost_mode_geometry_msgs_Twist* busPtr, geometry_msgs::Twist const* msgPtr);
