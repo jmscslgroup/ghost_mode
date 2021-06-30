@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.44
+// Model version                  : 1.45
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Wed Jun 30 11:00:03 2021
+// C/C++ source code generated on : Wed Jun 30 11:14:22 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -21,17 +21,17 @@
 
 // Block parameters (default storage)
 P_ghost_mode_T ghost_mode_P = {
-  // Mask Parameter: PIDJMS0628_D
+  // Mask Parameter: PIDJMS1_D
   //  Referenced by: '<S344>/Derivative Gain'
 
-  1.2886782091662,
+  3.14341534728212,
 
-  // Mask Parameter: PIDJMS0628_D_p
+  // Mask Parameter: PIDJMS0628_D
   //  Referenced by: '<S39>/Derivative Gain'
 
   3.14341534728212,
 
-  // Mask Parameter: PIDJMS1_D
+  // Mask Parameter: PIDJMS1_D_e
   //  Referenced by: '<S89>/Derivative Gain'
 
   1.88738640383327,
@@ -56,17 +56,17 @@ P_ghost_mode_T ghost_mode_P = {
 
   1.57587015982106,
 
-  // Mask Parameter: PIDJMS0628_I
+  // Mask Parameter: PIDJMS1_I
   //  Referenced by: '<S347>/Integral Gain'
 
-  0.561856950087048,
+  2.84227057543051,
 
-  // Mask Parameter: PIDJMS0628_I_f
+  // Mask Parameter: PIDJMS0628_I
   //  Referenced by: '<S42>/Integral Gain'
 
   2.84227057543051,
 
-  // Mask Parameter: PIDJMS1_I
+  // Mask Parameter: PIDJMS1_I_g
   //  Referenced by: '<S92>/Integral Gain'
 
   0.312565419373226,
@@ -91,17 +91,17 @@ P_ghost_mode_T ghost_mode_P = {
 
   0.207355055407799,
 
-  // Mask Parameter: PIDJMS0628_InitialConditionForF
+  // Mask Parameter: PIDJMS1_InitialConditionForFilt
   //  Referenced by: '<S345>/Filter'
 
   0.0,
 
-  // Mask Parameter: PIDJMS0628_InitialConditionFo_c
+  // Mask Parameter: PIDJMS0628_InitialConditionForF
   //  Referenced by: '<S40>/Filter'
 
   0.0,
 
-  // Mask Parameter: PIDJMS1_InitialConditionForFilt
+  // Mask Parameter: PIDJMS1_InitialConditionForFi_m
   //  Referenced by: '<S90>/Filter'
 
   0.0,
@@ -126,17 +126,17 @@ P_ghost_mode_T ghost_mode_P = {
 
   0.0,
 
-  // Mask Parameter: PIDJMS0628_InitialConditionForI
+  // Mask Parameter: PIDJMS1_InitialConditionForInte
   //  Referenced by: '<S350>/Integrator'
 
   0.0,
 
-  // Mask Parameter: PIDJMS0628_InitialConditionFo_p
+  // Mask Parameter: PIDJMS0628_InitialConditionForI
   //  Referenced by: '<S45>/Integrator'
 
   0.0,
 
-  // Mask Parameter: PIDJMS1_InitialConditionForInte
+  // Mask Parameter: PIDJMS1_InitialConditionForIn_k
   //  Referenced by: '<S95>/Integrator'
 
   0.0,
@@ -161,17 +161,17 @@ P_ghost_mode_T ghost_mode_P = {
 
   0.0,
 
-  // Mask Parameter: PIDJMS0628_Kt
+  // Mask Parameter: PIDJMS1_Kt
   //  Referenced by: '<S361>/Kt'
 
   1.0,
 
-  // Mask Parameter: PIDJMS0628_Kt_a
+  // Mask Parameter: PIDJMS0628_Kt
   //  Referenced by: '<S56>/Kt'
 
   1.0,
 
-  // Mask Parameter: PIDJMS1_Kt
+  // Mask Parameter: PIDJMS1_Kt_d
   //  Referenced by: '<S106>/Kt'
 
   1.0,
@@ -181,7 +181,7 @@ P_ghost_mode_T ghost_mode_P = {
 
   1.0,
 
-  // Mask Parameter: PIDJMS1_Kt_d
+  // Mask Parameter: PIDJMS1_Kt_dq
   //  Referenced by: '<S208>/Kt'
 
   1.0,
@@ -196,21 +196,21 @@ P_ghost_mode_T ghost_mode_P = {
 
   1.0,
 
-  // Mask Parameter: PIDJMS0628_LowerSaturationLimit
+  // Mask Parameter: PIDJMS1_LowerSaturationLimit
   //  Referenced by:
   //    '<S357>/Saturation'
   //    '<S343>/DeadZone'
 
   -3.0,
 
-  // Mask Parameter: PIDJMS0628_LowerSaturationLim_p
+  // Mask Parameter: PIDJMS0628_LowerSaturationLimit
   //  Referenced by:
   //    '<S52>/Saturation'
   //    '<S38>/DeadZone'
 
   -3.0,
 
-  // Mask Parameter: PIDJMS1_LowerSaturationLimit
+  // Mask Parameter: PIDJMS1_LowerSaturationLimit_k
   //  Referenced by:
   //    '<S102>/Saturation'
   //    '<S88>/DeadZone'
@@ -245,17 +245,17 @@ P_ghost_mode_T ghost_mode_P = {
 
   -3.0,
 
-  // Mask Parameter: PIDJMS0628_N
+  // Mask Parameter: PIDJMS1_N
   //  Referenced by: '<S353>/Filter Coefficient'
 
-  24.3345419624922,
+  635.975413708926,
 
-  // Mask Parameter: PIDJMS0628_N_l
+  // Mask Parameter: PIDJMS0628_N
   //  Referenced by: '<S48>/Filter Coefficient'
 
   635.975413708926,
 
-  // Mask Parameter: PIDJMS1_N
+  // Mask Parameter: PIDJMS1_N_n
   //  Referenced by: '<S98>/Filter Coefficient'
 
   2.74868113749563,
@@ -265,7 +265,7 @@ P_ghost_mode_T ghost_mode_P = {
 
   24.3345419624922,
 
-  // Mask Parameter: PIDJMS1_N_n
+  // Mask Parameter: PIDJMS1_N_nk
   //  Referenced by: '<S200>/Filter Coefficient'
 
   229.860845567849,
@@ -280,17 +280,17 @@ P_ghost_mode_T ghost_mode_P = {
 
   229.860845567849,
 
-  // Mask Parameter: PIDJMS0628_P
+  // Mask Parameter: PIDJMS1_P
   //  Referenced by: '<S355>/Proportional Gain'
 
-  2.25627287381491,
+  7.02660625936992,
 
-  // Mask Parameter: PIDJMS0628_P_l
+  // Mask Parameter: PIDJMS0628_P
   //  Referenced by: '<S50>/Proportional Gain'
 
   7.02660625936992,
 
-  // Mask Parameter: PIDJMS1_P
+  // Mask Parameter: PIDJMS1_P_l
   //  Referenced by: '<S100>/Proportional Gain'
 
   1.68584510007809,
@@ -315,21 +315,21 @@ P_ghost_mode_T ghost_mode_P = {
 
   1.38383448768805,
 
-  // Mask Parameter: PIDJMS0628_UpperSaturationLimit
+  // Mask Parameter: PIDJMS1_UpperSaturationLimit
   //  Referenced by:
   //    '<S357>/Saturation'
   //    '<S343>/DeadZone'
 
   1.5,
 
-  // Mask Parameter: PIDJMS0628_UpperSaturationLim_m
+  // Mask Parameter: PIDJMS0628_UpperSaturationLimit
   //  Referenced by:
   //    '<S52>/Saturation'
   //    '<S38>/DeadZone'
 
   1.5,
 
-  // Mask Parameter: PIDJMS1_UpperSaturationLimit
+  // Mask Parameter: PIDJMS1_UpperSaturationLimit_e
   //  Referenced by:
   //    '<S102>/Saturation'
   //    '<S88>/DeadZone'

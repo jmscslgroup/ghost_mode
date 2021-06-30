@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.44
+// Model version                  : 1.45
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Wed Jun 30 11:00:03 2021
+// C/C++ source code generated on : Wed Jun 30 11:14:22 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -290,13 +290,13 @@ struct ODE3_IntgData {
 
 // Parameters (default storage)
 struct P_ghost_mode_T_ {
-  real_T PIDJMS0628_D;                 // Mask Parameter: PIDJMS0628_D
+  real_T PIDJMS1_D;                    // Mask Parameter: PIDJMS1_D
                                           //  Referenced by: '<S344>/Derivative Gain'
 
-  real_T PIDJMS0628_D_p;               // Mask Parameter: PIDJMS0628_D_p
+  real_T PIDJMS0628_D;                 // Mask Parameter: PIDJMS0628_D
                                           //  Referenced by: '<S39>/Derivative Gain'
 
-  real_T PIDJMS1_D;                    // Mask Parameter: PIDJMS1_D
+  real_T PIDJMS1_D_e;                  // Mask Parameter: PIDJMS1_D_e
                                           //  Referenced by: '<S89>/Derivative Gain'
 
   real_T PIDJMS0628_D_l;               // Mask Parameter: PIDJMS0628_D_l
@@ -311,13 +311,13 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS1_D_cd;                 // Mask Parameter: PIDJMS1_D_cd
                                           //  Referenced by: '<S294>/Derivative Gain'
 
-  real_T PIDJMS0628_I;                 // Mask Parameter: PIDJMS0628_I
+  real_T PIDJMS1_I;                    // Mask Parameter: PIDJMS1_I
                                           //  Referenced by: '<S347>/Integral Gain'
 
-  real_T PIDJMS0628_I_f;               // Mask Parameter: PIDJMS0628_I_f
+  real_T PIDJMS0628_I;                 // Mask Parameter: PIDJMS0628_I
                                           //  Referenced by: '<S42>/Integral Gain'
 
-  real_T PIDJMS1_I;                    // Mask Parameter: PIDJMS1_I
+  real_T PIDJMS1_I_g;                  // Mask Parameter: PIDJMS1_I_g
                                           //  Referenced by: '<S92>/Integral Gain'
 
   real_T PIDJMS0628_I_n;               // Mask Parameter: PIDJMS0628_I_n
@@ -332,16 +332,16 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS1_I_hb;                 // Mask Parameter: PIDJMS1_I_hb
                                           //  Referenced by: '<S297>/Integral Gain'
 
-  real_T PIDJMS0628_InitialConditionForF;
-                              // Mask Parameter: PIDJMS0628_InitialConditionForF
-                                 //  Referenced by: '<S345>/Filter'
-
-  real_T PIDJMS0628_InitialConditionFo_c;
-                              // Mask Parameter: PIDJMS0628_InitialConditionFo_c
-                                 //  Referenced by: '<S40>/Filter'
-
   real_T PIDJMS1_InitialConditionForFilt;
                               // Mask Parameter: PIDJMS1_InitialConditionForFilt
+                                 //  Referenced by: '<S345>/Filter'
+
+  real_T PIDJMS0628_InitialConditionForF;
+                              // Mask Parameter: PIDJMS0628_InitialConditionForF
+                                 //  Referenced by: '<S40>/Filter'
+
+  real_T PIDJMS1_InitialConditionForFi_m;
+                              // Mask Parameter: PIDJMS1_InitialConditionForFi_m
                                  //  Referenced by: '<S90>/Filter'
 
   real_T PIDJMS0628_InitialConditionFo_g;
@@ -360,16 +360,16 @@ struct P_ghost_mode_T_ {
                               // Mask Parameter: PIDJMS1_InitialConditionForFi_n
                                  //  Referenced by: '<S295>/Filter'
 
-  real_T PIDJMS0628_InitialConditionForI;
-                              // Mask Parameter: PIDJMS0628_InitialConditionForI
-                                 //  Referenced by: '<S350>/Integrator'
-
-  real_T PIDJMS0628_InitialConditionFo_p;
-                              // Mask Parameter: PIDJMS0628_InitialConditionFo_p
-                                 //  Referenced by: '<S45>/Integrator'
-
   real_T PIDJMS1_InitialConditionForInte;
                               // Mask Parameter: PIDJMS1_InitialConditionForInte
+                                 //  Referenced by: '<S350>/Integrator'
+
+  real_T PIDJMS0628_InitialConditionForI;
+                              // Mask Parameter: PIDJMS0628_InitialConditionForI
+                                 //  Referenced by: '<S45>/Integrator'
+
+  real_T PIDJMS1_InitialConditionForIn_k;
+                              // Mask Parameter: PIDJMS1_InitialConditionForIn_k
                                  //  Referenced by: '<S95>/Integrator'
 
   real_T PIDJMS0628_InitialConditionFo_f;
@@ -388,19 +388,19 @@ struct P_ghost_mode_T_ {
                               // Mask Parameter: PIDJMS1_InitialConditionForIn_g
                                  //  Referenced by: '<S300>/Integrator'
 
-  real_T PIDJMS0628_Kt;                // Mask Parameter: PIDJMS0628_Kt
+  real_T PIDJMS1_Kt;                   // Mask Parameter: PIDJMS1_Kt
                                           //  Referenced by: '<S361>/Kt'
 
-  real_T PIDJMS0628_Kt_a;              // Mask Parameter: PIDJMS0628_Kt_a
+  real_T PIDJMS0628_Kt;                // Mask Parameter: PIDJMS0628_Kt
                                           //  Referenced by: '<S56>/Kt'
 
-  real_T PIDJMS1_Kt;                   // Mask Parameter: PIDJMS1_Kt
+  real_T PIDJMS1_Kt_d;                 // Mask Parameter: PIDJMS1_Kt_d
                                           //  Referenced by: '<S106>/Kt'
 
   real_T PIDJMS0628_Kt_b;              // Mask Parameter: PIDJMS0628_Kt_b
                                           //  Referenced by: '<S158>/Kt'
 
-  real_T PIDJMS1_Kt_d;                 // Mask Parameter: PIDJMS1_Kt_d
+  real_T PIDJMS1_Kt_dq;                // Mask Parameter: PIDJMS1_Kt_dq
                                           //  Referenced by: '<S208>/Kt'
 
   real_T PIDJMS0628_Kt_j;              // Mask Parameter: PIDJMS0628_Kt_j
@@ -409,23 +409,23 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS1_Kt_i;                 // Mask Parameter: PIDJMS1_Kt_i
                                           //  Referenced by: '<S311>/Kt'
 
+  real_T PIDJMS1_LowerSaturationLimit;
+                                 // Mask Parameter: PIDJMS1_LowerSaturationLimit
+                                    //  Referenced by:
+                                    //    '<S357>/Saturation'
+                                    //    '<S343>/DeadZone'
+
   real_T PIDJMS0628_LowerSaturationLimit;
                               // Mask Parameter: PIDJMS0628_LowerSaturationLimit
-                                 //  Referenced by:
-                                 //    '<S357>/Saturation'
-                                 //    '<S343>/DeadZone'
-
-  real_T PIDJMS0628_LowerSaturationLim_p;
-                              // Mask Parameter: PIDJMS0628_LowerSaturationLim_p
                                  //  Referenced by:
                                  //    '<S52>/Saturation'
                                  //    '<S38>/DeadZone'
 
-  real_T PIDJMS1_LowerSaturationLimit;
-                                 // Mask Parameter: PIDJMS1_LowerSaturationLimit
-                                    //  Referenced by:
-                                    //    '<S102>/Saturation'
-                                    //    '<S88>/DeadZone'
+  real_T PIDJMS1_LowerSaturationLimit_k;
+                               // Mask Parameter: PIDJMS1_LowerSaturationLimit_k
+                                  //  Referenced by:
+                                  //    '<S102>/Saturation'
+                                  //    '<S88>/DeadZone'
 
   real_T PIDJMS0628_LowerSaturationLim_k;
                               // Mask Parameter: PIDJMS0628_LowerSaturationLim_k
@@ -451,19 +451,19 @@ struct P_ghost_mode_T_ {
                                   //    '<S307>/Saturation'
                                   //    '<S293>/DeadZone'
 
-  real_T PIDJMS0628_N;                 // Mask Parameter: PIDJMS0628_N
+  real_T PIDJMS1_N;                    // Mask Parameter: PIDJMS1_N
                                           //  Referenced by: '<S353>/Filter Coefficient'
 
-  real_T PIDJMS0628_N_l;               // Mask Parameter: PIDJMS0628_N_l
+  real_T PIDJMS0628_N;                 // Mask Parameter: PIDJMS0628_N
                                           //  Referenced by: '<S48>/Filter Coefficient'
 
-  real_T PIDJMS1_N;                    // Mask Parameter: PIDJMS1_N
+  real_T PIDJMS1_N_n;                  // Mask Parameter: PIDJMS1_N_n
                                           //  Referenced by: '<S98>/Filter Coefficient'
 
   real_T PIDJMS0628_N_j;               // Mask Parameter: PIDJMS0628_N_j
                                           //  Referenced by: '<S150>/Filter Coefficient'
 
-  real_T PIDJMS1_N_n;                  // Mask Parameter: PIDJMS1_N_n
+  real_T PIDJMS1_N_nk;                 // Mask Parameter: PIDJMS1_N_nk
                                           //  Referenced by: '<S200>/Filter Coefficient'
 
   real_T PIDJMS0628_N_f;               // Mask Parameter: PIDJMS0628_N_f
@@ -472,13 +472,13 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS1_N_m;                  // Mask Parameter: PIDJMS1_N_m
                                           //  Referenced by: '<S303>/Filter Coefficient'
 
-  real_T PIDJMS0628_P;                 // Mask Parameter: PIDJMS0628_P
+  real_T PIDJMS1_P;                    // Mask Parameter: PIDJMS1_P
                                           //  Referenced by: '<S355>/Proportional Gain'
 
-  real_T PIDJMS0628_P_l;               // Mask Parameter: PIDJMS0628_P_l
+  real_T PIDJMS0628_P;                 // Mask Parameter: PIDJMS0628_P
                                           //  Referenced by: '<S50>/Proportional Gain'
 
-  real_T PIDJMS1_P;                    // Mask Parameter: PIDJMS1_P
+  real_T PIDJMS1_P_l;                  // Mask Parameter: PIDJMS1_P_l
                                           //  Referenced by: '<S100>/Proportional Gain'
 
   real_T PIDJMS0628_P_b;               // Mask Parameter: PIDJMS0628_P_b
@@ -493,23 +493,23 @@ struct P_ghost_mode_T_ {
   real_T PIDJMS1_P_f;                  // Mask Parameter: PIDJMS1_P_f
                                           //  Referenced by: '<S305>/Proportional Gain'
 
+  real_T PIDJMS1_UpperSaturationLimit;
+                                 // Mask Parameter: PIDJMS1_UpperSaturationLimit
+                                    //  Referenced by:
+                                    //    '<S357>/Saturation'
+                                    //    '<S343>/DeadZone'
+
   real_T PIDJMS0628_UpperSaturationLimit;
                               // Mask Parameter: PIDJMS0628_UpperSaturationLimit
-                                 //  Referenced by:
-                                 //    '<S357>/Saturation'
-                                 //    '<S343>/DeadZone'
-
-  real_T PIDJMS0628_UpperSaturationLim_m;
-                              // Mask Parameter: PIDJMS0628_UpperSaturationLim_m
                                  //  Referenced by:
                                  //    '<S52>/Saturation'
                                  //    '<S38>/DeadZone'
 
-  real_T PIDJMS1_UpperSaturationLimit;
-                                 // Mask Parameter: PIDJMS1_UpperSaturationLimit
-                                    //  Referenced by:
-                                    //    '<S102>/Saturation'
-                                    //    '<S88>/DeadZone'
+  real_T PIDJMS1_UpperSaturationLimit_e;
+                               // Mask Parameter: PIDJMS1_UpperSaturationLimit_e
+                                  //  Referenced by:
+                                  //    '<S102>/Saturation'
+                                  //    '<S88>/DeadZone'
 
   real_T PIDJMS0628_UpperSaturationLim_p;
                               // Mask Parameter: PIDJMS0628_UpperSaturationLim_p
@@ -769,7 +769,7 @@ extern "C" {
 //  '<S2>'   : 'ghost_mode/Controller1'
 //  '<S3>'   : 'ghost_mode/Controller2'
 //  '<S4>'   : 'ghost_mode/HybridController'
-//  '<S5>'   : 'ghost_mode/PID JMS 0628'
+//  '<S5>'   : 'ghost_mode/PID JMS 1'
 //  '<S6>'   : 'ghost_mode/Publish'
 //  '<S7>'   : 'ghost_mode/Subscribe'
 //  '<S8>'   : 'ghost_mode/Subscribe1'
@@ -1081,56 +1081,56 @@ extern "C" {
 //  '<S314>' : 'ghost_mode/HybridController/PID JMS 1/Tsamp - Ngain/Passthrough'
 //  '<S315>' : 'ghost_mode/HybridController/PID JMS 1/postSat Signal/Forward_Path'
 //  '<S316>' : 'ghost_mode/HybridController/PID JMS 1/preSat Signal/Forward_Path'
-//  '<S317>' : 'ghost_mode/PID JMS 0628/Anti-windup'
-//  '<S318>' : 'ghost_mode/PID JMS 0628/D Gain'
-//  '<S319>' : 'ghost_mode/PID JMS 0628/Filter'
-//  '<S320>' : 'ghost_mode/PID JMS 0628/Filter ICs'
-//  '<S321>' : 'ghost_mode/PID JMS 0628/I Gain'
-//  '<S322>' : 'ghost_mode/PID JMS 0628/Ideal P Gain'
-//  '<S323>' : 'ghost_mode/PID JMS 0628/Ideal P Gain Fdbk'
-//  '<S324>' : 'ghost_mode/PID JMS 0628/Integrator'
-//  '<S325>' : 'ghost_mode/PID JMS 0628/Integrator ICs'
-//  '<S326>' : 'ghost_mode/PID JMS 0628/N Copy'
-//  '<S327>' : 'ghost_mode/PID JMS 0628/N Gain'
-//  '<S328>' : 'ghost_mode/PID JMS 0628/P Copy'
-//  '<S329>' : 'ghost_mode/PID JMS 0628/Parallel P Gain'
-//  '<S330>' : 'ghost_mode/PID JMS 0628/Reset Signal'
-//  '<S331>' : 'ghost_mode/PID JMS 0628/Saturation'
-//  '<S332>' : 'ghost_mode/PID JMS 0628/Saturation Fdbk'
-//  '<S333>' : 'ghost_mode/PID JMS 0628/Sum'
-//  '<S334>' : 'ghost_mode/PID JMS 0628/Sum Fdbk'
-//  '<S335>' : 'ghost_mode/PID JMS 0628/Tracking Mode'
-//  '<S336>' : 'ghost_mode/PID JMS 0628/Tracking Mode Sum'
-//  '<S337>' : 'ghost_mode/PID JMS 0628/Tsamp - Integral'
-//  '<S338>' : 'ghost_mode/PID JMS 0628/Tsamp - Ngain'
-//  '<S339>' : 'ghost_mode/PID JMS 0628/postSat Signal'
-//  '<S340>' : 'ghost_mode/PID JMS 0628/preSat Signal'
-//  '<S341>' : 'ghost_mode/PID JMS 0628/Anti-windup/Cont. Clamping Parallel'
-//  '<S342>' : 'ghost_mode/PID JMS 0628/Anti-windup/Cont. Clamping Parallel/Dead Zone'
-//  '<S343>' : 'ghost_mode/PID JMS 0628/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
-//  '<S344>' : 'ghost_mode/PID JMS 0628/D Gain/Internal Parameters'
-//  '<S345>' : 'ghost_mode/PID JMS 0628/Filter/Cont. Filter'
-//  '<S346>' : 'ghost_mode/PID JMS 0628/Filter ICs/Internal IC - Filter'
-//  '<S347>' : 'ghost_mode/PID JMS 0628/I Gain/Internal Parameters'
-//  '<S348>' : 'ghost_mode/PID JMS 0628/Ideal P Gain/Passthrough'
-//  '<S349>' : 'ghost_mode/PID JMS 0628/Ideal P Gain Fdbk/Disabled'
-//  '<S350>' : 'ghost_mode/PID JMS 0628/Integrator/Continuous'
-//  '<S351>' : 'ghost_mode/PID JMS 0628/Integrator ICs/Internal IC'
-//  '<S352>' : 'ghost_mode/PID JMS 0628/N Copy/Disabled'
-//  '<S353>' : 'ghost_mode/PID JMS 0628/N Gain/Internal Parameters'
-//  '<S354>' : 'ghost_mode/PID JMS 0628/P Copy/Disabled'
-//  '<S355>' : 'ghost_mode/PID JMS 0628/Parallel P Gain/Internal Parameters'
-//  '<S356>' : 'ghost_mode/PID JMS 0628/Reset Signal/Disabled'
-//  '<S357>' : 'ghost_mode/PID JMS 0628/Saturation/Enabled'
-//  '<S358>' : 'ghost_mode/PID JMS 0628/Saturation Fdbk/Disabled'
-//  '<S359>' : 'ghost_mode/PID JMS 0628/Sum/Sum_PID'
-//  '<S360>' : 'ghost_mode/PID JMS 0628/Sum Fdbk/Disabled'
-//  '<S361>' : 'ghost_mode/PID JMS 0628/Tracking Mode/Enabled'
-//  '<S362>' : 'ghost_mode/PID JMS 0628/Tracking Mode Sum/Tracking Mode'
-//  '<S363>' : 'ghost_mode/PID JMS 0628/Tsamp - Integral/Passthrough'
-//  '<S364>' : 'ghost_mode/PID JMS 0628/Tsamp - Ngain/Passthrough'
-//  '<S365>' : 'ghost_mode/PID JMS 0628/postSat Signal/Forward_Path'
-//  '<S366>' : 'ghost_mode/PID JMS 0628/preSat Signal/Forward_Path'
+//  '<S317>' : 'ghost_mode/PID JMS 1/Anti-windup'
+//  '<S318>' : 'ghost_mode/PID JMS 1/D Gain'
+//  '<S319>' : 'ghost_mode/PID JMS 1/Filter'
+//  '<S320>' : 'ghost_mode/PID JMS 1/Filter ICs'
+//  '<S321>' : 'ghost_mode/PID JMS 1/I Gain'
+//  '<S322>' : 'ghost_mode/PID JMS 1/Ideal P Gain'
+//  '<S323>' : 'ghost_mode/PID JMS 1/Ideal P Gain Fdbk'
+//  '<S324>' : 'ghost_mode/PID JMS 1/Integrator'
+//  '<S325>' : 'ghost_mode/PID JMS 1/Integrator ICs'
+//  '<S326>' : 'ghost_mode/PID JMS 1/N Copy'
+//  '<S327>' : 'ghost_mode/PID JMS 1/N Gain'
+//  '<S328>' : 'ghost_mode/PID JMS 1/P Copy'
+//  '<S329>' : 'ghost_mode/PID JMS 1/Parallel P Gain'
+//  '<S330>' : 'ghost_mode/PID JMS 1/Reset Signal'
+//  '<S331>' : 'ghost_mode/PID JMS 1/Saturation'
+//  '<S332>' : 'ghost_mode/PID JMS 1/Saturation Fdbk'
+//  '<S333>' : 'ghost_mode/PID JMS 1/Sum'
+//  '<S334>' : 'ghost_mode/PID JMS 1/Sum Fdbk'
+//  '<S335>' : 'ghost_mode/PID JMS 1/Tracking Mode'
+//  '<S336>' : 'ghost_mode/PID JMS 1/Tracking Mode Sum'
+//  '<S337>' : 'ghost_mode/PID JMS 1/Tsamp - Integral'
+//  '<S338>' : 'ghost_mode/PID JMS 1/Tsamp - Ngain'
+//  '<S339>' : 'ghost_mode/PID JMS 1/postSat Signal'
+//  '<S340>' : 'ghost_mode/PID JMS 1/preSat Signal'
+//  '<S341>' : 'ghost_mode/PID JMS 1/Anti-windup/Cont. Clamping Parallel'
+//  '<S342>' : 'ghost_mode/PID JMS 1/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+//  '<S343>' : 'ghost_mode/PID JMS 1/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+//  '<S344>' : 'ghost_mode/PID JMS 1/D Gain/Internal Parameters'
+//  '<S345>' : 'ghost_mode/PID JMS 1/Filter/Cont. Filter'
+//  '<S346>' : 'ghost_mode/PID JMS 1/Filter ICs/Internal IC - Filter'
+//  '<S347>' : 'ghost_mode/PID JMS 1/I Gain/Internal Parameters'
+//  '<S348>' : 'ghost_mode/PID JMS 1/Ideal P Gain/Passthrough'
+//  '<S349>' : 'ghost_mode/PID JMS 1/Ideal P Gain Fdbk/Disabled'
+//  '<S350>' : 'ghost_mode/PID JMS 1/Integrator/Continuous'
+//  '<S351>' : 'ghost_mode/PID JMS 1/Integrator ICs/Internal IC'
+//  '<S352>' : 'ghost_mode/PID JMS 1/N Copy/Disabled'
+//  '<S353>' : 'ghost_mode/PID JMS 1/N Gain/Internal Parameters'
+//  '<S354>' : 'ghost_mode/PID JMS 1/P Copy/Disabled'
+//  '<S355>' : 'ghost_mode/PID JMS 1/Parallel P Gain/Internal Parameters'
+//  '<S356>' : 'ghost_mode/PID JMS 1/Reset Signal/Disabled'
+//  '<S357>' : 'ghost_mode/PID JMS 1/Saturation/Enabled'
+//  '<S358>' : 'ghost_mode/PID JMS 1/Saturation Fdbk/Disabled'
+//  '<S359>' : 'ghost_mode/PID JMS 1/Sum/Sum_PID'
+//  '<S360>' : 'ghost_mode/PID JMS 1/Sum Fdbk/Disabled'
+//  '<S361>' : 'ghost_mode/PID JMS 1/Tracking Mode/Enabled'
+//  '<S362>' : 'ghost_mode/PID JMS 1/Tracking Mode Sum/Tracking Mode'
+//  '<S363>' : 'ghost_mode/PID JMS 1/Tsamp - Integral/Passthrough'
+//  '<S364>' : 'ghost_mode/PID JMS 1/Tsamp - Ngain/Passthrough'
+//  '<S365>' : 'ghost_mode/PID JMS 1/postSat Signal/Forward_Path'
+//  '<S366>' : 'ghost_mode/PID JMS 1/preSat Signal/Forward_Path'
 //  '<S367>' : 'ghost_mode/Subscribe/Enabled Subsystem'
 //  '<S368>' : 'ghost_mode/Subscribe1/Enabled Subsystem'
 //  '<S369>' : 'ghost_mode/Subscribe2/Enabled Subsystem'
