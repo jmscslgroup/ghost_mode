@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.51
+// Model version                  : 1.53
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Wed Jun 30 13:52:12 2021
+// C/C++ source code generated on : Wed Jun 30 15:28:23 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -21,92 +21,52 @@
 
 // Block parameters (default storage)
 P_ghost_mode_T ghost_mode_P = {
-  // Mask Parameter: PIDJMS4_D
-  //  Referenced by: '<S84>/Derivative Gain'
+  // Mask Parameter: PIDJMSTransport_D
+  //  Referenced by: '<S33>/Derivative Gain'
 
-  1.33981022316214,
+  1.14295124290082,
 
-  // Mask Parameter: PIDJMS3_D
-  //  Referenced by: '<S34>/Derivative Gain'
+  // Mask Parameter: PIDJMSTransport_I
+  //  Referenced by: '<S36>/Integral Gain'
 
-  5.29067950234065,
+  0.0384527874835906,
 
-  // Mask Parameter: PIDJMS4_I
-  //  Referenced by: '<S87>/Integral Gain'
-
-  0.0655731064858092,
-
-  // Mask Parameter: PIDJMS3_I
-  //  Referenced by: '<S37>/Integral Gain'
-
-  5.50394478680961,
-
-  // Mask Parameter: PIDJMS4_InitialConditionForFilt
-  //  Referenced by: '<S85>/Filter'
+  // Mask Parameter: PIDJMSTransport_InitialConditio
+  //  Referenced by: '<S34>/Filter'
 
   0.0,
 
-  // Mask Parameter: PIDJMS3_InitialConditionForFilt
-  //  Referenced by: '<S35>/Filter'
+  // Mask Parameter: PIDJMSTransport_InitialCondit_d
+  //  Referenced by: '<S39>/Integrator'
 
   0.0,
 
-  // Mask Parameter: PIDJMS4_InitialConditionForInte
-  //  Referenced by: '<S90>/Integrator'
-
-  0.0,
-
-  // Mask Parameter: PIDJMS3_InitialConditionForInte
-  //  Referenced by: '<S40>/Integrator'
-
-  0.0,
-
-  // Mask Parameter: PIDJMS4_LowerSaturationLimit
+  // Mask Parameter: PIDJMSTransport_LowerSaturation
   //  Referenced by:
-  //    '<S97>/Saturation'
-  //    '<S83>/DeadZone'
+  //    '<S46>/Saturation'
+  //    '<S32>/DeadZone'
 
   -3.0,
 
-  // Mask Parameter: PIDJMS3_LowerSaturationLimit
-  //  Referenced by: '<S33>/DeadZone'
+  // Mask Parameter: PIDJMSTransport_N
+  //  Referenced by: '<S42>/Filter Coefficient'
 
-  -3.0,
+  91.5092508500508,
 
-  // Mask Parameter: PIDJMS4_N
-  //  Referenced by: '<S93>/Filter Coefficient'
+  // Mask Parameter: PIDJMSTransport_P
+  //  Referenced by: '<S44>/Proportional Gain'
 
-  7.54853219511638,
+  0.591060482820601,
 
-  // Mask Parameter: PIDJMS3_N
-  //  Referenced by: '<S43>/Filter Coefficient'
-
-  1055.45647004352,
-
-  // Mask Parameter: PIDJMS4_P
-  //  Referenced by: '<S95>/Proportional Gain'
-
-  2.71967723043159,
-
-  // Mask Parameter: PIDJMS3_P
-  //  Referenced by: '<S45>/Proportional Gain'
-
-  10.9133865080016,
-
-  // Mask Parameter: PIDJMS4_UpperSaturationLimit
+  // Mask Parameter: PIDJMSTransport_UpperSaturation
   //  Referenced by:
-  //    '<S97>/Saturation'
-  //    '<S83>/DeadZone'
-
-  1.5,
-
-  // Mask Parameter: PIDJMS3_UpperSaturationLimit
-  //  Referenced by: '<S33>/DeadZone'
+  //    '<S46>/Saturation'
+  //    '<S32>/DeadZone'
 
   1.5,
 
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S107>/Out1'
+  //  Referenced by: '<S56>/Out1'
 
   {
     {
@@ -150,7 +110,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value
-  //  Referenced by: '<S5>/Constant'
+  //  Referenced by: '<S4>/Constant'
 
   {
     {
@@ -194,7 +154,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Out1_Y0_h
-  //  Referenced by: '<S108>/Out1'
+  //  Referenced by: '<S57>/Out1'
 
   {
     {
@@ -238,7 +198,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value_j
-  //  Referenced by: '<S6>/Constant'
+  //  Referenced by: '<S5>/Constant'
 
   {
     {
@@ -289,12 +249,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Expression: 0
-  //  Referenced by: '<S81>/Constant1'
-
-  0.0,
-
-  // Expression: 0
-  //  Referenced by: '<S31>/Constant1'
+  //  Referenced by: '<S30>/Constant1'
 
   0.0,
 
@@ -309,22 +264,12 @@ P_ghost_mode_T ghost_mode_P = {
   -3.0,
 
   // Expression: 0
-  //  Referenced by: '<S81>/ZeroGain'
-
-  0.0,
-
-  // Expression: 0
-  //  Referenced by: '<S31>/ZeroGain'
+  //  Referenced by: '<S30>/ZeroGain'
 
   0.0,
 
   // Computed Parameter: Memory_InitialCondition
-  //  Referenced by: '<S81>/Memory'
-
-  0,
-
-  // Computed Parameter: Memory_InitialCondition_j
-  //  Referenced by: '<S31>/Memory'
+  //  Referenced by: '<S30>/Memory'
 
   0
 };
