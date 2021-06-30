@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 1.45
+// Model version                  : 1.46
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Wed Jun 30 11:47:01 2021
+// C/C++ source code generated on : Wed Jun 30 11:54:40 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -21,57 +21,101 @@
 
 // Block parameters (default storage)
 P_ghost_mode_T ghost_mode_P = {
-  // Mask Parameter: PIDJMS1_D
-  //  Referenced by: '<S34>/Derivative Gain'
+  // Mask Parameter: PIDJMS2_D
+  //  Referenced by: '<S85>/Derivative Gain'
 
   3.14341534728212,
 
-  // Mask Parameter: PIDJMS1_I
-  //  Referenced by: '<S37>/Integral Gain'
+  // Mask Parameter: PIDJMS1_D
+  //  Referenced by: '<S35>/Derivative Gain'
+
+  3.14341534728212,
+
+  // Mask Parameter: PIDJMS2_I
+  //  Referenced by: '<S88>/Integral Gain'
 
   2.84227057543051,
 
+  // Mask Parameter: PIDJMS1_I
+  //  Referenced by: '<S38>/Integral Gain'
+
+  2.84227057543051,
+
+  // Mask Parameter: PIDJMS2_InitialConditionForFilt
+  //  Referenced by: '<S86>/Filter'
+
+  0.0,
+
   // Mask Parameter: PIDJMS1_InitialConditionForFilt
-  //  Referenced by: '<S35>/Filter'
+  //  Referenced by: '<S36>/Filter'
+
+  0.0,
+
+  // Mask Parameter: PIDJMS2_InitialConditionForInte
+  //  Referenced by: '<S91>/Integrator'
 
   0.0,
 
   // Mask Parameter: PIDJMS1_InitialConditionForInte
-  //  Referenced by: '<S40>/Integrator'
+  //  Referenced by: '<S41>/Integrator'
 
   0.0,
 
   // Mask Parameter: PIDJMS1_Kt
-  //  Referenced by: '<S51>/Kt'
+  //  Referenced by: '<S52>/Kt'
 
   1.0,
 
-  // Mask Parameter: PIDJMS1_LowerSaturationLimit
+  // Mask Parameter: PIDJMS2_LowerSaturationLimit
   //  Referenced by:
-  //    '<S47>/Saturation'
-  //    '<S33>/DeadZone'
+  //    '<S98>/Saturation'
+  //    '<S84>/DeadZone'
 
   -3.0,
 
-  // Mask Parameter: PIDJMS1_N
-  //  Referenced by: '<S43>/Filter Coefficient'
+  // Mask Parameter: PIDJMS1_LowerSaturationLimit
+  //  Referenced by:
+  //    '<S48>/Saturation'
+  //    '<S34>/DeadZone'
+
+  -3.0,
+
+  // Mask Parameter: PIDJMS2_N
+  //  Referenced by: '<S94>/Filter Coefficient'
 
   635.975413708926,
 
-  // Mask Parameter: PIDJMS1_P
-  //  Referenced by: '<S45>/Proportional Gain'
+  // Mask Parameter: PIDJMS1_N
+  //  Referenced by: '<S44>/Filter Coefficient'
+
+  635.975413708926,
+
+  // Mask Parameter: PIDJMS2_P
+  //  Referenced by: '<S96>/Proportional Gain'
 
   7.02660625936992,
 
+  // Mask Parameter: PIDJMS1_P
+  //  Referenced by: '<S46>/Proportional Gain'
+
+  7.02660625936992,
+
+  // Mask Parameter: PIDJMS2_UpperSaturationLimit
+  //  Referenced by:
+  //    '<S98>/Saturation'
+  //    '<S84>/DeadZone'
+
+  1.5,
+
   // Mask Parameter: PIDJMS1_UpperSaturationLimit
   //  Referenced by:
-  //    '<S47>/Saturation'
-  //    '<S33>/DeadZone'
+  //    '<S48>/Saturation'
+  //    '<S34>/DeadZone'
 
   1.5,
 
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S59>/Out1'
+  //  Referenced by: '<S110>/Out1'
 
   {
     {
@@ -115,7 +159,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value
-  //  Referenced by: '<S6>/Constant'
+  //  Referenced by: '<S7>/Constant'
 
   {
     {
@@ -159,7 +203,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Out1_Y0_p
-  //  Referenced by: '<S57>/Out1'
+  //  Referenced by: '<S108>/Out1'
 
   {
     {
@@ -203,7 +247,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value_n
-  //  Referenced by: '<S4>/Constant'
+  //  Referenced by: '<S5>/Constant'
 
   {
     {
@@ -247,7 +291,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Out1_Y0_h
-  //  Referenced by: '<S58>/Out1'
+  //  Referenced by: '<S109>/Out1'
 
   {
     {
@@ -291,7 +335,7 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value_j
-  //  Referenced by: '<S5>/Constant'
+  //  Referenced by: '<S6>/Constant'
 
   {
     {
@@ -342,7 +386,12 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Expression: 0
-  //  Referenced by: '<S31>/Constant1'
+  //  Referenced by: '<S82>/Constant1'
+
+  0.0,
+
+  // Expression: 0
+  //  Referenced by: '<S32>/Constant1'
 
   0.0,
 
@@ -357,12 +406,22 @@ P_ghost_mode_T ghost_mode_P = {
   -3.0,
 
   // Expression: 0
-  //  Referenced by: '<S31>/ZeroGain'
+  //  Referenced by: '<S82>/ZeroGain'
+
+  0.0,
+
+  // Expression: 0
+  //  Referenced by: '<S32>/ZeroGain'
 
   0.0,
 
   // Computed Parameter: Memory_InitialCondition
-  //  Referenced by: '<S31>/Memory'
+  //  Referenced by: '<S82>/Memory'
+
+  0,
+
+  // Computed Parameter: Memory_InitialCondition_o
+  //  Referenced by: '<S32>/Memory'
 
   0
 };
