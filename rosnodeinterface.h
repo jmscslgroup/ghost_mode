@@ -1,5 +1,5 @@
 // Copyright 2019-2020 The MathWorks, Inc.
-// Generated 30-Jun-2021 13:52:16
+// Generated 16-Jul-2021 03:03:17
 
 #ifndef _ROS_MATLAB_NODEINTERFACE_
 #define _ROS_MATLAB_NODEINTERFACE_
@@ -23,8 +23,8 @@
 
 #endif                                 //_MSC_VER
 
-#include "ghost_mode.h"
-#include "ghost_mode_types.h"
+#include "mpc_ros.h"
+#include "mpc_ros_types.h"
 #include <thread>
 #include <atomic>
 #include <chrono>

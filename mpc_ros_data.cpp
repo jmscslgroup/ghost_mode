@@ -3,110 +3,26 @@
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
 //
-// File: ghost_mode_data.cpp
+// File: mpc_ros_data.cpp
 //
-// Code generated for Simulink model 'ghost_mode'.
+// Code generated for Simulink model 'mpc_ros'.
 //
-// Model version                  : 1.51
+// Model version                  : 2.3
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Wed Jun 30 13:52:12 2021
+// C/C++ source code generated on : Fri Jul 16 03:03:13 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
 // Code generation objectives: Unspecified
 // Validation result: Not run
 //
-#include "ghost_mode.h"
-#include "ghost_mode_private.h"
+#include "mpc_ros.h"
+#include "mpc_ros_private.h"
 
 // Block parameters (default storage)
-P_ghost_mode_T ghost_mode_P = {
-  // Mask Parameter: PIDJMS4_D
-  //  Referenced by: '<S84>/Derivative Gain'
-
-  1.33981022316214,
-
-  // Mask Parameter: PIDJMS3_D
-  //  Referenced by: '<S34>/Derivative Gain'
-
-  5.29067950234065,
-
-  // Mask Parameter: PIDJMS4_I
-  //  Referenced by: '<S87>/Integral Gain'
-
-  0.0655731064858092,
-
-  // Mask Parameter: PIDJMS3_I
-  //  Referenced by: '<S37>/Integral Gain'
-
-  5.50394478680961,
-
-  // Mask Parameter: PIDJMS4_InitialConditionForFilt
-  //  Referenced by: '<S85>/Filter'
-
-  0.0,
-
-  // Mask Parameter: PIDJMS3_InitialConditionForFilt
-  //  Referenced by: '<S35>/Filter'
-
-  0.0,
-
-  // Mask Parameter: PIDJMS4_InitialConditionForInte
-  //  Referenced by: '<S90>/Integrator'
-
-  0.0,
-
-  // Mask Parameter: PIDJMS3_InitialConditionForInte
-  //  Referenced by: '<S40>/Integrator'
-
-  0.0,
-
-  // Mask Parameter: PIDJMS4_LowerSaturationLimit
-  //  Referenced by:
-  //    '<S97>/Saturation'
-  //    '<S83>/DeadZone'
-
-  -3.0,
-
-  // Mask Parameter: PIDJMS3_LowerSaturationLimit
-  //  Referenced by: '<S33>/DeadZone'
-
-  -3.0,
-
-  // Mask Parameter: PIDJMS4_N
-  //  Referenced by: '<S93>/Filter Coefficient'
-
-  7.54853219511638,
-
-  // Mask Parameter: PIDJMS3_N
-  //  Referenced by: '<S43>/Filter Coefficient'
-
-  1055.45647004352,
-
-  // Mask Parameter: PIDJMS4_P
-  //  Referenced by: '<S95>/Proportional Gain'
-
-  2.71967723043159,
-
-  // Mask Parameter: PIDJMS3_P
-  //  Referenced by: '<S45>/Proportional Gain'
-
-  10.9133865080016,
-
-  // Mask Parameter: PIDJMS4_UpperSaturationLimit
-  //  Referenced by:
-  //    '<S97>/Saturation'
-  //    '<S83>/DeadZone'
-
-  1.5,
-
-  // Mask Parameter: PIDJMS3_UpperSaturationLimit
-  //  Referenced by: '<S33>/DeadZone'
-
-  1.5,
-
+P_mpc_ros_T mpc_ros_P = {
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S107>/Out1'
+  //  Referenced by: '<S29>/Out1'
 
   {
     {
@@ -150,6 +66,94 @@ P_ghost_mode_T ghost_mode_P = {
   },
 
   // Computed Parameter: Constant_Value
+  //  Referenced by: '<S4>/Constant'
+
+  {
+    {
+      0U,                              // Seq
+
+      {
+        0.0,                           // Sec
+        0.0                            // Nsec
+      },                               // Stamp
+
+      {
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U }
+      ,                                // FrameId
+
+      {
+        0U,                            // CurrentLength
+        0U                             // ReceivedLength
+      }                                // FrameId_SL_Info
+    },                                 // Header
+
+    {
+      {
+        0.0,                           // X
+        0.0,                           // Y
+        0.0                            // Z
+      },                               // Linear
+
+      {
+        0.0,                           // X
+        0.0,                           // Y
+        0.0                            // Z
+      }                                // Angular
+    }                                  // Twist
+  },
+
+  // Computed Parameter: Out1_Y0_m
+  //  Referenced by: '<S30>/Out1'
+
+  {
+    {
+      0U,                              // Seq
+
+      {
+        0.0,                           // Sec
+        0.0                            // Nsec
+      },                               // Stamp
+
+      {
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U }
+      ,                                // FrameId
+
+      {
+        0U,                            // CurrentLength
+        0U                             // ReceivedLength
+      }                                // FrameId_SL_Info
+    },                                 // Header
+
+    {
+      {
+        0.0,                           // X
+        0.0,                           // Y
+        0.0                            // Z
+      },                               // Linear
+
+      {
+        0.0,                           // X
+        0.0,                           // Y
+        0.0                            // Z
+      }                                // Angular
+    }                                  // Twist
+  },
+
+  // Computed Parameter: Constant_Value_k
   //  Referenced by: '<S5>/Constant'
 
   {
@@ -193,8 +197,8 @@ P_ghost_mode_T ghost_mode_P = {
     }                                  // Twist
   },
 
-  // Computed Parameter: Out1_Y0_h
-  //  Referenced by: '<S108>/Out1'
+  // Computed Parameter: Out1_Y0_g
+  //  Referenced by: '<S31>/Out1'
 
   {
     {
@@ -237,7 +241,7 @@ P_ghost_mode_T ghost_mode_P = {
     }                                  // Twist
   },
 
-  // Computed Parameter: Constant_Value_j
+  // Computed Parameter: Constant_Value_b
   //  Referenced by: '<S6>/Constant'
 
   {
@@ -281,52 +285,142 @@ P_ghost_mode_T ghost_mode_P = {
     }                                  // Twist
   },
 
-  // Computed Parameter: Constant_Value_d
+  // Computed Parameter: Constant_Value_j
   //  Referenced by: '<S1>/Constant'
 
   {
     0.0                                // Data
   },
 
-  // Expression: 0
-  //  Referenced by: '<S81>/Constant1'
+  // Expression: lastx+xoff
+  //  Referenced by: '<S7>/last_x'
+
+  { 0.0, 0.0, 0.0 },
+
+  // Expression: lastu+uoff
+  //  Referenced by: '<S7>/last_mv'
 
   0.0,
 
   // Expression: 0
-  //  Referenced by: '<S31>/Constant1'
+  //  Referenced by: '<Root>/Constant'
 
   0.0,
 
-  // Expression: 1.5
-  //  Referenced by: '<Root>/Saturation'
-
-  1.5,
-
-  // Expression: -3
-  //  Referenced by: '<Root>/Saturation'
-
-  -3.0,
-
-  // Expression: 0
-  //  Referenced by: '<S81>/ZeroGain'
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/md_zero'
 
   0.0,
 
-  // Expression: 0
-  //  Referenced by: '<S31>/ZeroGain'
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/umin_zero'
 
   0.0,
 
-  // Computed Parameter: Memory_InitialCondition
-  //  Referenced by: '<S81>/Memory'
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/umax_zero'
 
-  0,
+  0.0,
 
-  // Computed Parameter: Memory_InitialCondition_j
-  //  Referenced by: '<S31>/Memory'
+  // Expression: zeros(2,1)
+  //  Referenced by: '<S2>/ymin_zero'
 
-  0
+  { 0.0, 0.0 },
+
+  // Expression: zeros(2,1)
+  //  Referenced by: '<S2>/ymax_zero'
+
+  { 0.0, 0.0 },
+
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/E_zero'
+
+  0.0,
+
+  // Expression: MVscale(:,ones(1,max(nCC,1)))'
+  //  Referenced by: '<S7>/umin_scale4'
+
+  1.0,
+
+  // Expression: zeros(1,2)
+  //  Referenced by: '<S2>/F_zero'
+
+  { 0.0, 0.0 },
+
+  // Expression: Yscale(:,ones(1,max(nCC,1)))'
+  //  Referenced by: '<S7>/ymin_scale1'
+
+  { 1.0, 1.0 },
+
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/G_zero'
+
+  0.0,
+
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/S_zero'
+
+  0.0,
+
+  // Expression: MDscale(:,ones(1,max(nCC,1)))'
+  //  Referenced by: '<S7>/ymin_scale2'
+
+  1.0,
+
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/switch_zero'
+
+  0.0,
+
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/ext.mv_zero'
+
+  0.0,
+
+  // Expression: RMVscale
+  //  Referenced by: '<S7>/ext.mv_scale'
+
+  1.0,
+
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/mv.target_zero'
+
+  0.0,
+
+  // Expression: RMVscale
+  //  Referenced by: '<S7>/ext.mv_scale1'
+
+  1.0,
+
+  // Expression: zeros(2,1)
+  //  Referenced by: '<S2>/y.wt_zero'
+
+  { 0.0, 0.0 },
+
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/u.wt_zero'
+
+  0.0,
+
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/du.wt_zero'
+
+  0.0,
+
+  // Expression: zeros(1,1)
+  //  Referenced by: '<S2>/ecr.wt_zero'
+
+  0.0,
+
+  // Expression: MVscale
+  //  Referenced by: '<S7>/umin_scale1'
+
+  1.0,
+
+  // Expression: iA
+  //  Referenced by: '<S7>/Memory'
+
+  { 0, 0, 0, 0 }
 };
 
 //

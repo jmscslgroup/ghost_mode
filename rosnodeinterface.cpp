@@ -1,5 +1,5 @@
 // Copyright 2019-2021 The MathWorks, Inc.
-// Generated 30-Jun-2021 13:52:16
+// Generated 16-Jul-2021 03:03:17
 
 #ifdef _MSC_VER
 
@@ -23,7 +23,7 @@
 
 #endif                                 //_MSC_VER
 
-#include "ghost_mode.h"
+#include "mpc_ros.h"
 #include "rosnodeinterface.h"
 #include <thread>
 #include <chrono>
@@ -52,11 +52,11 @@ namespace ros
     {
       try {
         mNode = std::make_shared<ros::NodeHandle>();
-        ROS_INFO("** Starting the model \"ghost_mode\" **\n");
+        ROS_INFO("** Starting the model \"mpc_ros\" **\n");
 
         // initialize the model which will initialize the publishers and subscribers
-        rtmSetErrorStatus(ghost_mode_M, (NULL));
-        ghost_mode_initialize();
+        rtmSetErrorStatus(mpc_ros_M, (NULL));
+        mpc_ros_initialize();
 
         // create the threads for the rates in the Model
         mBaseRateThread = std::make_shared<std::thread>(&NodeInterface::
@@ -83,13 +83,13 @@ namespace ros
 
 #ifndef rtmGetStopRequested
 
-      return (!(rtmGetErrorStatus(ghost_mode_M)
+      return (!(rtmGetErrorStatus(mpc_ros_M)
                 == (NULL)));
 
 #else
 
-      return (!(rtmGetErrorStatus(ghost_mode_M)
-                == (NULL)) || rtmGetStopRequested(ghost_mode_M));
+      return (!(rtmGetErrorStatus(mpc_ros_M)
+                == (NULL)) || rtmGetStopRequested(mpc_ros_M));
 
 #endif
 
@@ -107,7 +107,7 @@ namespace ros
           mSchedulerThread.reset();
         }
 
-        ghost_mode_terminate();
+        mpc_ros_terminate();
         mNode.reset();
       }
     }
@@ -119,7 +119,7 @@ namespace ros
     {
       while (mRunModel) {
         std::this_thread::sleep_until(std::chrono::system_clock::now() + std::
-          chrono::nanoseconds(36000000));
+          chrono::nanoseconds(50000000));
         mBaseRateSem.notify();
       }
     }
@@ -127,7 +127,7 @@ namespace ros
     // Base-rate task
     void NodeInterface::baseRateTask(void)
     {
-      mRunModel = (rtmGetErrorStatus(ghost_mode_M) ==
+      mRunModel = (rtmGetErrorStatus(mpc_ros_M) ==
                    (NULL));
       while (mRunModel) {
         mBaseRateSem.wait();
@@ -140,7 +140,7 @@ namespace ros
 
         if (!mRunModel)
           break;
-        ghost_mode_step();
+        mpc_ros_step();
         mRunModel = !NodeInterface::getStopRequestedFlag();
       }
 

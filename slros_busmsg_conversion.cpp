@@ -1,9 +1,9 @@
 #include "slros_busmsg_conversion.h"
 
 
-// Conversions between SL_Bus_ghost_mode_geometry_msgs_Twist and geometry_msgs::Twist
+// Conversions between SL_Bus_mpc_ros_geometry_msgs_Twist and geometry_msgs::Twist
 
-void convertFromBus(geometry_msgs::Twist* msgPtr, SL_Bus_ghost_mode_geometry_msgs_Twist const* busPtr)
+void convertFromBus(geometry_msgs::Twist* msgPtr, SL_Bus_mpc_ros_geometry_msgs_Twist const* busPtr)
 {
   const std::string rosMessageType("geometry_msgs/Twist");
 
@@ -11,7 +11,7 @@ void convertFromBus(geometry_msgs::Twist* msgPtr, SL_Bus_ghost_mode_geometry_msg
   convertFromBus(&msgPtr->linear, &busPtr->Linear);
 }
 
-void convertToBus(SL_Bus_ghost_mode_geometry_msgs_Twist* busPtr, geometry_msgs::Twist const* msgPtr)
+void convertToBus(SL_Bus_mpc_ros_geometry_msgs_Twist* busPtr, geometry_msgs::Twist const* msgPtr)
 {
   const std::string rosMessageType("geometry_msgs/Twist");
 
@@ -20,9 +20,9 @@ void convertToBus(SL_Bus_ghost_mode_geometry_msgs_Twist* busPtr, geometry_msgs::
 }
 
 
-// Conversions between SL_Bus_ghost_mode_geometry_msgs_TwistStamped and geometry_msgs::TwistStamped
+// Conversions between SL_Bus_mpc_ros_geometry_msgs_TwistStamped and geometry_msgs::TwistStamped
 
-void convertFromBus(geometry_msgs::TwistStamped* msgPtr, SL_Bus_ghost_mode_geometry_msgs_TwistStamped const* busPtr)
+void convertFromBus(geometry_msgs::TwistStamped* msgPtr, SL_Bus_mpc_ros_geometry_msgs_TwistStamped const* busPtr)
 {
   const std::string rosMessageType("geometry_msgs/TwistStamped");
 
@@ -30,7 +30,7 @@ void convertFromBus(geometry_msgs::TwistStamped* msgPtr, SL_Bus_ghost_mode_geome
   convertFromBus(&msgPtr->twist, &busPtr->Twist);
 }
 
-void convertToBus(SL_Bus_ghost_mode_geometry_msgs_TwistStamped* busPtr, geometry_msgs::TwistStamped const* msgPtr)
+void convertToBus(SL_Bus_mpc_ros_geometry_msgs_TwistStamped* busPtr, geometry_msgs::TwistStamped const* msgPtr)
 {
   const std::string rosMessageType("geometry_msgs/TwistStamped");
 
@@ -39,9 +39,9 @@ void convertToBus(SL_Bus_ghost_mode_geometry_msgs_TwistStamped* busPtr, geometry
 }
 
 
-// Conversions between SL_Bus_ghost_mode_geometry_msgs_Vector3 and geometry_msgs::Vector3
+// Conversions between SL_Bus_mpc_ros_geometry_msgs_Vector3 and geometry_msgs::Vector3
 
-void convertFromBus(geometry_msgs::Vector3* msgPtr, SL_Bus_ghost_mode_geometry_msgs_Vector3 const* busPtr)
+void convertFromBus(geometry_msgs::Vector3* msgPtr, SL_Bus_mpc_ros_geometry_msgs_Vector3 const* busPtr)
 {
   const std::string rosMessageType("geometry_msgs/Vector3");
 
@@ -50,7 +50,7 @@ void convertFromBus(geometry_msgs::Vector3* msgPtr, SL_Bus_ghost_mode_geometry_m
   msgPtr->z =  busPtr->Z;
 }
 
-void convertToBus(SL_Bus_ghost_mode_geometry_msgs_Vector3* busPtr, geometry_msgs::Vector3 const* msgPtr)
+void convertToBus(SL_Bus_mpc_ros_geometry_msgs_Vector3* busPtr, geometry_msgs::Vector3 const* msgPtr)
 {
   const std::string rosMessageType("geometry_msgs/Vector3");
 
@@ -60,9 +60,9 @@ void convertToBus(SL_Bus_ghost_mode_geometry_msgs_Vector3* busPtr, geometry_msgs
 }
 
 
-// Conversions between SL_Bus_ghost_mode_ros_time_Time and ros::Time
+// Conversions between SL_Bus_mpc_ros_ros_time_Time and ros::Time
 
-void convertFromBus(ros::Time* msgPtr, SL_Bus_ghost_mode_ros_time_Time const* busPtr)
+void convertFromBus(ros::Time* msgPtr, SL_Bus_mpc_ros_ros_time_Time const* busPtr)
 {
   const std::string rosMessageType("ros_time/Time");
 
@@ -70,7 +70,7 @@ void convertFromBus(ros::Time* msgPtr, SL_Bus_ghost_mode_ros_time_Time const* bu
   msgPtr->sec =  busPtr->Sec;
 }
 
-void convertToBus(SL_Bus_ghost_mode_ros_time_Time* busPtr, ros::Time const* msgPtr)
+void convertToBus(SL_Bus_mpc_ros_ros_time_Time* busPtr, ros::Time const* msgPtr)
 {
   const std::string rosMessageType("ros_time/Time");
 
@@ -79,16 +79,16 @@ void convertToBus(SL_Bus_ghost_mode_ros_time_Time* busPtr, ros::Time const* msgP
 }
 
 
-// Conversions between SL_Bus_ghost_mode_std_msgs_Float64 and std_msgs::Float64
+// Conversions between SL_Bus_mpc_ros_std_msgs_Float64 and std_msgs::Float64
 
-void convertFromBus(std_msgs::Float64* msgPtr, SL_Bus_ghost_mode_std_msgs_Float64 const* busPtr)
+void convertFromBus(std_msgs::Float64* msgPtr, SL_Bus_mpc_ros_std_msgs_Float64 const* busPtr)
 {
   const std::string rosMessageType("std_msgs/Float64");
 
   msgPtr->data =  busPtr->Data;
 }
 
-void convertToBus(SL_Bus_ghost_mode_std_msgs_Float64* busPtr, std_msgs::Float64 const* msgPtr)
+void convertToBus(SL_Bus_mpc_ros_std_msgs_Float64* busPtr, std_msgs::Float64 const* msgPtr)
 {
   const std::string rosMessageType("std_msgs/Float64");
 
@@ -96,9 +96,9 @@ void convertToBus(SL_Bus_ghost_mode_std_msgs_Float64* busPtr, std_msgs::Float64 
 }
 
 
-// Conversions between SL_Bus_ghost_mode_std_msgs_Header and std_msgs::Header
+// Conversions between SL_Bus_mpc_ros_std_msgs_Header and std_msgs::Header
 
-void convertFromBus(std_msgs::Header* msgPtr, SL_Bus_ghost_mode_std_msgs_Header const* busPtr)
+void convertFromBus(std_msgs::Header* msgPtr, SL_Bus_mpc_ros_std_msgs_Header const* busPtr)
 {
   const std::string rosMessageType("std_msgs/Header");
 
@@ -107,7 +107,7 @@ void convertFromBus(std_msgs::Header* msgPtr, SL_Bus_ghost_mode_std_msgs_Header 
   convertFromBus(&msgPtr->stamp, &busPtr->Stamp);
 }
 
-void convertToBus(SL_Bus_ghost_mode_std_msgs_Header* busPtr, std_msgs::Header const* msgPtr)
+void convertToBus(SL_Bus_mpc_ros_std_msgs_Header* busPtr, std_msgs::Header const* msgPtr)
 {
   const std::string rosMessageType("std_msgs/Header");
 

@@ -1,8 +1,8 @@
 <package>
-  <name>ghost_mode</name>
+  <name>mpc_ros</name>
   <version>1.0.0</version>
   <description>
-  This package is generated from ghost_mode Simulink model.
+  This package is generated from mpc_ros Simulink model.
   </description>
   <maintainer email="rosuser@test.com">ROS User</maintainer>
   <license>BSD</license>
