@@ -3,27 +3,29 @@
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
 //
-// File: mpc_ros.h
+// File: ghost_mode.h
 //
-// Code generated for Simulink model 'mpc_ros'.
+// Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 2.3
+// Model version                  : 1.34
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul 16 03:03:13 2021
+// C/C++ source code generated on : Sun Jul 18 15:15:48 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
 // Code generation objectives: Unspecified
 // Validation result: Not run
 //
-#ifndef RTW_HEADER_mpc_ros_h_
-#define RTW_HEADER_mpc_ros_h_
+#ifndef RTW_HEADER_ghost_mode_h_
+#define RTW_HEADER_ghost_mode_h_
 #include <math.h>
 #include <string.h>
 #include <stddef.h>
 #include "rtwtypes.h"
+#include "rtw_continuous.h"
+#include "rtw_solver.h"
 #include "slros_initialize.h"
-#include "mpc_ros_types.h"
+#include "ghost_mode_types.h"
 #include "rt_nonfinite.h"
 #include "rtGetInf.h"
 
@@ -37,11 +39,12 @@
 #endif
 
 // Block signals (default storage)
-struct B_mpc_ros_T {
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped In1;// '<S31>/In1'
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped In1_d;// '<S30>/In1'
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped In1_o;// '<S29>/In1'
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped b_varargout_2;
+struct B_ghost_mode_T {
+  SL_Bus_ghost_mode_geometry_msgs_TwistStamped In1;// '<S30>/In1'
+  SL_Bus_ghost_mode_geometry_msgs_TwistStamped In1_m;// '<S29>/In1'
+  SL_Bus_ghost_mode_geometry_msgs_AccelStamped In1_k;// '<S31>/In1'
+  SL_Bus_ghost_mode_geometry_msgs_TwistStamped b_varargout_2;
+  SL_Bus_ghost_mode_geometry_msgs_AccelStamped b_varargout_2_m;
   real_T rseq[20];
   real_T D[9];
   real_T b_H[9];
@@ -81,54 +84,54 @@ struct B_mpc_ros_T {
   real_T temp;
   real_T c;
   real_T scale;
-  SL_Bus_mpc_ros_std_msgs_Float64 BusAssignment;// '<Root>/Bus Assignment'
+  SL_Bus_ghost_mode_std_msgs_Float64 BusAssignment1;// '<Root>/Bus Assignment1'
   int16_T iAnew[4];
   int16_T iC[4];
   int32_T b_i;
   int32_T rseq_tmp;
   int32_T b_k;
   int32_T i;
-  int32_T i_m;
+  int32_T i_c;
   int32_T r_tmp;
   int32_T U_tmp;
-  int32_T i_c;
-  int32_T b_i_k;
+  int32_T i_k;
+  int32_T b_i_c;
   int32_T f_i;
 };
 
 // Block states (default storage) for system '<Root>'
-struct DW_mpc_ros_T {
+struct DW_ghost_mode_T {
   ros_slroscpp_internal_block_P_T obj; // '<S3>/SinkBlock'
-  ros_slroscpp_internal_block_S_T obj_g;// '<S6>/SourceBlock'
-  ros_slroscpp_internal_block_S_T obj_a;// '<S5>/SourceBlock'
-  ros_slroscpp_internal_block_S_T obj_l;// '<S4>/SourceBlock'
+  ros_slroscpp_internal_block_S_T obj_c;// '<S6>/SourceBlock'
+  ros_slroscpp_internal_block_S_T obj_o;// '<S5>/SourceBlock'
+  ros_slroscpp_internal_block_S_T obj_k;// '<S4>/SourceBlock'
   real_T last_mv_DSTATE;               // '<S7>/last_mv'
   real_T last_x_PreviousInput[3];      // '<S7>/last_x'
   boolean_T Memory_PreviousInput[4];   // '<S7>/Memory'
 };
 
 // Parameters (default storage)
-struct P_mpc_ros_T_ {
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped Out1_Y0;// Computed Parameter: Out1_Y0
-                                                       //  Referenced by: '<S29>/Out1'
+struct P_ghost_mode_T_ {
+  SL_Bus_ghost_mode_geometry_msgs_AccelStamped Out1_Y0;// Computed Parameter: Out1_Y0
+                                                          //  Referenced by: '<S31>/Out1'
 
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped Constant_Value;// Computed Parameter: Constant_Value
-                                                              //  Referenced by: '<S4>/Constant'
+  SL_Bus_ghost_mode_geometry_msgs_AccelStamped Constant_Value;// Computed Parameter: Constant_Value
+                                                                 //  Referenced by: '<S6>/Constant'
 
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped Out1_Y0_m;// Computed Parameter: Out1_Y0_m
-                                                         //  Referenced by: '<S30>/Out1'
+  SL_Bus_ghost_mode_geometry_msgs_TwistStamped Out1_Y0_h;// Computed Parameter: Out1_Y0_h
+                                                            //  Referenced by: '<S29>/Out1'
 
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped Constant_Value_k;// Computed Parameter: Constant_Value_k
-                                                                //  Referenced by: '<S5>/Constant'
+  SL_Bus_ghost_mode_geometry_msgs_TwistStamped Constant_Value_l;// Computed Parameter: Constant_Value_l
+                                                                   //  Referenced by: '<S4>/Constant'
 
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped Out1_Y0_g;// Computed Parameter: Out1_Y0_g
-                                                         //  Referenced by: '<S31>/Out1'
+  SL_Bus_ghost_mode_geometry_msgs_TwistStamped Out1_Y0_d;// Computed Parameter: Out1_Y0_d
+                                                            //  Referenced by: '<S30>/Out1'
 
-  SL_Bus_mpc_ros_geometry_msgs_TwistStamped Constant_Value_b;// Computed Parameter: Constant_Value_b
-                                                                //  Referenced by: '<S6>/Constant'
+  SL_Bus_ghost_mode_geometry_msgs_TwistStamped Constant_Value_a;// Computed Parameter: Constant_Value_a
+                                                                   //  Referenced by: '<S5>/Constant'
 
-  SL_Bus_mpc_ros_std_msgs_Float64 Constant_Value_j;// Computed Parameter: Constant_Value_j
-                                                      //  Referenced by: '<S1>/Constant'
+  SL_Bus_ghost_mode_std_msgs_Float64 Constant_Value_m;// Computed Parameter: Constant_Value_m
+                                                         //  Referenced by: '<S1>/Constant'
 
   real_T last_x_InitialCondition[3];   // Expression: lastx+xoff
                                           //  Referenced by: '<S7>/last_x'
@@ -136,7 +139,7 @@ struct P_mpc_ros_T_ {
   real_T last_mv_InitialCondition;     // Expression: lastu+uoff
                                           //  Referenced by: '<S7>/last_mv'
 
-  real_T Constant_Value_n;             // Expression: 0
+  real_T Constant_Value_mh;            // Expression: 0
                                           //  Referenced by: '<Root>/Constant'
 
   real_T md_zero_Value;                // Expression: zeros(1,1)
@@ -211,7 +214,7 @@ struct P_mpc_ros_T_ {
 };
 
 // Real-time Model Data Structure
-struct tag_RTM_mpc_ros_T {
+struct tag_RTM_ghost_mode_T {
   const char_T *errorStatus;
 };
 
@@ -222,7 +225,7 @@ extern "C" {
 
 #endif
 
-  extern P_mpc_ros_T mpc_ros_P;
+  extern P_ghost_mode_T ghost_mode_P;
 
 #ifdef __cplusplus
 
@@ -236,7 +239,7 @@ extern "C" {
 
 #endif
 
-  extern struct B_mpc_ros_T mpc_ros_B;
+  extern struct B_ghost_mode_T ghost_mode_B;
 
 #ifdef __cplusplus
 
@@ -244,7 +247,7 @@ extern "C" {
 #endif
 
 // Block states (default storage)
-extern struct DW_mpc_ros_T mpc_ros_DW;
+extern struct DW_ghost_mode_T ghost_mode_DW;
 
 #ifdef __cplusplus
 
@@ -253,9 +256,9 @@ extern "C" {
 #endif
 
   // Model entry point functions
-  extern void mpc_ros_initialize(void);
-  extern void mpc_ros_step(void);
-  extern void mpc_ros_terminate(void);
+  extern void ghost_mode_initialize(void);
+  extern void ghost_mode_step(void);
+  extern void ghost_mode_terminate(void);
 
 #ifdef __cplusplus
 
@@ -269,7 +272,7 @@ extern "C" {
 
 #endif
 
-  extern RT_MODEL_mpc_ros_T *const mpc_ros_M;
+  extern RT_MODEL_ghost_mode_T *const ghost_mode_M;
 
 #ifdef __cplusplus
 
@@ -349,40 +352,40 @@ extern "C" {
 //
 //  Here is the system hierarchy for this model
 //
-//  '<Root>' : 'mpc_ros'
-//  '<S1>'   : 'mpc_ros/Blank Message'
-//  '<S2>'   : 'mpc_ros/MPC Controller'
-//  '<S3>'   : 'mpc_ros/Publish'
-//  '<S4>'   : 'mpc_ros/Subscribe'
-//  '<S5>'   : 'mpc_ros/Subscribe1'
-//  '<S6>'   : 'mpc_ros/Subscribe2'
-//  '<S7>'   : 'mpc_ros/MPC Controller/MPC'
-//  '<S8>'   : 'mpc_ros/MPC Controller/MPC/MPC Matrix Signal Check'
-//  '<S9>'   : 'mpc_ros/MPC Controller/MPC/MPC Matrix Signal Check1'
-//  '<S10>'  : 'mpc_ros/MPC Controller/MPC/MPC Matrix Signal Check2'
-//  '<S11>'  : 'mpc_ros/MPC Controller/MPC/MPC Preview Signal Check'
-//  '<S12>'  : 'mpc_ros/MPC Controller/MPC/MPC Preview Signal Check1'
-//  '<S13>'  : 'mpc_ros/MPC Controller/MPC/MPC Preview Signal Check2'
-//  '<S14>'  : 'mpc_ros/MPC Controller/MPC/MPC Preview Signal Check3'
-//  '<S15>'  : 'mpc_ros/MPC Controller/MPC/MPC Preview Signal Check4'
-//  '<S16>'  : 'mpc_ros/MPC Controller/MPC/MPC Preview Signal Check5'
-//  '<S17>'  : 'mpc_ros/MPC Controller/MPC/MPC Preview Signal Check6'
-//  '<S18>'  : 'mpc_ros/MPC Controller/MPC/MPC Preview Signal Check7'
-//  '<S19>'  : 'mpc_ros/MPC Controller/MPC/MPC Preview Signal Check8'
-//  '<S20>'  : 'mpc_ros/MPC Controller/MPC/MPC Scalar Signal Check'
-//  '<S21>'  : 'mpc_ros/MPC Controller/MPC/MPC Scalar Signal Check1'
-//  '<S22>'  : 'mpc_ros/MPC Controller/MPC/MPC Scalar Signal Check2'
-//  '<S23>'  : 'mpc_ros/MPC Controller/MPC/MPC Vector Signal Check'
-//  '<S24>'  : 'mpc_ros/MPC Controller/MPC/MPC Vector Signal Check1'
-//  '<S25>'  : 'mpc_ros/MPC Controller/MPC/MPC Vector Signal Check11'
-//  '<S26>'  : 'mpc_ros/MPC Controller/MPC/MPC Vector Signal Check6'
-//  '<S27>'  : 'mpc_ros/MPC Controller/MPC/optimizer'
-//  '<S28>'  : 'mpc_ros/MPC Controller/MPC/optimizer/optimizer'
-//  '<S29>'  : 'mpc_ros/Subscribe/Enabled Subsystem'
-//  '<S30>'  : 'mpc_ros/Subscribe1/Enabled Subsystem'
-//  '<S31>'  : 'mpc_ros/Subscribe2/Enabled Subsystem'
+//  '<Root>' : 'ghost_mode'
+//  '<S1>'   : 'ghost_mode/Blank Message1'
+//  '<S2>'   : 'ghost_mode/MPC Controller'
+//  '<S3>'   : 'ghost_mode/Publish1'
+//  '<S4>'   : 'ghost_mode/Subscribe2'
+//  '<S5>'   : 'ghost_mode/Subscribe3'
+//  '<S6>'   : 'ghost_mode/Subscribe4'
+//  '<S7>'   : 'ghost_mode/MPC Controller/MPC'
+//  '<S8>'   : 'ghost_mode/MPC Controller/MPC/MPC Matrix Signal Check'
+//  '<S9>'   : 'ghost_mode/MPC Controller/MPC/MPC Matrix Signal Check1'
+//  '<S10>'  : 'ghost_mode/MPC Controller/MPC/MPC Matrix Signal Check2'
+//  '<S11>'  : 'ghost_mode/MPC Controller/MPC/MPC Preview Signal Check'
+//  '<S12>'  : 'ghost_mode/MPC Controller/MPC/MPC Preview Signal Check1'
+//  '<S13>'  : 'ghost_mode/MPC Controller/MPC/MPC Preview Signal Check2'
+//  '<S14>'  : 'ghost_mode/MPC Controller/MPC/MPC Preview Signal Check3'
+//  '<S15>'  : 'ghost_mode/MPC Controller/MPC/MPC Preview Signal Check4'
+//  '<S16>'  : 'ghost_mode/MPC Controller/MPC/MPC Preview Signal Check5'
+//  '<S17>'  : 'ghost_mode/MPC Controller/MPC/MPC Preview Signal Check6'
+//  '<S18>'  : 'ghost_mode/MPC Controller/MPC/MPC Preview Signal Check7'
+//  '<S19>'  : 'ghost_mode/MPC Controller/MPC/MPC Preview Signal Check8'
+//  '<S20>'  : 'ghost_mode/MPC Controller/MPC/MPC Scalar Signal Check'
+//  '<S21>'  : 'ghost_mode/MPC Controller/MPC/MPC Scalar Signal Check1'
+//  '<S22>'  : 'ghost_mode/MPC Controller/MPC/MPC Scalar Signal Check2'
+//  '<S23>'  : 'ghost_mode/MPC Controller/MPC/MPC Vector Signal Check'
+//  '<S24>'  : 'ghost_mode/MPC Controller/MPC/MPC Vector Signal Check1'
+//  '<S25>'  : 'ghost_mode/MPC Controller/MPC/MPC Vector Signal Check11'
+//  '<S26>'  : 'ghost_mode/MPC Controller/MPC/MPC Vector Signal Check6'
+//  '<S27>'  : 'ghost_mode/MPC Controller/MPC/optimizer'
+//  '<S28>'  : 'ghost_mode/MPC Controller/MPC/optimizer/optimizer'
+//  '<S29>'  : 'ghost_mode/Subscribe2/Enabled Subsystem'
+//  '<S30>'  : 'ghost_mode/Subscribe3/Enabled Subsystem'
+//  '<S31>'  : 'ghost_mode/Subscribe4/Enabled Subsystem'
 
-#endif                                 // RTW_HEADER_mpc_ros_h_
+#endif                                 // RTW_HEADER_ghost_mode_h_
 
 //
 // File trailer for generated code.

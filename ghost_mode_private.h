@@ -3,26 +3,26 @@
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
 //
-// File: mpc_ros_private.h
+// File: ghost_mode_private.h
 //
-// Code generated for Simulink model 'mpc_ros'.
+// Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 2.3
+// Model version                  : 1.34
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul 16 03:03:13 2021
+// C/C++ source code generated on : Sun Jul 18 15:15:48 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
 // Code generation objectives: Unspecified
 // Validation result: Not run
 //
-#ifndef RTW_HEADER_mpc_ros_private_h_
-#define RTW_HEADER_mpc_ros_private_h_
+#ifndef RTW_HEADER_ghost_mode_private_h_
+#define RTW_HEADER_ghost_mode_private_h_
 #include "rtwtypes.h"
 
 extern real_T rt_hypotd_snf(real_T u0, real_T u1);
 
-#endif                                 // RTW_HEADER_mpc_ros_private_h_
+#endif                                 // RTW_HEADER_ghost_mode_private_h_
 
 //
 // File trailer for generated code.

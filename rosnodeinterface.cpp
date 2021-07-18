@@ -1,5 +1,5 @@
 // Copyright 2019-2021 The MathWorks, Inc.
-// Generated 16-Jul-2021 03:03:17
+// Generated 18-Jul-2021 15:15:52
 
 #ifdef _MSC_VER
 
@@ -23,7 +23,7 @@
 
 #endif                                 //_MSC_VER
 
-#include "mpc_ros.h"
+#include "ghost_mode.h"
 #include "rosnodeinterface.h"
 #include <thread>
 #include <chrono>
@@ -52,11 +52,11 @@ namespace ros
     {
       try {
         mNode = std::make_shared<ros::NodeHandle>();
-        ROS_INFO("** Starting the model \"mpc_ros\" **\n");
+        ROS_INFO("** Starting the model \"ghost_mode\" **\n");
 
         // initialize the model which will initialize the publishers and subscribers
-        rtmSetErrorStatus(mpc_ros_M, (NULL));
-        mpc_ros_initialize();
+        rtmSetErrorStatus(ghost_mode_M, (NULL));
+        ghost_mode_initialize();
 
         // create the threads for the rates in the Model
         mBaseRateThread = std::make_shared<std::thread>(&NodeInterface::
@@ -83,13 +83,13 @@ namespace ros
 
 #ifndef rtmGetStopRequested
 
-      return (!(rtmGetErrorStatus(mpc_ros_M)
+      return (!(rtmGetErrorStatus(ghost_mode_M)
                 == (NULL)));
 
 #else
 
-      return (!(rtmGetErrorStatus(mpc_ros_M)
-                == (NULL)) || rtmGetStopRequested(mpc_ros_M));
+      return (!(rtmGetErrorStatus(ghost_mode_M)
+                == (NULL)) || rtmGetStopRequested(ghost_mode_M));
 
 #endif
 
@@ -107,7 +107,7 @@ namespace ros
           mSchedulerThread.reset();
         }
 
-        mpc_ros_terminate();
+        ghost_mode_terminate();
         mNode.reset();
       }
     }
@@ -127,7 +127,7 @@ namespace ros
     // Base-rate task
     void NodeInterface::baseRateTask(void)
     {
-      mRunModel = (rtmGetErrorStatus(mpc_ros_M) ==
+      mRunModel = (rtmGetErrorStatus(ghost_mode_M) ==
                    (NULL));
       while (mRunModel) {
         mBaseRateSem.wait();
@@ -140,7 +140,7 @@ namespace ros
 
         if (!mRunModel)
           break;
-        mpc_ros_step();
+        ghost_mode_step();
         mRunModel = !NodeInterface::getStopRequestedFlag();
       }
 

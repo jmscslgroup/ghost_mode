@@ -3,25 +3,113 @@
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
 //
-// File: mpc_ros_data.cpp
+// File: ghost_mode_data.cpp
 //
-// Code generated for Simulink model 'mpc_ros'.
+// Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 2.3
+// Model version                  : 1.34
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul 16 03:03:13 2021
+// C/C++ source code generated on : Sun Jul 18 15:15:48 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
 // Code generation objectives: Unspecified
 // Validation result: Not run
 //
-#include "mpc_ros.h"
-#include "mpc_ros_private.h"
+#include "ghost_mode.h"
+#include "ghost_mode_private.h"
 
 // Block parameters (default storage)
-P_mpc_ros_T mpc_ros_P = {
+P_ghost_mode_T ghost_mode_P = {
   // Computed Parameter: Out1_Y0
+  //  Referenced by: '<S31>/Out1'
+
+  {
+    {
+      0U,                              // Seq
+
+      {
+        0.0,                           // Sec
+        0.0                            // Nsec
+      },                               // Stamp
+
+      {
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U }
+      ,                                // FrameId
+
+      {
+        0U,                            // CurrentLength
+        0U                             // ReceivedLength
+      }                                // FrameId_SL_Info
+    },                                 // Header
+
+    {
+      {
+        0.0,                           // X
+        0.0,                           // Y
+        0.0                            // Z
+      },                               // Linear
+
+      {
+        0.0,                           // X
+        0.0,                           // Y
+        0.0                            // Z
+      }                                // Angular
+    }                                  // Accel
+  },
+
+  // Computed Parameter: Constant_Value
+  //  Referenced by: '<S6>/Constant'
+
+  {
+    {
+      0U,                              // Seq
+
+      {
+        0.0,                           // Sec
+        0.0                            // Nsec
+      },                               // Stamp
+
+      {
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
+        0U, 0U }
+      ,                                // FrameId
+
+      {
+        0U,                            // CurrentLength
+        0U                             // ReceivedLength
+      }                                // FrameId_SL_Info
+    },                                 // Header
+
+    {
+      {
+        0.0,                           // X
+        0.0,                           // Y
+        0.0                            // Z
+      },                               // Linear
+
+      {
+        0.0,                           // X
+        0.0,                           // Y
+        0.0                            // Z
+      }                                // Angular
+    }                                  // Accel
+  },
+
+  // Computed Parameter: Out1_Y0_h
   //  Referenced by: '<S29>/Out1'
 
   {
@@ -65,7 +153,7 @@ P_mpc_ros_T mpc_ros_P = {
     }                                  // Twist
   },
 
-  // Computed Parameter: Constant_Value
+  // Computed Parameter: Constant_Value_l
   //  Referenced by: '<S4>/Constant'
 
   {
@@ -109,7 +197,7 @@ P_mpc_ros_T mpc_ros_P = {
     }                                  // Twist
   },
 
-  // Computed Parameter: Out1_Y0_m
+  // Computed Parameter: Out1_Y0_d
   //  Referenced by: '<S30>/Out1'
 
   {
@@ -153,7 +241,7 @@ P_mpc_ros_T mpc_ros_P = {
     }                                  // Twist
   },
 
-  // Computed Parameter: Constant_Value_k
+  // Computed Parameter: Constant_Value_a
   //  Referenced by: '<S5>/Constant'
 
   {
@@ -197,95 +285,7 @@ P_mpc_ros_T mpc_ros_P = {
     }                                  // Twist
   },
 
-  // Computed Parameter: Out1_Y0_g
-  //  Referenced by: '<S31>/Out1'
-
-  {
-    {
-      0U,                              // Seq
-
-      {
-        0.0,                           // Sec
-        0.0                            // Nsec
-      },                               // Stamp
-
-      {
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U }
-      ,                                // FrameId
-
-      {
-        0U,                            // CurrentLength
-        0U                             // ReceivedLength
-      }                                // FrameId_SL_Info
-    },                                 // Header
-
-    {
-      {
-        0.0,                           // X
-        0.0,                           // Y
-        0.0                            // Z
-      },                               // Linear
-
-      {
-        0.0,                           // X
-        0.0,                           // Y
-        0.0                            // Z
-      }                                // Angular
-    }                                  // Twist
-  },
-
-  // Computed Parameter: Constant_Value_b
-  //  Referenced by: '<S6>/Constant'
-
-  {
-    {
-      0U,                              // Seq
-
-      {
-        0.0,                           // Sec
-        0.0                            // Nsec
-      },                               // Stamp
-
-      {
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U,
-        0U, 0U }
-      ,                                // FrameId
-
-      {
-        0U,                            // CurrentLength
-        0U                             // ReceivedLength
-      }                                // FrameId_SL_Info
-    },                                 // Header
-
-    {
-      {
-        0.0,                           // X
-        0.0,                           // Y
-        0.0                            // Z
-      },                               // Linear
-
-      {
-        0.0,                           // X
-        0.0,                           // Y
-        0.0                            // Z
-      }                                // Angular
-    }                                  // Twist
-  },
-
-  // Computed Parameter: Constant_Value_j
+  // Computed Parameter: Constant_Value_m
   //  Referenced by: '<S1>/Constant'
 
   {

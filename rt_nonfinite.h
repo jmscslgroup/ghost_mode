@@ -5,11 +5,11 @@
 //
 // File: rt_nonfinite.h
 //
-// Code generated for Simulink model 'mpc_ros'.
+// Code generated for Simulink model 'ghost_mode'.
 //
-// Model version                  : 2.3
+// Model version                  : 1.34
 // Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020
-// C/C++ source code generated on : Fri Jul 16 03:03:13 2021
+// C/C++ source code generated on : Sun Jul 18 15:15:48 2021
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
